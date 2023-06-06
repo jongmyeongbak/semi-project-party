@@ -13,7 +13,7 @@ public class User {
 	private String email;
 	private String tel;
 	private String deleted;
-	private Date updatedate;
+	private Date updateDate;
 	private Date createDate;
 	
 	public User() {
@@ -76,11 +76,11 @@ public class User {
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
-	public Date getUpdatedate() {
-		return updatedate;
+	public Date getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	public Date getCreateDate() {
 		return createDate;
