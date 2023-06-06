@@ -17,6 +17,9 @@ public class Board {
 	
 	public Board() {
 	}
+	public Board(int no) {
+		this.no = no;
+	}
 
 	public int getNo() {
 		return no;

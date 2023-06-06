@@ -19,7 +19,10 @@ public class Party {
 	
 	public Party() {
 	}
-	
+	public Party(int no) {
+		this.no = no;
+	}
+
 	public int getNo() {
 		return no;
 	}

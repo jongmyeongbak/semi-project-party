@@ -7,7 +7,10 @@ public class Category {
 	
 	public Category() {
 	}
-	
+	public Category(int no) {
+		this.no = no;
+	}
+
 	public int getNo() {
 		return no;
 	}
