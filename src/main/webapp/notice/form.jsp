@@ -59,7 +59,7 @@ if (auth == null || auth > 3) {
 			}
 			%>
 			<p>제목과 내용을 입력하세요</p>		
-			<form class="border bg-light p-3" method="post" action="insert">
+			<form class="border bg-light p-3" method="post" action="insert.jsp">
 				<div class="form-group mb-2">
 					<label class="form-label">제목</label>
 					<input type="text" class="form-control" name="title" />
