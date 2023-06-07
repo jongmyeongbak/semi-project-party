@@ -1,5 +1,7 @@
 package util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,13 +15,18 @@ import java.util.Properties;
 
 public class DaoHelper {
 	
-	private DaoHelper() {
-	}
-	
 	private static Properties prop = new Properties();
+	
 	static {
 		try {
-			prop.load(DaoHelper.class.getClassLoader().getResourceAsStream("dao/sql.properties"));
+			String projectPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+			File directory = new File(projectPath + "/dao");
+			File[] files = directory.listFiles((dir, name) -> name.endsWith(".properties"));
+			for (File file : files) {
+				FileInputStream in= new FileInputStream(file);
+				prop.load(in);
+				in.close();
+			}
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
