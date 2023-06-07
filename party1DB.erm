@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2023-06-02 22:23:53</creation_date>
-			<updated_date>2023-06-07 12:12:43</updated_date>
+			<updated_date>2023-06-07 12:15:07</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2787,7 +2787,7 @@
 				<font_name>.AppleSystemUIFont</font_name>
 				<font_size>9</font_size>
 			<x>1090</x>
-			<y>888</y>
+			<y>864</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -3372,7 +3372,7 @@
 				<font_name>.AppleSystemUIFont</font_name>
 				<font_size>9</font_size>
 			<x>1105</x>
-			<y>720</y>
+			<y>696</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
