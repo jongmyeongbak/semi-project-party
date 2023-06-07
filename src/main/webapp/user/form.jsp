@@ -72,7 +72,7 @@
    				</div>
 				<div class="form-group mb-2 w-75">
 					<label for="birthdate" class="form-label">생년월일</label> 
-					<input type="date" class="form-control" name="birthdate" class="form-control" required />
+					<input type="text" class="form-control" id="datepicker" name="birthdate" class="form-control" required />
 				</div>
 				<div class="form-group mb-2 w-75">
    					<label class="form-label">이메일</label>
@@ -90,6 +90,18 @@
    		</div>
 	</div>
 </div>
-
+<script>
+	$(function() {
+		$("#datepicker").datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			changeMonth: true,
+			showMonthAfterYear:true,
+			monthNamesShort: ['1월','2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			yearRange: "c-150:c+150",
+			maxDate: "0D"
+		});
+	});
+</script>
 </body>
 </html>
