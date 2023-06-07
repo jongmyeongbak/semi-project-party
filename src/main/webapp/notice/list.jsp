@@ -7,7 +7,7 @@
 <%
 String err = request.getParameter("err");
 int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-Integer auth = 3;
+Integer auth = (Integer) session.getAttribute("auth");
 
 AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
 Pagination pagination;
