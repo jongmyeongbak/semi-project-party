@@ -10,12 +10,11 @@ public class Party {
 	private Category category;
 	private int curCnt;
 	private int quota;
-	private String reqGender;
-	private Date reqBirthdate;
 	private String status;
 	private String description;
 	private Date updateDate;
 	private Date createDate;
+	private String filename; // not fileName
 	
 	public Party() {
 	}
@@ -59,18 +58,6 @@ public class Party {
 	public void setQuota(int quota) {
 		this.quota = quota;
 	}
-	public String getReqGender() {
-		return reqGender;
-	}
-	public void setReqGender(String reqGender) {
-		this.reqGender = reqGender;
-	}
-	public Date getReqBirthdate() {
-		return reqBirthdate;
-	}
-	public void setReqBirthdate(Date reqBirthdate) {
-		this.reqBirthdate = reqBirthdate;
-	}
 	public String getStatus() {
 		return status;
 	}
@@ -94,5 +81,11 @@ public class Party {
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 }

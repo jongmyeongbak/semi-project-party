@@ -7,7 +7,7 @@ public class PartyAccess {
 	private int no;
 	private User user;
 	private Party party;
-	private String roleName;
+	private int authNo;
 	private Date createDate;
 	private String description;
 
@@ -32,11 +32,11 @@ public class PartyAccess {
 	public void setParty(Party party) {
 		this.party = party;
 	}
-	public String getRoleName() {
-		return roleName;
+	public int getAuthNo() {
+		return authNo;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setAuthNo(int authNo) {
+		this.authNo = authNo;
 	}
 	public Date getCreateDate() {
 		return createDate;
