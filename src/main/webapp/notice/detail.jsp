@@ -8,20 +8,22 @@ String loginId = (String) session.getAttribute("loginId");
 Integer auth = (Integer) session.getAttribute("auth");
 
 AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
-Board board = adminNoticeDao.getNoticeByNo(no);
-
-if (board == null) {
-	response.sendRedirect("list.jsp?err=deleted");
-	return;
-}
-// 권한이 적으면 삭제된 것은 읽지 못하고, 삭제되지 않은 것은 읽을 수 있기 때문에 조회수를 증가시킨다.
-if (auth == null || auth > 3) {
-	if (!"N".equals(board.getDeleted())) {
+Board board;
+// 권한이 적으면 삭제된 것은 읽지 못하고, 삭제되지 않은 것은 읽을 수 있기 때문에 조회수를 증가시킴
+if (auth == null || auth > 3) { // 권한이 적은 경우
+	board = adminNoticeDao.getNoticeByNo(no, "N"); // 발행되었으며 삭제되지 않은 것만 읽음
+	if (board == null) { // 글이 없으면 리다이렉트
 		response.sendRedirect("list.jsp?err=deleted");
 		return;
-	} else {
+	} else { // 글이 있으면 조회수 증가
 		board.setReadCnt(board.getReadCnt() + 1);
 		adminNoticeDao.increaseReadCnt(no);
+	}
+} else { // 권한이 많은 경우
+	board = adminNoticeDao.getNoticeByNo(no); // 모두 읽음
+	if (board == null) { // 글이 없으면 리다이렉트
+		response.sendRedirect("list.jsp?err=deleted");
+		return;
 	}
 }
 String err = request.getParameter("err");

@@ -91,6 +91,21 @@ public class AdminNoticeDao {
 			return board;
 		}, no);
 	}
+	public Board getNoticeByNo(int no, String deleted) {
+		return DaoHelper.selectOne("adninNoticeDao.getNoticeByNoWithDeleted", rs -> {
+			Board board = new Board(no);
+			board.setTitle(rs.getString("notice_title"));
+			board.setContent(rs.getString("notice_content"));
+			board.setReadCnt(rs.getInt("notice_read_cnt"));
+			board.setDeleted("deleted");
+			board.setUpdateDate(rs.getDate("notice_update_date"));
+			board.setCreateDate(rs.getDate("notice_create_date"));
+			User user = new User(rs.getString("user_id"));
+			user.setNickname(rs.getString("user_nickname"));
+			board.setUser(user);
+			return board;
+		}, no, deleted);
+	}
 	
 	public void updateNotice(Board board) {
 		DaoHelper.update("adminNoticeDao.updateNotice",
