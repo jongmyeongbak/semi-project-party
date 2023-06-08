@@ -17,34 +17,27 @@
  %>
 <style>
 	nav {
-		height: 70px;
+		height: 90px;
 		font-size: 18px;
-		background-color: rgb(252, 185, 196);
+		background-color: rgb(237, 246, 255);
 	}
 	.form {
     	position: relative;
    	}
+	input {
+		border-radius: 20px;
+		border: 1px solid #333;
+	}
 	.search {
-	    width: 33px;
-	    height: 33px;
-	    background-color: #fff;
-	    border: 1px solid black;
 	    display: inline-block;
 	    text-align: center;
 	    position: absolute;
-	    top: 0px;
-	    right: 0px;
+	    top: 1px;
+	    right: 10px;
 	    cursor: pointer;
 	}
 </style>
 <script src="https://kit.fontawesome.com/46a6014d50.js" crossorigin="anonymous"></script>
-<div class="container">
-	<div class="row align-items-center">
-		<div class="col">
-	        <p class="fs-1 text-center"><span id="home" class="align-middle" style="cursor: pointer;">파티(로고 이미지)</span></p>
-		</div>
-	</div>
-</div>
 <nav class="navbar navbar-expand-sm mb-3">
 	<div class="container">
 	    <div class="container">
@@ -62,10 +55,11 @@
 		</div>
 		<div class="container">
 	        <ul class="navbar-nav me-auto justify-content-center">
-		        <li class="nav-item">
-		        	<div class="form">
+	        	<h1 class="fs-1 text-center"><span id="home" class="align-middle" style="cursor: pointer;">P</span></h1>
+                <li class="nav-item ms-2">
+                    <div class="form mt-3">
 				    	<form method="get" action="/party/list.jsp" name="searchParty">
-				        	<input type="text" placeholder="파티검색" name="value">
+				        	<input type="text" placeholder="  파티검색" name="value">
 				        	<div class="search" id="search">
 					    		<i class="fa-solid fa-magnifying-glass"></i>
 				        	</div>
@@ -93,24 +87,29 @@
 	 	String nickname = user.getNickname();
 %>
 	        <ul class="navbar-nav justify-content-end">
-				<span class="navbar-text align-middle bolder"><strong class="text-black"><%=nickname %>님 환영합니다.</strong></span>
+	        	<li class="nav-item ms-2">
+					<a href="#" class="nav-link"><i class="fa-solid fa-bell"></i></a>
+	            </li>
+				<li class="nav-item ms-2">
+					<a href="#" class="nav-link"><i class="fa-solid fa-message"></i></a>
+				</li>
 	           	<li class="nav-item dropdown">
 	           		<a class="nav-link dropdown-toggle <%= "userInfo".equals(menu) ? "active fw-bold" : "" %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	           		MY
-	           		</a> <!-- 아이콘이나 박스에 담으면 보기 좋을 듯  -->
-	           		<ul class="dropdown-menu">
+	           		</a>
+	           		<ul class="dropdown-menu dropdown-menu-end">
+						<li><span class="align-middle bolder ms-3"><strong class="text-black"><%=nickname %> 님</strong></span></li>
+	           			<li><hr class="dropdown-divider"></li>
 	           			<li><a href="/user/user-info.jsp" class="dropdown-item">내정보보기</a></li>
 	           			<li><a href="/user/user-partylist.jsp" class="dropdown-item">내파티리스트</a></li>
+						<li><hr class="dropdown-divider"></li>
+                        <li><a href="/logout.jsp" class="dropdown-item">로그아웃</a></li>
 	           		</ul>
 	           	</li>
-	            <li class="nav-item">
-	                <a href="/logout.jsp" class="nav-link">로그아웃</a> <!-- 아이콘이나 박스에 담으면 보기 좋을 듯  -->
-	            </li>
 	        </ul>
 <%
 	}
 %>
-
     	</div>
 	</div>
 </nav>
