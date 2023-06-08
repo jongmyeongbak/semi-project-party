@@ -7,8 +7,8 @@
 int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
 int rows = 3;
 int pages = 1;
-int first = (pageNo -1) * rows+1;
-int last = pageNo * rows;
+int first = 1;
+int last = 3;
 AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
 List<Board> adminNoticeList = adminNoticeDao.getNotices(first, last);
 
@@ -16,7 +16,7 @@ List<Board> adminNoticeList = adminNoticeDao.getNotices(first, last);
 <!doctype html>
 <html lang="ko">
 <head>
-<title>밴드홈입니다.</title>
+<title>파티홈입니다.</title>
 <style >
 	div.smallnotice {
   	position: relative;
