@@ -37,7 +37,7 @@
 				<strong>로그인 실패</strong> 탈퇴처리된 고객은 로그인할 수 없습니다.
 			</div>
 <%
-	} else if ("del".equals(err)) {
+	} else if ("req".equals(err)) {
 %>
 			<div class="alert alert-danger">
 				<strong>로그인 필요</strong> <%=job %> 서비스는 로그인 후 이용할 수 있습니다.
