@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
 	String err = request.getParameter("err");
+	String job = request.getParameter("job");
 %>
 <!doctype html>
 <html lang="ko">
@@ -26,18 +27,24 @@
 <%
 	if ("fail".equals(err)){
 %>
-		<div class="alert alert-danger">
-			<strong>로그인 실패</strong> 아이디 혹은 비밀번호가 올바르지 않습니다.
-		</div>
+			<div class="alert alert-danger">
+				<strong>로그인 실패</strong> 아이디 혹은 비밀번호가 올바르지 않습니다.
+			</div>
 <% 		
 	} else if ("disabled".equals(err)){
 %>	
-		<div class="alert alert-danger">
-			<strong>로그인 실패</strong> 탈퇴처리된 고객은 로그인할 수 없습니다.
-		</div>
+			<div class="alert alert-danger">
+				<strong>로그인 실패</strong> 탈퇴처리된 고객은 로그인할 수 없습니다.
+			</div>
 <%
-	} 
-%>  			
+	} else if ("del".equals(err)) {
+%>
+			<div class="alert alert-danger">
+				<strong>로그인 필요</strong> <%=job %> 서비스는 로그인 후 이용할 수 있습니다.
+			</div>
+<%
+}
+%>
    			<form class="border bg-light p-3" method="post" action="login.jsp">
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
