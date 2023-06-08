@@ -1,16 +1,13 @@
 <%@page import="vo.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.AdminNoticeDao"%>
-<%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-int rows = 3;
-int pages = 1;
-int first = 1;
-int last = 3;
+final int first = 1;
+final int last = 3;
 AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
-List<Board> adminNoticeList = adminNoticeDao.getNotices(first, last);
+List<Board> adminNoticeList = adminNoticeDao.getNotices("N", first, last);
+
 
 %>
 <!doctype html>
