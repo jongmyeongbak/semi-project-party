@@ -4,6 +4,7 @@ import java.util.List;
 
 import util.DaoHelper;
 import vo.Category;
+import vo.Party;
 
 public class PartyListDao {
 
@@ -13,6 +14,34 @@ public class PartyListDao {
 		return instance;
 	}
 	
+	// 생성된 파티 조회하기
+	public List<Party> getParties() {
+		return DaoHelper.selectList("partyListDao.getParties", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			party.setFilename(rs.getString("party_filename"));
+			
+			return party;
+		});
+	}
+	
+	// 로그인된 사용자가 가입한 파티 조회하기
+	public List<Party> getUserRegPartiesByUserId(String loginId){
+		return DaoHelper.selectList("partyListDao.getUserRegPartiesByUserId", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			party.setFilename(rs.getString("party_filename"));
+			
+			return party;
+		}, loginId);
+	}
+	
+	// 파티 생성 카테고리 조회
 	public List<Category> getCategories() {
 		return DaoHelper.selectList("partyListDao.getCategories", rs-> {
 			Category category = new Category();
