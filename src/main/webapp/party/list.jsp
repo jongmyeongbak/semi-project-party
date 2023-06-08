@@ -24,14 +24,19 @@ ul {
 	text-align: center; /* 인라인 속성으로 변한 li들을 텍스트로 인식해 중앙정렬 */
 }
 
-.circle {
-	 height: 150px;
-	 width: 150px;
-	 border-radius: 100px;
-	 font-size: 16px;
-	 text-align: center;
-	 line-height: 200px;
+.flex-container {
+     display: inline-flex;
 }
+.flex-item {
+      width: 50px;
+      height: 50px;
+      margin: 50px;
+      text-align: center;
+      
+}
+ .justify-content {
+ 	justify-content: space-between
+ }
 
 
 </style>
@@ -47,12 +52,12 @@ ul {
 	<jsp:param value="partylist" name="파티리스트"/>
 </jsp:include>
 <div class="container">
-
+<!-- 로그인 유저가 가입한 파티 -->
 <%
 	if (loginId != null) {
 %>
-
 <div>
+	<h5>나의 파티</h5>
 	<ul>
 <%
 		for (Party party : parties) {
@@ -72,23 +77,28 @@ ul {
 	}
 %>
 
+<!-- 파티생성을 위한 카테고리 조회 -->
 <div>
-	<h4>새로운 파티 만들기</h4>
+	<h5>새로운 파티 만들기</h5>
 
-	<ul>	
 <%
 	for (Category category : categories){
 %>
-		<li>
-			<a><%=category.getName() %></a>
-		</li>
+
+		<div class="flex-container flex-item justify-content" >
+			<a href ="create-form.jsp?cat=<%= category.getNo()%>" class="text-black text-decoration-none">
+				<%=category.getName() %>
+			</a>
+		</div>
 <%
 	}
 %>
-	</ul>
+	
 </div>
+
+<!-- 생성된 모든 파티 조회 -->
 <div>
-	<h4>이런 파티는 어때요</h4>
+	<h5>이런 파티는 어때요</h5>
 	<ul>
 <%
 	for (Party party : parties){
