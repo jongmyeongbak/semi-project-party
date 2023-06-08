@@ -62,11 +62,11 @@ if (auth == null || auth > 3) {
 			<form class="border bg-light p-3" method="post" action="insert.jsp">
 				<div class="form-group mb-2">
 					<label class="form-label">제목</label>
-					<input type="text" class="form-control" name="title" />
+					<input type="text" class="form-control" name="title" required>
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">내용</label>
-					<textarea rows="5" class="form-control" name="content" ></textarea>
+					<textarea rows="5" class="form-control" name="content" required></textarea>
 				</div>
 				<div class="form-group mb-2 align-middle form-check-inline">
 					<label class="form-label">발행 시간 </label>
@@ -80,13 +80,9 @@ if (auth == null || auth > 3) {
 						<input type="time" name="time" class="invisible" disabled>
 			        </span>
 				</div>
-				<div class="form-group mb-2 row">
-					<div class="col-6 text-start">
-						<button type="button" class="btn btn-secondary btn-lg" onclick="history.back()">취소</button>
-					</div>
-					<div class="col-6 text-end">
-						<button type="submit" class="btn btn-primary btn-lg">등록</button>
-					</div>
+				<div class="text-end mb-2">
+					<button type="button" class="btn btn-secondary btn-lg me-1" onclick="history.back()">취소</button>
+					<button type="submit" class="btn btn-primary btn-lg">등록</button>
 				</div>
 			</form>
 		</div>
