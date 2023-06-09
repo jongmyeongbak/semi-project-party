@@ -3,8 +3,10 @@
 <%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
-<%
+<%	
+	String id = request.getParameter("id");
 	String loginId = (String) session.getAttribute("loginId");
+	
 	
 	UserDao userDao = UserDao.getInstance();
 	User user = userDao.getUserById(loginId);
@@ -21,9 +23,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-<%-- <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="userInfo"/>
-</jsp:include> --%>
+<jsp:include page="../nav.jsp">
+	<jsp:param name="menu" value="user-info"/></jsp:include> 
 <div class="container my-3">
    <div class="row mb-3">
       <div class="col-12">
@@ -43,40 +44,41 @@
             </colgroup>
             <tbody>
                <tr>
-                  <th>아이디</th>
-                  <td></td>
-                  <th>비밀번호</th>
-                  <td></td>
-               </tr>
-               <tr>
-                  <th>이름</th>
-                  <td></td>
-                  <th>생년월일</th>
-                  <td></td>
-               </tr>
-               <tr>
-                  <th>닉네임</th>
-                  <td><strong class="text-danger"></strong></td>
-                  <th>성별</th>
-                  <td><span class="text-decoration-line-through"></span></td>
-               </tr>
-               <tr>
-                  <th>전화번호</th>
-                  <td></td>
-                  <th>이메일</th>
-                  <td></td>
-               </tr>
-               <tr>
-                  <th>최초 수정일자</th>
-                  <td></td>
-                  <th>가입일자</th>
-                  <td></td>
-               </tr>
+                 <tr>
+						<th class="table-dark" style="width: 15%;">아이디</th>
+						<td style="width: 35%;"><%=user.getId() %></td>
+						<th class="table-dark" style="width: 15%;">비밀번호</th>
+						<td style="width: 35%;"><%=user.getPassword() %></td>
+					</tr>
+					<tr>
+						<th class="table-dark" style="width: 15%;">이름</th>
+						<td style="width: 35%;"><%=user.getName() %></td>
+						<th class="table-dark" style="width: 15%;">생년월일</th>
+						<td style="width: 35%;"><%=user.getBirthdate() %></td>
+					</tr>
+					<tr>
+						<th class="table-dark" style="width: 15%;">닉네임</th>
+						<td style="width: 35%;"><%=user.getNickname() %></td>
+						<th class="table-dark" style="width: 15%;">성별</th>
+						<td style="width: 35%;"><%=user.getGender() %></td>
+					</tr>
+					<tr>
+						<th class="table-dark" style="width: 15%;">전화번호</th>
+						<td style="width: 35%;"><%=user.getTel() %></td>
+						<th class="table-dark" style="width: 15%;">이메일</th>
+						<td style="width: 35%;"><%=user.getEmail() %></td>
+					</tr>
+					<tr>
+						<th class="table-dark" style="width: 15%;">수정날짜</th>
+						<td style="width: 35%;"><%=user.getUpdateDate() %></td>
+						<th class="table-dark" style="width: 15%;">가입날짜</th>
+						<td style="width: 35%;"><%=user.getCreateDate() %></td>
+					</tr>
                
             </tbody>
          </table>
          <div class="text-end">
-            <a href="modify-form.jsp?=" class="btn btn-warning btn-sm">수정하기</a>
+            <a href="modify-form.jsp?id=<%=user.getId() %>" class="btn btn-warning btn-sm">수정하기</a>
          </div>
       </div>
    </div>

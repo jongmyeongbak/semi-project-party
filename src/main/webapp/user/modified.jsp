@@ -1,4 +1,8 @@
+<%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%
+	
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -13,15 +17,19 @@
 </style>
 </head>
 <body>
+<jsp:include page="../nav.jsp">
+	<jsp:param name="menu" value="user-info"/>
+</jsp:include>
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">정보수정 완료</h1>
+			<h1 class="border bg-light fs-4 p-2">정보수정</h1>
+				
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<p>정보수정이 완료되었습니다.</p>
+			<strong>정보수정 완료</strong><p>정보수정이 완료되었습니다.</p>
 		</div>
 	</div>
 </div>
