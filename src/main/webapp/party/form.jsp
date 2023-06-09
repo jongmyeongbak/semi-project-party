@@ -1,3 +1,4 @@
+<%@page import="util.StringUtils"%>
 <%@page import="dao.PartyCategoryDao"%>
 <%@page import="vo.Category"%>
 <%@page import="java.util.List"%>
@@ -6,12 +7,7 @@
 <%
 	String loginId = (String) session.getAttribute("loginId");
 	String err = request.getParameter("err");
-	int catNo;
-	if (request.getParameter("cat") != null) {
-		catNo = Integer.parseInt(request.getParameter("cat"));		
-	} else {
-		catNo = 0;
-	}
+	int catNo = StringUtils.stringToInt(request.getParameter("cat"));
 	// 로그인 된 상태가 아니라면 로그인 폼으로 돌려보냄
 	if (loginId == null) {
 		response.sendRedirect("../login-form.jsp?err=req&job=" + URLEncoder.encode("파티 개설", "utf-8"));

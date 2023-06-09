@@ -105,7 +105,7 @@ public class PartyInsertServlet extends HttpServlet {
 		if (savedParty != null ) {
 			if (savedParty.getCategory().getNo() == catNo) {
 				if (name.equals(savedParty.getName())) {
-					res.sendRedirect("create-form.jsp?err=name");
+					res.sendRedirect("form.jsp?err=name");
 					return;
 				}
 			}
