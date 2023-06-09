@@ -11,11 +11,10 @@ public class PartyReqDao {
 		return instance;
 	}
 	
-	public void insertPartReq(PartyReq partyReq) {
+	public void insertPartyReq(PartyReq partyReq) {
 		DaoHelper.update("partyReqDao.insertPartyReq",
 				partyReq.getParty().getNo(),
 				partyReq.getName(),
-				partyReq.getValue(),
-				partyReq.getDescription());
+				partyReq.getValue());
 	}
 }

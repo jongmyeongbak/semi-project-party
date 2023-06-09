@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="util.StringUtils"%>
 <%@page import="dao.PartyCategoryDao"%>
 <%@page import="vo.Category"%>
@@ -32,8 +33,10 @@
 			height: 100%;
 			object-fit: contain;
 		}
+		.bs, .be {
+			width: 35%;
+		}
 	</style>
-
 </head>
 <body>
 <jsp:include page="../nav.jsp">
@@ -52,11 +55,18 @@
 				</div>
 <%
 	}
+	if ("cat".equals(err)) {
+%>
+				<div class="alert alert-warning mt-1" role="alert">
+ 					카테고리를 선택해주세요.
+				</div>
+<%
+	}
 %>
 				<div class="form-group mb-3 col-6">
 					<label class="form-label">카테고리</label>
 					<select name="partyCat" class="form-control" required="required">
-						<option disabled>카테고리를 고르세요</option>
+						<option id="noCat" selected disabled>카테고리를 고르세요</option>
 <%
 	for (Category category : categoryList) {
 		if (catNo == 0) {
@@ -83,22 +93,46 @@
 					</div>
 					<div class="form-group mb-3">
 						<label class="form-label">가입조건</label>
-					<div id="req-group">
-						<div class="row" id="req">
-							<div class="col-3">
-								<input class="form-control" type="text" name="reqName" placeholder="ex&#41;나이">
+						<div class="form-check form-switch" id="req-group">
+							<div class="row" id="req">
+								<div class="col-7">
+									<input class="form-check-input" type="checkbox" name="reqAge" id="reqAge" role="switch" value="나이">
+									<label class="form-check-label" for="reqAge">나이</label>
+									<div class="row">
+										<select class="bs form-control me-2" name="birthStart" id="birthStart" disabled>
+											<option value="" selected>제한없음</option>
+<%
+	LocalDate now = LocalDate.now();
+	int year = now.getYear();
+	for (int i = 1940; i <= year; i++){
+%>
+											<option value="<%=i %>"><%=i %>년생</option>
+<%
+	}
+%>
+										</select>
+										<span class="col-1"> ~ </span>
+										<select class="be form-control ms-2" name="birthEnd" id="birthEnd" disabled>
+											<option value="" selected>제한없음</option>
+<%
+	for (int i = year; i >= 1940; i--){
+%>
+											<option value="<%=i %>"><%=i %>년생</option>
+<%
+	}
+%>
+									</select>
+									</div>
+								</div>
+								<div class="col">
+									<input class="form-check-input" type="checkbox" name="reqGen" id="reqGen" role="switch" value="성별">
+									<label class="form-check-label" for="reqGen">성별</label>
+									<select name="gender" id="gender" class="form-control w-75" disabled>
+										<option value="M">남</option>
+										<option value="F">여</option>
+									</select>
+								</div>
 							</div>
-							<div class="col-3">
-								<input class="form-control" type="text" name="reqValue" placeholder="ex&#41;20세">
-							</div>
-							<div class="col">
-								<input class="form-control" type="text" name="reqDescription" placeholder="ex&#41;20세 이상만 가입가능합니다">
-							</div>
-						</div>
-					</div>
-					<div class="text-end">
-						<div class="btn btn-outline-dark btn-sm mt-2" id="reqadd">추가</div>
-						<div class="btn btn-outline-danger btn-sm mt-2" id="reqdel">삭제</div>
 						</div>
 					</div>
 				</div>
@@ -130,30 +164,26 @@
 		let showimage = document.querySelector("#showimage");
 		let inputImage = document.querySelector("#inputImage");
 		let img = document.querySelector("#showimage > img");
-		let reqGroup = document.querySelector("#req-group")
-		let req = document.querySelector("#req");
-		let reqadd = document.querySelector("#reqadd");
-		let reqdel = document.querySelector("#reqdel");
-		// 제한 사항 추가하기
-		reqadd.addEventListener("click", () => {
-			// 제한이 3개 이상 넘어가면 더이상 만들지 못한다.
-			if (reqGroup.childElementCount < 3){
-				let div = document.createElement("div");
-				div.className = "row";
-				div.innerHTML = req.innerHTML;
-				reqGroup.appendChild(div);
+		let reqAge = document.querySelector("#reqAge");
+		let reqGen = document.querySelector("#reqGen");
+		let bs = document.querySelector("#birthStart");
+		let be = document.querySelector("#birthEnd");
+		let gender = document.querySelector("#gender");
+
+		reqAge.addEventListener("change", () => {
+			if (reqAge.checked){
+				bs.disabled = false;
+				be.disabled = false;
 			} else {
-				alert("제한은 3개까지만 만들 수 있습니다.")
+				bs.disabled = true;
+				be.disabled = true;
 			}
 		})
-
-		// 제한 사항 삭제하기
-		reqdel.addEventListener("click", () => {
-			// 제한 사항 입력 필드는 최소 1개는 남아있어야 하고
-			// 값이 없어도 상관없다.
-			if (reqGroup.childElementCount > 1) {
-				let element = reqGroup.lastChild;
-				element.remove();
+		reqGen.addEventListener("change", () => {
+			if (reqGen.checked){
+				gender.disabled = false;
+			} else {
+				gender.disabled = true;
 			}
 		})
 
