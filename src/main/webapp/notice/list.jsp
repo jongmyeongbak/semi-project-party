@@ -112,7 +112,7 @@ if (auth != null && auth < 4) {
 				%>
 				</tbody>
 			</table>
-			<nav>
+			<div>
 				<ul class="pagination justify-content-center">
 					<li class="page-item<%=pageNo <= 1 ? " disabled" : "" %>">
 						<a class="page-link" href="list.jsp?page=<%=pageNo - 1 %>">이전</a>
@@ -131,7 +131,7 @@ if (auth != null && auth < 4) {
 						<a class="page-link" href="list.jsp?page=<%=pageNo + 1 %>">다음</a>
 					</li>
 				</ul>
-			</nav>
+			</div>
 			
 			<%
 			if (auth != null && auth < 4) {

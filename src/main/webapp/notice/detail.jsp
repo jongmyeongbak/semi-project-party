@@ -99,7 +99,7 @@ String job = request.getParameter("job");
 				if (loginId != null && loginId.equals(board.getUser().getId())) {
 				%>
 				<a href="delete.jsp?no=<%=no %>" class="btn btn-danger btn-sm">삭제</a>
-				<a href="modifyform.jsp?no=<%=no %>" class="btn btn-warning btn-sm">수정</a>
+				<a href="modify-form.jsp?no=<%=no %>" class="btn btn-warning btn-sm">수정</a>
 				<%
 				}
 				%>
@@ -112,7 +112,15 @@ String job = request.getParameter("job");
 	%>
 		<div class="col-7">
 			<div class="alert alert-danger">
-				<strong>회원 불일치</strong> [<%=job %>]는 본인만 가능합니다.
+				<strong>회원 불일치</strong> [<%=job %>]은(는) 본인만 가능합니다.
+			</div>
+		</div>
+	<%
+	} else if ("del".equals(err)) {
+	%>
+		<div class="col-7">
+			<div class="alert alert-danger">
+				<strong>삭제된 글</strong> [<%=job %>]은(는) 삭제되어 불가능합니다.
 			</div>
 		</div>
 	<%
