@@ -12,12 +12,11 @@
 	} else {
 		catNo = 0;
 	}
-	loginId = "ryu";
 	// 로그인 된 상태가 아니라면 로그인 폼으로 돌려보냄
-	/* if (loginId == null) {
+	if (loginId == null) {
 		response.sendRedirect("../login-form.jsp?err=req&job=" + URLEncoder.encode("파티 개설", "utf-8"));
 		return;
-	} */
+	}
 	// 파티의 카테고리를 불러온다.
 	PartyCategoryDao partyCategoryDao = PartyCategoryDao.getInstance();
 	List<Category> categoryList = partyCategoryDao.getAllCategories();
