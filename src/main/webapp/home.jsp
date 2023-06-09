@@ -43,29 +43,33 @@ String loginId = (String) session.getAttribute("loginId");
 		text-align: center;
 	}
 	div.box-container {
- 		 display: flex;
+ 		display: flex;
   		flex-wrap: wrap;
- 		 margin-top: 50px;
- 		 margin-left: 160px;
+ 		margin-top: 50px;
+ 		justify-content: center;
 	}
 	
-	
+	div.background {
+		background-color: rgb(237, 246, 255);
+		border-radius: 70px;
+	}
 
 	div.box {
   		width: 15%;
   		height: 300px;
   		margin: 23px;
- 		 border: 1px solid #000;
+ 		border: 1px solid #000;
   		border-radius: 20px;
   		overflow: hidden;
   		display: flex;
   		flex-direction: column;
 	}
-
+	
 	div.image {
  		 width: 100%;
  		 height: 70%;
  		 cursor: pointer;
+ 		 background-color: #ffffff;
 	}
 
 	div.separator {
@@ -83,10 +87,11 @@ String loginId = (String) session.getAttribute("loginId");
   		display: flex;
  		 flex-direction: column;
   		justify-content: center;
+  		background-color: #ffffff;
 	}
 
-		div.text li {
- 		 margin-bottom: 5px;
+	div.text li {
+ 		margin-bottom: 5px;
   		overflow: hidden;
   		white-space: nowrap;
   		text-overflow: ellipsis;
@@ -221,9 +226,9 @@ String loginId = (String) session.getAttribute("loginId");
 				<p class="border bg-light fs-4 p-3"></p>
 			<div class="text-end">
 			<%	if (loginId == null) { %>
-  				<a href="notice/list.jsp" class="btn btn-primary btn-sm" onclick="alert('로그인 해주세요.'); return false;">더보기</a>
+  				<a href="" class="btn btn-primary btn-sm" onclick="alert('로그인 해주세요.'); return false;">더보기</a>
 			<%}else { %>
-				<a href="notice/list.jsp" class="btn btn-primary btn-sm" >더보기</a>
+				<a href="party/list.jsp" class="btn btn-primary btn-sm" >더보기</a>
 			<%}%>			
 			</div>
 		
@@ -233,14 +238,15 @@ String loginId = (String) session.getAttribute("loginId");
 	</div> <!-- col-6 닫김 -->
 </div>	<!-- row 닫김 -->
 	
-<!-- 최근 순으로 파티를 추천하는 파트 -->	
+<!-- 최근 순으로 파티를 추천하는 파트 -->
+<div class="background">	
 <div class="box-container">
   <div class="box">
-    <div class="image" onclick="window.location.href='notice/list.jsp';">
+    <div class="image" onclick="window.location.href='party/list.jsp';">
       <!-- 이미지 태그 또는 배경 이미지 설정 -->
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='notice/list.jsp';">
+    <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
         <li>밴드 이름 1</li>
         <li>멤버 수 </li>
@@ -249,11 +255,10 @@ String loginId = (String) session.getAttribute("loginId");
   </div>
   
   <div class="box">
-    <div class="image" onclick="window.location.href='notice/list.jsp';">
-      <!-- 이미지 태그 또는 배경 이미지 설정 -->
+    <div class="image" onclick="window.location.href='party/list.jsp';">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='notice/list.jsp';">
+    <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
         <li>밴드 이름 2</li>
         <li>멤버 수 </li>
@@ -262,11 +267,10 @@ String loginId = (String) session.getAttribute("loginId");
   </div>
   
   <div class="box">
-    <div class="image" onclick="window.location.href='notice/list.jsp';">
-      <!-- 이미지 태그 또는 배경 이미지 설정 -->
+    <div class="image" onclick="window.location.href='party/list.jsp';">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='notice/list.jsp';">
+    <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
         <li>밴드 이름 3</li>
         <li>멤버 수 </li>
@@ -275,11 +279,10 @@ String loginId = (String) session.getAttribute("loginId");
   </div>
   
   <div class="box">
-    <div class="image" onclick="window.location.href='notice/list.jsp';">
-      <!-- 이미지 태그 또는 배경 이미지 설정 -->
+    <div class="image" onclick="window.location.href='party/list.jsp';">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='notice/list.jsp';">
+    <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
         <li>밴드 이름 4</li>
         <li>멤버 수 </li>
@@ -288,11 +291,10 @@ String loginId = (String) session.getAttribute("loginId");
   </div>
   
   <div class="box">
-    <div class="image" onclick="window.location.href='notice/list.jsp';">
-      <!-- 이미지 태그 또는 배경 이미지 설정 -->
+    <div class="image" onclick="window.location.href='party/list.jsp';">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='notice/list.jsp';">
+    <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
         <li>밴드 이름 5</li>
         <li>멤버 수 </li>
@@ -301,7 +303,7 @@ String loginId = (String) session.getAttribute("loginId");
   </div>
 
 </div> <!-- 박스 컨테이너 닫김 -->
-
+</div> <!--  background 닫김 -->
 </div>	<!-- content 닫김 -->
 </body>
 </html>
