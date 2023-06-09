@@ -5,6 +5,7 @@ import java.util.List;
 import util.DaoHelper;
 import vo.Category;
 import vo.Party;
+import vo.User;
 
 public class PartyListDao {
 
@@ -14,18 +15,32 @@ public class PartyListDao {
 		return instance;
 	}
 	
-	// 생성된 파티 조회하기
-	public List<Party> getParties() {
+	// 생성된 모든 파티 조회하기
+	public List<Party> getAllParties() {
+		return DaoHelper.selectList("partyListDao.getAllParties", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setFilename(rs.getString("party_filename"));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
+			
+			return party;
+		});
+	}
+	
+	// 로그인된 유저가 포함되지 않은 생성된 파티 조회하기
+	public List<Party> getPartiesWithoutUser(String loginId) {
 		return DaoHelper.selectList("partyListDao.getParties", rs -> {
 			Party party = new Party();
 			party.setNo(rs.getInt("party_no"));
 			party.setName(rs.getString("party_name"));
 			party.setDescription(rs.getString("party_description"));
-			party.setCurCnt(rs.getInt("party_cur_cnt"));
 			party.setFilename(rs.getString("party_filename"));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
 			
 			return party;
-		});
+		}, loginId);
 	}
 	
 	// 로그인된 사용자가 가입한 파티 조회하기
