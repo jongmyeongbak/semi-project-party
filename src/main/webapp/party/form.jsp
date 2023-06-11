@@ -103,8 +103,8 @@
 											<option value="" selected>제한없음</option>
 <%
 	LocalDate now = LocalDate.now();
-	int year = now.getYear();
-	for (int i = 1940; i <= year; i++){
+	int year = now.getYear() - 100;
+	for (int i = year + 90; i > year; i--){
 %>
 											<option value="<%=i %>"><%=i %>년생</option>
 <%
@@ -115,7 +115,7 @@
 										<select class="be form-control ms-2" name="birthEnd" id="birthEnd" disabled>
 											<option value="" selected>제한없음</option>
 <%
-	for (int i = year; i >= 1940; i--){
+	for (int i = year + 90; i > year; i--){
 %>
 											<option value="<%=i %>"><%=i %>년생</option>
 <%
@@ -144,7 +144,7 @@
 					<div class="form-group mb-3 col">
 						<label class="form-label">썸네일 이미지</label>
 						<p style="font-size: 15px; font-style: italic; font-weight: lighter;"><span style="font-weight: bolder; color: #555;">.jpg, .jpeg, .png</span> 형식의 75x75 사진파일</p>
-						<input class="form-control" type="file" name="partyImage" id="inputImage">
+						<input class="form-control" type="file" name="partyImage" id="inputImage" accept="image/jpeg, image/png">
 					</div>
 				</div>
 				<div class="col-6">

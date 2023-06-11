@@ -33,7 +33,6 @@ public class PartyDao {
 		return DaoHelper.selectOne("partyDao.getPartyByName", rs -> {
 			Party party = new Party();
 			party.setName(rs.getString("party_name"));
-			party.setCategory(new Category(rs.getInt("cat_no")));
 			
 			return party;
 		}, name);
