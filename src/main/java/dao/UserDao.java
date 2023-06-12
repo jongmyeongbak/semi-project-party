@@ -59,7 +59,7 @@ public class UserDao {
 			return user;
 		}, id);
 	}
-	public User getUserByNickname(String nickname) {
+	public User getUserByNickname(String loginId, String nickname) {
 		return DaoHelper.selectOne("userDao.getUserByNickname", rs -> {
 			User user = new User();
 			user.setId(rs.getString("user_id"));
@@ -75,9 +75,27 @@ public class UserDao {
 			user.setCreateDate(rs.getDate("user_create_date"));
 			
 			return user;
-		}, nickname);
+		},loginId, nickname);
 	}
 	
+	public User getUserByMail(String loginId, String email) {
+		return DaoHelper.selectOne("userDao.getUserByMail", rs -> {
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setNickname(rs.getString("user_nickname"));
+			user.setGender(rs.getString("user_gender"));
+			user.setBirthdate(rs.getDate("user_birthdate"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setDeleted(rs.getString("user_deleted"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			
+			return user;
+		},loginId, email);
+	}
 	
 	
 	public void updateUser(User user) {
