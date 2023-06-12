@@ -128,6 +128,7 @@
 									<input class="form-check-input" type="checkbox" name="reqGen" id="reqGen" role="switch" value="성별">
 									<label class="form-check-label" for="reqGen">성별</label>
 									<select name="gender" id="gender" class="form-control w-75" disabled>
+										<option value="A">성별무관</option>
 										<option value="M">남</option>
 										<option value="F">여</option>
 									</select>
