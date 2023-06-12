@@ -66,13 +66,8 @@ public class PartyInsertServlet extends HttpServlet {
 		PartyDao partyDao = PartyDao.getInstance();
 		Party savedParty = partyDao.getPartyByName(name);
 		if (savedParty != null && savedParty.getName().equals(name)) {
-//		if (savedParty != null ) {
-//			if (savedParty.getCategory().getNo() == catNo) {
-//				if (name.equals(savedParty.getName())) {
 			res.sendRedirect("form.jsp?err=name");
 			return;
-//				}
-//			}
 		}
 		int partyNo = partyDao.getPartySeq();
 		// 첨부파일 입력필드의 처리
