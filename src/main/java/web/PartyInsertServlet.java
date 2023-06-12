@@ -12,6 +12,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import dao.PartyDao;
 import dao.PartyReqDao;
 import dao.UserPartyAccessDao;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -82,9 +83,14 @@ public class PartyInsertServlet extends HttpServlet {
 			int length = upfilePart.getSubmittedFileName().length();
 			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
 			// 업로드된 첨부파일을 지정된 폴더에 저장
+			ServletContext context = req.getServletContext();
+			String uploadPath = context.getRealPath("/resources/thumbnail");
+			System.out.println(uploadPath);
 			InputStream in = upfilePart.getInputStream();
-			OutputStream out = new FileOutputStream(new File("/Users/seung-gyu/workspace/web-workspace/party/src/main/webapp/resources/thumbnail", filename));
+			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
 			IOUtils.copy(in, out);
+			in.close();
+			out.close();
 		}
 		
 		// 업무로직 수행
