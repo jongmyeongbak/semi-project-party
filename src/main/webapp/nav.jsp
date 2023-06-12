@@ -9,10 +9,19 @@
 	내정보보기 : userInfo
 	파티리스트 : partylist
 	
+	// 파티 
+	게시판 : home
+	방명록 : gbook
+	앨범 : album
+	투표 : vote
+	일정 : calendar
+	멤버 : member	
+	
  -->
  <%
  	String loginId = (String) session.getAttribute("loginId");
  	String menu = request.getParameter("menu");
+ 	String pmenu = request.getParameter("pmenu");
  	
  %>
 <style>
@@ -20,6 +29,9 @@
 		height: 90px;
 		font-size: 18px;
 		background-color: rgb(237, 246, 255);
+	}
+	.blank {
+		height: 90px;
 	}
 	.form {
     	position: relative;
@@ -36,10 +48,24 @@
 	    right: 10px;
 	    cursor: pointer;
 	}
+	nav:nth-of-type(2) {
+		background-color: rgb(194, 225, 255);
+		height: 50px;
+        margin-top: 90px;
+	}
+	.nav2 > li {
+	    margin-left: 30px;
+	}
+	.nav2 > li:first-of-type {
+	    margin-left: 0px;
+	}
+	.blank-1 {
+		height: 50px;
+	}
 </style>
 <script src="https://kit.fontawesome.com/46a6014d50.js" crossorigin="anonymous"></script>
-<nav class="navbar navbar-expand-sm mb-3">
-	<div class="container">
+<nav class="navbar fixed-top navbar-expand-sm <%=pmenu == null ? "mb-3" : "" %>">
+	<div class="container fixed">
 	    <div class="container">
 	        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	            <li class="nav-item">
@@ -113,6 +139,40 @@
     	</div>
 	</div>
 </nav>
+<div class="blank">
+</div>
+<% 
+	if (pmenu != null) {
+%>
+<nav class="navbar fixed-top navbar-expand-sm">
+    <div class="container justify-content-center">
+        <ul class="navbar-nav nav2">
+            <li class="nav-item">
+                <a href="/home.jsp" class="nav-link <%= "home".equals(menu) ? "active fw-bold" : "" %>">게시판</a>
+            </li>
+            <li class="nav-item">
+                <a href="/notice/list.jsp" class="nav-link <%= "gbook".equals(menu) ? "active fw-bold" : "" %>">방명록</a>
+            </li>
+            <li class="nav-item">
+                <a href="/party/list.jsp" class="nav-link <%= "album".equals(menu) ? "active fw-bold" : "" %>">앨범</a>
+            </li>
+            <li class="nav-item">
+                <a href="/party/list.jsp" class="nav-link <%= "vote".equals(menu) ? "active fw-bold" : "" %>">투표</a>
+            </li>
+            <li class="nav-item">
+                <a href="/party/list.jsp" class="nav-link <%= "calandar".equals(menu) ? "active fw-bold" : "" %>">일정</a>
+            </li>
+            <li class="nav-item">
+                <a href="/party/list.jsp" class="nav-link <%= "member".equals(menu) ? "active fw-bold" : "" %>">멤버</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="blank-1">
+</div>
+<%
+	}
+%>
 <script>
     let home = document.querySelector("#home");
     home.addEventListener("click", () => {
