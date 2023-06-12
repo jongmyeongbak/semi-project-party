@@ -12,8 +12,7 @@
 
 	List<Category> categories = partyListDao.getCategories();
 	List<Party> regParties = partyListDao.getUserRegPartiesByUserId(loginId);
-	
-	List<Party> parties = loginId != null ?  partyListDao.getPartiesWithoutUser(loginId) : partyListDao.getAllParties() ;
+	List<Party> parties = loginId != null ?  partyListDao.getPartiesWithoutUser(loginId) : partyListDao.getAllParties();
 %>
 <!doctype html>
 <html lang="ko">
@@ -44,9 +43,9 @@
 <%
 			for (Party regParty : regParties) {
 %>
-					<a href="party-home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
+					<a href="home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
 						<div class="regparty-item">
-							<img class="regparty-item img" src="../resources/images/dog.jpg" alt="">
+							<img class="regparty-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=regParty.getFilename() %>" alt="">
 							<div>
 								<strong><%=regParty.getName() %></strong>
 								<p><%=regParty.getCurCnt() %>명</p>
@@ -58,10 +57,10 @@
 %>
 		</div>
 </div>
-
 <%
 		}
 %>
+
 <!-- 파티생성을 위한 카테고리 조회 -->
 <div>
 	<h5>새로운 파티 만들기</h5>
@@ -79,12 +78,13 @@
 				</a>
 <%
 		}
+	}
 %>
 		</div>
 </div>
 
 <!-- 로그인된 유저를 제외한 생성된 모든 파티 조회 -->
-<div>
+<div class="container">
 	<h5>이런 파티는 어때요</h5>
 	<div class="swiper">
   		<div class="swiper-wrapper">
@@ -104,7 +104,7 @@
 <!-- 파티 정보 출력 -->
 		            <div class="party-item">
 			          <a href="home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
-			          	<img class="party-item img" src="../resources/images/sample.jpeg" alt="">
+			          	<img class="party-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=party.getFilename() %>" alt="썸네일">
 		    	        <div>
 		         	    	<strong><%=party.getName() %></strong>
 		            	    <p class='text-truncate'><%=party.getDescription() %></p>
@@ -114,7 +114,7 @@
 		            </div>
 
 <% 
-      // 한 페이지의 마지막 아이템이거나 마지막 파티를 출력했을 경우 div 생성 종료
+      // 한 페이지의 마지막 아이템이거나 마지막 파티를 출력했을 경우 swiper-slide div 생성 종료
       if ((index + 1) % 10 == 0 || index == parties.size() - 1) {
 %>
          	  </div> <!-- party-container 닫힘 -->
@@ -124,76 +124,15 @@
       index++;
     } 
 %>
-        </div> <!-- swiper-wrapper -->	   
+        </div> <!-- swiper-wrapper 닫힘 -->	   
 	
 	<!-- 스와이퍼 버튼 -->
 	<div class="swiper-button-prev"></div>
 	<div class="swiper-button-next"></div>
 	<!-- 스와이퍼 스크롤바 -->
 	<div class="swiper-scrollbar"></div>
-	</div> <!-- swiper -->
+	</div> <!-- swiper 닫힘 -->
 </div> <!-- 로그인된 상태에서의 파티 목록 조회 닫힘 -->
-<%
-	} else {
-%>
-<div>
-	<h5>이런 파티는 어때요</h5>
-	<div class="swiper">
-  		<div class="swiper-wrapper">
-   	 <!-- Slides -->
-<%  // 10개의 아이템 단위로 페이지를 구분하기 위한 변수
-    int pageCounter = 0;
-    
-    // 전체 파티 리스트의 인덱스
-    int index = 0;
-
-	for(Party party : parties) {
-      // 페이지 시작점에서 swiper-slide div 시작
-      if (index % 10 == 0) {
-%>
-	        <div class="swiper-slide">
-	          <div class="party-container">
-<% 
-      }
-%>
-		          <!-- 파티 정보 출력 -->
-		            <div class="party-item ">
-				    	<a href="home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none">
-			              <img class="party-item img" src="../resources/images/sample.jpeg" alt="">
-			              <div>
-			                <strong><%=party.getName() %></strong>
-			                <p class="text-truncate"><%=party.getDescription() %></p>
-			              </div>
-			            </a>
-		                <a href="search.jsp?cat=<%=party.getCategory().getNo() %>"class="btn btn-light"><%=party.getCategory().getName() %> 파티 더보기</a>
-		            </div>
-		         
-
-<% 
-      // 한 페이지의 마지막 아이템이거나 마지막 파티를 출력했을 경우 div 종료
-      if ((index + 1) % 10 == 0 || index == parties.size() - 1) {
-%>
-         	  </div> <!-- party-container -->
-            </div> <!-- swiper-slide -->
-<% 
-      }
-
-      index++;
-    } 
-%>
-        </div> <!-- swiper-wrapper -->
-	
-	<!-- 스와이퍼 버튼 -->
-	<div class="swiper-button-prev"></div>
-	<div class="swiper-button-next"></div>
-	
-	<div class="swiper-scrollbar"></div>
-	</div> <!-- swiper -->
-<%
-	}
-%>
-</div> <!-- 로그아웃 상태 생성된 모든 파티 목록 조회 닫힘-->
-
 </div>
 <script> 
 //Swiper 객체 생성
@@ -214,7 +153,6 @@ let swiper = new Swiper('.swiper', {
 	  prevEl: '.swiper-button-prev',
   },
 });
-
 </script>
 </body>
 </html>
