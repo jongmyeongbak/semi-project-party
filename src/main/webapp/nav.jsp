@@ -139,7 +139,7 @@
     	</div>
 	</div>
 </nav>
-<div class="blank">
+<div class="blank mb-3">
 </div>
 <% 
 	if (pmenu != null) {
@@ -168,7 +168,7 @@
         </ul>
     </div>
 </nav>
-<div class="blank-1">
+<div class="blank-1 mb-3">
 </div>
 <%
 	}

@@ -16,6 +16,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
+<jsp:include page="../nav.jsp">
+	<jsp:param name="menu" value="register"/>
+</jsp:include>
 <div class="container">
 	<div class="row mb-3">
     	<div class="col-12">
