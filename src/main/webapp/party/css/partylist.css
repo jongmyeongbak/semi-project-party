@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* 전체적인 백그라운드 컬러 */
+.background-color {
+	background-color: rgb(237, 246, 255);
+	border-radius: 10px;
+}
+
+/* 내가 가입한 파티 컨테이너 css */
+.regparty-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: rgb(237, 246, 255);
+    padding-top: 15px;
+    border-radius: 10px;
+}
+
+/* 내가 가입한 파티 아이템 css */
+.regparty-item {
+	display: flex;
+	flex-direction: column; 
+	align-items: center;
+	justify-content: flex-start;
+	height: 230px;
+	border-radius: 10px;
+	background-color: #ffffff;
+	margin-left: 18px;
+	margin-right: 18px;
+	margin-bottom: 15px;
+}
+
+/* 내가 가입한 파티 아이템 이미지 css */
+.regparty-item img {
+	width: 100%;
+	height: 66%;
+	justify-content: space-between;
+	object-fit: cover;
+}
+
+/* 카테고리 컨테이너 */
+.category-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 30px;
+    background-color: rgb(237, 246, 255);
+    border-radius: 10px;
+}
+
+/* 원형 아이템 안에 카테고리 이름이 들어가있는 형태, 카테고리에 따라 다른 이미지나 로고를 삽입하려면
+	이미지 url컬럼이 필요함 */
+.category-item {
+    width: 115px;
+    height: 115px;
+    line-height: 115px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: #CEE9FF;
+}
+
+/* 생성된 파티 컨테이너 */
+.party-container {
+	padding: 2em;
+    display: grid;
+	grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    background-color: rgb(237, 246, 255);
+    border-radius: 10px;
+}
+
+/* 생성된 파티 아이템 width는 컨테이너안에서 아이템에 적용되는 비율
+   overflow는 요소 밖으로 넘치는 데이터를 숨김 */
+.party-item {
+	width: 98%;
+	float: left;
+	overflow: hidden;
+	margin: 2px;
+	border-radius: 10px;
+}
+
+/* 생성된 파티 아이템 이미지 */
+.party-item img {
+	border-radius: 10px;
+	width: 100px;
+	height: 100px;
+	margin-right: 15px;
+}
+
+/* h5태그 css */
+h5 {
+	padding-top: 10px;
+	background-color: #ffffff;
+}
+
+/* 가입된 파티 마우스 호버 효과 */
+.regparty-item:hover {
+    transform: scale(1.02);
+}
+
+/* 파티 생성 카테고리 마우스 호버 효과 */
+.category-item:hover {
+	background-color: #ffffff;
+    box-shadow: 0px 10px 10px lightgrey;
+}
+
+/* 생성된 파티 마우스 호버 효과 */
+.party-item:hover {
+	background-color: #ffffff;
+    transform: scale(1.02);
+}

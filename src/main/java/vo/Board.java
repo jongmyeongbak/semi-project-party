@@ -14,6 +14,7 @@ public class Board {
 	private String deleted;
 	private Date updateDate;
 	private Date createDate;
+	private String filename;
 	
 	public Board() {
 	}
