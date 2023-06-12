@@ -111,6 +111,7 @@ public class AdminNoticeDao {
 		DaoHelper.update("adminNoticeDao.updateNotice",
 				board.getTitle(),
 				board.getContent(),
+				board.getDeleted(),
 				board.getNo());
 	}
 	
