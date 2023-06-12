@@ -82,4 +82,11 @@ public class Board {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 }
