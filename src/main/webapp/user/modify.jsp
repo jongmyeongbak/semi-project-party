@@ -9,7 +9,6 @@
 <%
 	// 요청 파라미터값 조회
 	String loginId = (String) session.getAttribute("loginId");
-
 	String password = request.getParameter("password");
 	String nickname = request.getParameter("nickname");
 	String email = request.getParameter("email");

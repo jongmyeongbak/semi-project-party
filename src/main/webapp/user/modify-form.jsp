@@ -80,17 +80,8 @@
 					<input type="text" class="form-control" name="name" value="<%=user.getName() %>" readonly/>
 				</div>
 				<div class="form-group mb-2">
-					<label class="form-label">생년월일</label>
-					<input type="text" class="form-control" name="birthdate" value="<%=user.getBirthdate() %>" readonly/>
-				</div>
-				<div class="form-group mb-2">
 					<label class="form-label">닉네임</label>
 					<input type="text" class="form-control" name="nickname" value="<%=user.getNickname()%>" required />
-				</div>
-				<div class="form-group mb-2">
-					<label class="form-label">성별</label><br/>
-					<input type="radio" class="form-check-input" name="gender" value="M" checked="checked" readonly disabled />남
-					<input type="radio" class="form-check-input" name="gender" value="F" readonly disabled/>여
 				</div>
 				<div class="form-group mb-2">
 					<label class="form-label">전화번호</label>
