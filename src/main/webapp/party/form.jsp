@@ -34,7 +34,7 @@
 			object-fit: contain;
 		}
 		.bs, .be {
-			width: 35%;
+			width: 53%;
 		}
 	</style>
 </head>
@@ -51,14 +51,21 @@
 	if ("name".equals(err)) {
 %>
 				<div class="alert alert-warning mt-1" role="alert">
- 					같은 이름의 파티가 존재합니다. 파티명을 다시 작성해주세요
+ 					<span>같은 이름의 파티가 존재합니다. 파티명을 다시 작성해주세요</span>
 				</div>
 <%
 	}
 	if ("cat".equals(err)) {
 %>
 				<div class="alert alert-warning mt-1" role="alert">
- 					카테고리를 선택해주세요.
+ 					<span>카테고리를 선택해주세요.</span>
+				</div>
+<%
+	}
+	if ("birth".equals(err)) {
+%>
+				<div class="alert alert-warning mt-1" role="alert">
+ 					<span>최소나이가 최대나이보다 작을 수 없습니다.</span>
 				</div>
 <%
 	}
@@ -95,29 +102,30 @@
 						<label class="form-label">가입조건</label>
 						<div class="form-check form-switch" id="req-group">
 							<div class="row" id="req">
-								<div class="col-7">
-									<input class="form-check-input" type="checkbox" name="reqAge" id="reqAge" role="switch" value="나이">
-									<label class="form-check-label" for="reqAge">나이</label>
-									<div class="row">
-										<select class="bs form-control me-2" name="birthStart" id="birthStart" disabled>
-											<option value="" selected>제한없음</option>
+								<div class="col-6">
+									<div class="row mb-3">
+										<label class="col-4 col-form-label" for="birthStart">최소 나이</label>
+										<select class="col-8 bs form-control" name="birthStart" id="birthStart">
+											<option value="9999" selected>제한없음</option>
 <%
 	LocalDate now = LocalDate.now();
-	int year = now.getYear() - 100;
-	for (int i = year + 90; i > year; i--){
+	int year = now.getYear();
+	for (int i = year - 13; i > year - 100; i--){
 %>
-											<option value="<%=i %>"><%=i %>년생</option>
+											<option value="<%=i %>"><%=i %>년생 (만 <%=year - i %>세)</option>
 <%
 	}
 %>
 										</select>
-										<span class="col-1"> ~ </span>
-										<select class="be form-control ms-2" name="birthEnd" id="birthEnd" disabled>
-											<option value="" selected>제한없음</option>
+									</div>
+									<div class="row">
+										<label class="col-4 col-form-label" for="birthEnd">최대 나이</label>
+										<select class="col-8 be form-control" name="birthEnd" id="birthEnd">
+											<option value="0000" selected>제한없음</option>
 <%
-	for (int i = year + 90; i > year; i--){
+	for (int i = year - 13; i > year - 100; i--){
 %>
-											<option value="<%=i %>"><%=i %>년생</option>
+											<option value="<%=i %>"><%=i %>년생 (만 <%=year - i %>세)</option>
 <%
 	}
 %>
@@ -125,12 +133,14 @@
 									</div>
 								</div>
 								<div class="col">
-									<input class="form-check-input" type="checkbox" name="reqGen" id="reqGen" role="switch" value="성별">
-									<label class="form-check-label" for="reqGen">성별</label>
-									<select name="gender" id="gender" class="form-control w-75" disabled>
-										<option value="M">남</option>
-										<option value="F">여</option>
-									</select>
+									<div class="row">
+										<label class="col-3 col-form-label" for="gender">성별</label>
+										<select name="gender" id="gender" class="form-control w-50 col-9">
+											<option value="A" selected>제한없음</option>
+											<option value="M">남</option>
+											<option value="F">여</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -164,28 +174,6 @@
 		let showimage = document.querySelector("#showimage");
 		let inputImage = document.querySelector("#inputImage");
 		let img = document.querySelector("#showimage > img");
-		let reqAge = document.querySelector("#reqAge");
-		let reqGen = document.querySelector("#reqGen");
-		let bs = document.querySelector("#birthStart");
-		let be = document.querySelector("#birthEnd");
-		let gender = document.querySelector("#gender");
-
-		reqAge.addEventListener("change", () => {
-			if (reqAge.checked){
-				bs.disabled = false;
-				be.disabled = false;
-			} else {
-				bs.disabled = true;
-				be.disabled = true;
-			}
-		})
-		reqGen.addEventListener("change", () => {
-			if (reqGen.checked){
-				gender.disabled = false;
-			} else {
-				gender.disabled = true;
-			}
-		})
 
 		function readImage(input) {
 			// 인풋 태그에 파일이 있는 경우
