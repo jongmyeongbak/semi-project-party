@@ -31,33 +31,14 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<style type="text/css">
-
-.box-1 {
-	border: 2px solid #CEE9FF;
-	border-radius: 10px;
-	margin-bottom: 20px;
-}
-
-.p-date {
-	color: gray;
-}
-
-.border-bottom {
-	color: rgb(237, 246, 255);
-}
-
-.tr {
-	padding-bottom: 3px;
-}
-
-</style>
 <title>파티 홈</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/partyhome.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 </head>
 <body>
 <jsp:include page="../../nav.jsp">
@@ -71,64 +52,54 @@
 <%
 	}
 %>
-<!-- 이어서 구현할 부분... -->
+<!-- 로그인이 되어있지 않거나, 유저의 파티 접근 권한이 강퇴, 탈퇴일 경우 파티 리스트로 리디렉트 -->
 <%
 	if (loginId != null && partyAccess != null) {
 		if (partyAccess.getAuthNo() == 8 || partyAccess.getAuthNo() == 9) {
-			
+			response.sendRedirect("../list.jsp?err=deny&job=" + URLEncoder.encode("홈으로 가기", "UTF-8"));
 		}
 %>
 	<div style="margin-bottom: 10px;" class="text-end"> <!-- 글쓰기 버튼 -->
-		<a href="form.jsp?no=<%=partyNo %>" class="btn btn-outline-primary btn-sm">글쓰기</a>
+		<a href="form.jsp?no=<%=partyNo %>" class="btn btn-outline-primary btn-sm" id="insert-btn">글쓰기</a>
 	</div>
-	<div class="row mb-3 ">
 <%
 	}
 %>
 <%
 	for (Board board : boards) {
 %>
-		<div class="col-12 box-1"> <!-- 게시물 박스 -->
- 			<div>
-	 			<table class="table table-borderless">
-		 				<colgroup>
-		 					<col width="85%">
-		 					<col width="10%">
-		 					<col width="5%">
-		 				</colgroup>
-		 			<tbody>
-		 				<tr>
-		 					<td><strong><%=board.getTitle() %></strong></td>
-		 					<td><%=board.getUser().getNickname() %></td>
-		 					<td>
-		 						<div class="dropdown">
-				 				<a class="btn dropdown-toggle "  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-							  	<ul class="dropdown-menu">
-								    <li><a class="dropdown-item" href="#">글 수정</a></li>
-								    <li><a class="dropdown-item" href="#">삭제하기</a></li>
-								    <li><a class="dropdown-item" href="#">신고하기</a></li>
-							 	 </ul>
-								 </div>	
-		 					</td>
-		 				</tr>
-		 				<tr class="border-bottom">
-		 					<td class="p-date"><%=board.getUpdateDate() %></td>
-		 				</tr>
-		 			</tbody>
-	 			</table>
- 			</div>
- 			<div class="mt-3">
- 				<img src="<%=request.getContextPath() %>/resources/board/sample.jpg" alt="첨부파일">
- 				<p><%=board.getContent() %></p>
- 			</div>
- 			<div>
- 				<p>댓글 5</p>
- 			</div>
-		</div> <!-- 게시물 박스 닫힘 -->
+    <div class="card" id="card-outline">
+		<div class="card-body">
+		    <div class="d-flex justify-content-between align-items-center">
+		     	<div>
+			        <h5 class="card-title"><%=board.getTitle() %></h5>
+			        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted"><%=board.getUpdateDate() %></small></p>
+		      	</div>
+		      	<div class="d-flex align-items-center">
+			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>
+			        <div class="dropdown" style="position: relative; top: -5px;">
+		          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+		          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		            		<li><a class="dropdown-item" href="#">수정</a></li>
+		            		<li><a class="dropdown-item" href="#">삭제</a></li>
+		          		</ul>
+		   			</div>
+				</div>
+			</div>
+<% 
+	if (board.getFilename() != null) { %>
+      <img src="/images/board/<%=board.getFilename() %>" class="img-fluid" alt="게시물 이미지">
 <%
 	}
 %>
+		    <p class="card-text"><%=board.getContent() %></p>
+		    <p class="card-text"><small class="text-muted">댓글 <%=board.getCommentCnt() %></small></p>
+		</div>
 	</div>
+<%
+	}
+%>
 </div>
+
 </body>
 </html>
