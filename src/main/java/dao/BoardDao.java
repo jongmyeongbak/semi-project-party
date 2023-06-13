@@ -20,12 +20,13 @@ public class BoardDao {
 		return DaoHelper.selectList("boardDao.getBoardsByPartyNo", rs -> {
 			Board board = new Board();
 			board.setNo(rs.getInt("board_no"));
-			board.setUser(new User(rs.getString("user_id")));
+			board.setUser(new User(rs.getString("user_id"), rs.getString("user_nickname")));
 			board.setParty(new Party(rs.getInt("party_no")));
 			board.setTitle(rs.getString("board_title"));
 			board.setContent(rs.getString("board_content"));
 			board.setCommentCnt(rs.getInt("board_comment_cnt"));
 			board.setDeleted(rs.getString("board_deleted"));
+			board.setUpdateDate(rs.getDate("board_update_date"));
 			board.setFilename(rs.getString("board_filename"));
 			
 			return board;

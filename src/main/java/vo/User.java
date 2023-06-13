@@ -21,6 +21,10 @@ public class User {
 	public User(String id) {
 		this.id = id;
 	}
+	public User(String id, String nickname) {
+		this.id = id;
+		this.nickname = nickname;
+	}
 
 	public String getId() {
 		return id;

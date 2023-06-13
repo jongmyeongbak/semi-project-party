@@ -29,7 +29,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param value="partylist" name="파티리스트"/>
+	<jsp:param value="partylist" name="menu"/>
 </jsp:include>
 <div class="container" >
 <!-- 로그인 유저가 가입한 파티 조회 -->
@@ -43,7 +43,7 @@
 <%
 			for (Party regParty : regParties) {
 %>
-					<a href="home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
+					<a href="board/home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
 						<div class="regparty-item">
 							<img class="regparty-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=regParty.getFilename() %>" alt="">
 							<div>
@@ -103,7 +103,7 @@
 %>
 <!-- 파티 정보 출력 -->
 		            <div class="party-item">
-			          <a href="home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
+			          <a href="board/home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
 			          	<img class="party-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=party.getFilename() %>" alt="썸네일">
 		    	        <div>
 		         	    	<strong><%=party.getName() %></strong>
