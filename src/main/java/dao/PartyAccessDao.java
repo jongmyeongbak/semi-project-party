@@ -12,7 +12,7 @@ public class PartyAccessDao {
 	}
 	
 	public void insertUserPartyAccess(PartyAccess userPartyAccess) {
-		DaoHelper.update("userPartyAccessDao.insertUserPartyAccess",
+		DaoHelper.update("partyAccessDao.insertUserPartyAccess",
 				userPartyAccess.getUser().getId(),
 				userPartyAccess.getParty().getNo(),
 				userPartyAccess.getAuthNo(),
@@ -20,7 +20,7 @@ public class PartyAccessDao {
 	}
 	
 	public int getAuthNoByIdName(String loginId, int no) {
-		return DaoHelper.selectOne("userPartyAccessDao.getAuthNoByIdName", rs -> {
+		return DaoHelper.selectOne("partyAccessDao.getAuthNoByIdName", rs -> {
 			return rs.getInt("auth_no");
 		}, loginId, no);
 	}
