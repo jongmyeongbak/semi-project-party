@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	// 요청 파라미터값 조회
+// 요청 파라미터값 조회
 	String loginId = (String) session.getAttribute("loginId");
 	String password = request.getParameter("password");
 	String nickname = request.getParameter("nickname");
@@ -33,7 +33,7 @@
 	}
 	
 	// 중복된 이메일 여부 체크
-	User savedUserEmail = userDao.getUserByEmail(loginId, email);
+	User savedUserEmail = userDao.getUserByIdAndEmail(loginId, email);
 	/*
 	select
 	from
@@ -41,6 +41,8 @@
 	and user_email = ?
 	*/
 	if (savedUserEmail != null) {
+		response.sendRedirect("modify-form.jsp?err=email");
+		return;
 	}
 	
 	if (password.isBlank()) {
@@ -63,8 +65,4 @@
 	
 	// 재요청URL응답
 	response.sendRedirect("modified.jsp?id=" + loginId);
-	
-	
-	
-	
 %>
