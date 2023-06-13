@@ -12,7 +12,6 @@
 
 	String password = request.getParameter("password");
 	String nickname = request.getParameter("nickname");
-	String gender = request.getParameter("gender");
 	String email = request.getParameter("email");
 	String tel = request.getParameter("tel");
 
@@ -35,7 +34,7 @@
 	}
 	
 	// 중복된 이메일 여부 체크
-	User savedUserEmail = userDao.getUserByMail(loginId, email);
+	User savedUserEmail = userDao.getUserByEmail(loginId, email);
 	/*
 	select
 	from
@@ -56,7 +55,6 @@
 	// 요청파라미터로 전달받은 수정된 고객정보를 user객체에 저장하기
 	user.setPassword(password);
 	user.setNickname(nickname);
-	user.setGender(gender);
 	user.setEmail(email);
 	user.setTel(tel);
 
