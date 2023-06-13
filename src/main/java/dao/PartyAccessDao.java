@@ -1,17 +1,17 @@
 package dao;
 
 import util.DaoHelper;
-import vo.UserPartyAccess;
+import vo.PartyAccess;
 
-public class UserPartyAccessDao {
+public class PartyAccessDao {
 	
-	private static UserPartyAccessDao instance = new UserPartyAccessDao();
-	private UserPartyAccessDao() {}
-	public static UserPartyAccessDao getInstance() {
+	private static PartyAccessDao instance = new PartyAccessDao();
+	private PartyAccessDao() {}
+	public static PartyAccessDao getInstance() {
 		return instance;
 	}
 	
-	public void insertUserPartyAccess(UserPartyAccess userPartyAccess) {
+	public void insertUserPartyAccess(PartyAccess userPartyAccess) {
 		DaoHelper.update("userPartyAccessDao.insertUserPartyAccess",
 				userPartyAccess.getUser().getId(),
 				userPartyAccess.getParty().getNo(),

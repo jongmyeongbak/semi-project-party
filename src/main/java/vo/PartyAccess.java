@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class UserPartyAccess {
+public class PartyAccess {
 
 	private int no;
 	private User user;
@@ -11,7 +11,7 @@ public class UserPartyAccess {
 	private Date createDate;
 	private String description;
 
-	public UserPartyAccess() {
+	public PartyAccess() {
 	}
 	
 	public int getNo() {

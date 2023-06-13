@@ -1,6 +1,6 @@
 <%@page import="dao.PartyReqDao"%>
-<%@page import="dao.UserPartyAccessDao"%>
-<%@page import="vo.UserPartyAccess"%>
+<%@page import="dao.PartyAccessDao"%>
+<%@page import="vo.PartyAccess"%>
 <%@page import="dao.PartyDao"%>
 <%@page import="vo.Party"%>
 <%@page import="java.time.LocalDate"%>
@@ -22,7 +22,7 @@
 		return;
 	}
 	// 해당 파티의 운영자가 아니라면 돌려보낸다.
-	UserPartyAccessDao userPartyAccessDao = UserPartyAccessDao.getInstance();
+	PartyAccessDao userPartyAccessDao = PartyAccessDao.getInstance();
 	// 아이디와 파티번호로 유저의 파티접근권 정보를 가져온다.
 	int authNo = userPartyAccessDao.getAuthNoByIdName(loginId, no);
 	// 해당 파티의 운영자가 아니면 오류메세지와 함께 돌려보낸다.

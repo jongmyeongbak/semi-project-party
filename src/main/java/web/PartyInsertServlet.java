@@ -11,7 +11,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import dao.PartyDao;
 import dao.PartyReqDao;
-import dao.UserPartyAccessDao;
+import dao.PartyAccessDao;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -24,7 +24,7 @@ import jakarta.servlet.http.Part;
 import util.StringUtils;
 import vo.Category;
 import vo.Party;
-import vo.UserPartyAccess;
+import vo.PartyAccess;
 import vo.PartyReq;
 import vo.User;
 
@@ -103,7 +103,7 @@ public class PartyInsertServlet extends HttpServlet {
 		party.setFilename(filename);
 		
 		// 유저 파티접근권 객체 생성
-		UserPartyAccess UserPartyAccess = new UserPartyAccess();
+		PartyAccess UserPartyAccess = new PartyAccess();
 		UserPartyAccess.setAuthNo(6);
 		UserPartyAccess.setParty(new Party(partyNo));
 		UserPartyAccess.setUser(new User(loginId));
@@ -125,7 +125,7 @@ public class PartyInsertServlet extends HttpServlet {
 		
 		// 데이터베이스에 저장
 		PartyReqDao partyReqDao = PartyReqDao.getInstance();
-		UserPartyAccessDao userPartyAccessDao = UserPartyAccessDao.getInstance();
+		PartyAccessDao userPartyAccessDao = PartyAccessDao.getInstance();
 		// 파티 저장
 		partyDao.insertParty(party);			
 		// 유저의 파티 접근권 저장
