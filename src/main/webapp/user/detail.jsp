@@ -4,9 +4,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <%	
-	String id = request.getParameter("id");
 	String loginId = (String) session.getAttribute("loginId");
-	
 	
 	UserDao userDao = UserDao.getInstance();
 	User user = userDao.getUserById(loginId);
@@ -78,7 +76,7 @@
             </tbody>
          </table>
          <div class="text-end">
-            <a href="modify-form.jsp?id=<%=user.getId() %>" class="btn btn-warning btn-sm">수정하기</a>
+            <a href="modify-form.jsp" class="btn btn-warning btn-sm">수정하기</a>
          </div>
       </div>
    </div>
