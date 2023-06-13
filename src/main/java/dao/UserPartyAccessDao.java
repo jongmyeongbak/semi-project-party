@@ -1,7 +1,7 @@
 package dao;
 
 import util.DaoHelper;
-import vo.PartyAccess;
+import vo.UserPartyAccess;
 
 public class UserPartyAccessDao {
 	
@@ -11,11 +11,17 @@ public class UserPartyAccessDao {
 		return instance;
 	}
 	
-	public void insertUserPartyAccess(PartyAccess partyAccess) {
+	public void insertUserPartyAccess(UserPartyAccess userPartyAccess) {
 		DaoHelper.update("userPartyAccessDao.insertUserPartyAccess",
-				partyAccess.getUser().getId(),
-				partyAccess.getParty().getNo(),
-				partyAccess.getAuthNo(),
-				partyAccess.getDescription());
+				userPartyAccess.getUser().getId(),
+				userPartyAccess.getParty().getNo(),
+				userPartyAccess.getAuthNo(),
+				userPartyAccess.getDescription());
+	}
+	
+	public int getAuthNoByIdName(String loginId, int no) {
+		return DaoHelper.selectOne("userPartyAccessDao.getAuthNoByIdName", rs -> {
+			return rs.getInt("auth_no");
+		}, loginId, no);
 	}
 }
