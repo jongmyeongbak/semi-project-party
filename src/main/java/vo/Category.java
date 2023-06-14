@@ -10,6 +10,10 @@ public class Category {
 	public Category(int no) {
 		this.no = no;
 	}
+	public Category(int no, String name) {
+		this.no = no;
+		this.name = name;
+	}
 
 	public int getNo() {
 		return no;
