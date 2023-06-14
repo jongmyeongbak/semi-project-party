@@ -15,6 +15,15 @@ public class BoardDao {
 		return instance;
 	}
 	
+	// 파티 게시판 생성
+	public void insertBoard (Board board) {
+		DaoHelper.update("boardDao.insertBoard", board.getUser().getId(),
+												 board.getParty().getNo(),
+												 board.getTitle(),
+												 board.getContent(),
+												 board.getFilename());
+	}
+	
 	// 파티 번호로 파티에 생성된 게시판들을 조회
 	public List<Board> getBoardsByPartyNo(int no) {
 		return DaoHelper.selectList("boardDao.getBoardsByPartyNo", rs -> {
