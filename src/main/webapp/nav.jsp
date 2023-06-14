@@ -95,7 +95,7 @@
 	        	<h1 class="fs-1 text-center"><span id="home" class="align-middle" style="cursor: pointer;">P</span></h1>
                 <li class="nav-item ms-2">
                     <div class="form mt-3">
-				    	<form method="get" action="/party/list.jsp" name="searchParty">
+				    	<form method="get" action="/party/search.jsp" name="searchParty">
 				    		<div class="inputbox">
 					        	<input type="text" placeholder="파티검색" name="value">
 					        	<div class="search" id="search">
