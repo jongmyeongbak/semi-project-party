@@ -19,7 +19,7 @@ public class PartyAccessDao {
 				userPartyAccess.getDescription());
 	}
 	
-	public int getAuthNoByIdName(String loginId, int no) {
+	public Integer getAuthNoByIdName(String loginId, int no) {
 		return DaoHelper.selectOne("partyAccessDao.getAuthNoByIdName", rs -> {
 			return rs.getInt("auth_no");
 		}, loginId, no);
