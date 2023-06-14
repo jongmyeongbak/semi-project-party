@@ -38,7 +38,7 @@
 	
 	// 홈화면으로 리디렉트
 	String redirect = request.getParameter("redirect");
-	if (!redirect.isEmpty()) {
+	if (redirect !=null) {
 		response.sendRedirect(redirect);
 		return;
 	}
