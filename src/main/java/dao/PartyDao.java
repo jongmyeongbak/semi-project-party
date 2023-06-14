@@ -40,21 +40,38 @@ public class PartyDao {
 	}
 	
 	public Party getPartyByNo(int no) {
-		return DaoHelper.selectOne("partyDao.getPartyByNo", rs -> {
+		return DaoHelper.selectOne("partyDao.getPartyWithCategoryByNo", rs -> {
 			Party party = new Party();
 			party.setNo(rs.getInt("party_no"));
 			party.setName(rs.getString("party_name"));
 			party.setManager(new User(rs.getString("manager_id")));
 			party.setCurCnt(rs.getInt("party_cur_cnt"));
 			party.setQuota(rs.getInt("party_quota"));
+			party.setStatus(rs.getString("party_status"));
 			party.setDescription(rs.getString("party_description"));
 			party.setUpdateDate(rs.getDate("party_update_date"));
 			party.setCreateDate(rs.getDate("party_create_date"));
 			party.setFilename(rs.getString("party_filename"));
-			Category category = new Category();
-			category.setName(rs.getString("cat_name"));
-			category.setNo(rs.getInt("cat_no"));
-			party.setCategory(category);
+			party.setCategory(new Category(rs.getInt("cat_no")));
+			
+			return party;
+		}, no);
+	}
+	
+	public Party getPartyWithCategoryByNo(int no) {
+		return DaoHelper.selectOne("partyDao.getPartyWithCategoryByNo", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setManager(new User(rs.getString("manager_id")));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			party.setQuota(rs.getInt("party_quota"));
+			party.setStatus(rs.getString("party_status"));
+			party.setDescription(rs.getString("party_description"));
+			party.setUpdateDate(rs.getDate("party_update_date"));
+			party.setCreateDate(rs.getDate("party_create_date"));
+			party.setFilename(rs.getString("party_filename"));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
 			
 			return party;
 		}, no);
