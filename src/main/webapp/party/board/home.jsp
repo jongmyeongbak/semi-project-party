@@ -1,4 +1,4 @@
-<%@page import="dao.UserPartyAccessDao"%>
+<%@page import="dao.PartyAccessDao"%>
 <%@page import="vo.PartyAccess"%>
 <%@page import="vo.Board"%>
 <%@page import="java.util.List"%>
@@ -17,15 +17,14 @@
 	String err = request.getParameter("err");
 	String job = request.getParameter("job");
 	
-	UserPartyAccessDao userPartyAccessDao = UserPartyAccessDao.getInstance();	
+	PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 	BoardDao boardDao = BoardDao.getInstance();
 	
 	// 글쓰기 버튼 노출을 위해 해당 파티에 가입된 사용자인지 확인
-	PartyAccess partyAccess = null;
+	Integer authNo = null;
 	if (loginId != null) {
-		partyAccess = userPartyAccessDao.getUserPartyAccessByPartyNoUserId(partyNo, loginId);
+		authNo =  partyAccessDao.getAuthNoByIdName(loginId, partyNo);
 	}
-	
 	List<Board> boards = boardDao.getBoardsByPartyNo(partyNo);
 %>
 <!doctype html>
@@ -73,16 +72,15 @@
 %>
 <!-- 이어서 구현할 부분... -->
 <%
-	if (loginId != null && partyAccess != null) {
-		if (partyAccess.getAuthNo() == 8 || partyAccess.getAuthNo() == 9) {
-			
-		}
+	if (loginId != null && authNo != null) {
+		if (authNo < 8) {
 %>
 	<div style="margin-bottom: 10px;" class="text-end"> <!-- 글쓰기 버튼 -->
 		<a href="form.jsp?no=<%=partyNo %>" class="btn btn-outline-primary btn-sm">글쓰기</a>
 	</div>
 	<div class="row mb-3 ">
 <%
+		}
 	}
 %>
 <%
