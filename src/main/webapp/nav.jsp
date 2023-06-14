@@ -1,7 +1,9 @@
+<%@page import="util.StringUtils"%>
 <%@page import="vo.User"%>
 <%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!-- 
+	// 메인(menu)
 	홈 : home
 	공지사항 : notice
 	회원가입 : register
@@ -9,8 +11,9 @@
 	내정보보기 : userInfo
 	파티리스트 : partylist
 	
-	// 파티 
+	// 파티(pmenu)
 	게시판 : home
+	공지사항 : notice
 	방명록 : gbook
 	앨범 : album
 	투표 : vote
@@ -36,9 +39,16 @@
 	.form {
     	position: relative;
    	}
+	.inputbox {
+		padding-left: 10px;
+		border: 1px solid #333;
+		border-radius: 20px;
+		background-color: #fff;
+	}
 	input {
 		border-radius: 20px;
-		border: 1px solid #333;
+		border: none;
+		outline: none;
 	}
 	.search {
 	    display: inline-block;
@@ -52,6 +62,7 @@
 		background-color: rgb(194, 225, 255);
 		height: 50px;
         margin-top: 90px;
+        z-index: 0;
 	}
 	.nav2 > li {
 	    margin-left: 30px;
@@ -84,11 +95,13 @@
 	        	<h1 class="fs-1 text-center"><span id="home" class="align-middle" style="cursor: pointer;">P</span></h1>
                 <li class="nav-item ms-2">
                     <div class="form mt-3">
-				    	<form method="get" action="/party/list.jsp" name="searchParty">
-				        	<input type="text" placeholder="  파티검색" name="value">
-				        	<div class="search" id="search">
-					    		<i class="fa-solid fa-magnifying-glass"></i>
-				        	</div>
+				    	<form method="get" action="/party/search.jsp" name="searchParty">
+				    		<div class="inputbox">
+					        	<input type="text" placeholder="파티검색" name="value">
+					        	<div class="search" id="search">
+						    		<i class="fa-solid fa-magnifying-glass"></i>
+					        	</div>
+				    		</div>
 			   			</form>
 		        	</div>
 	       	 	</li>
@@ -143,27 +156,31 @@
 </div>
 <% 
 	if (pmenu != null) {
+		int no = StringUtils.stringToInt(request.getParameter("no"));
 %>
 <nav class="navbar fixed-top navbar-expand-sm">
     <div class="container justify-content-center">
         <ul class="navbar-nav nav2">
             <li class="nav-item">
-                <a href="/home.jsp" class="nav-link <%= "home".equals(menu) ? "active fw-bold" : "" %>">게시판</a>
+                <a href="/party/home.jsp?no=<%=no %>" class="nav-link <%= "home".equals(pmenu) ? "active fw-bold" : "" %>">게시판</a>
             </li>
             <li class="nav-item">
-                <a href="/notice/list.jsp" class="nav-link <%= "gbook".equals(menu) ? "active fw-bold" : "" %>">방명록</a>
+                <a href="/party/notice.jsp?no=<%=no %>" class="nav-link <%= "notice".equals(pmenu) ? "active fw-bold" : "" %>">공지사항</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "album".equals(menu) ? "active fw-bold" : "" %>">앨범</a>
+                <a href="/party/gbook.jsp?no=<%=no %>" class="nav-link <%= "gbook".equals(pmenu) ? "active fw-bold" : "" %>">방명록</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "vote".equals(menu) ? "active fw-bold" : "" %>">투표</a>
+                <a href="#" class="nav-link <%= "album".equals(pmenu) ? "active fw-bold" : "" %>">앨범</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "calandar".equals(menu) ? "active fw-bold" : "" %>">일정</a>
+                <a href="#" class="nav-link <%= "vote".equals(pmenu) ? "active fw-bold" : "" %>">투표</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "member".equals(menu) ? "active fw-bold" : "" %>">멤버</a>
+                <a href="#" class="nav-link <%= "calandar".equals(pmenu) ? "active fw-bold" : "" %>">일정</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link <%= "member".equals(pmenu) ? "active fw-bold" : "" %>">멤버</a>
             </li>
         </ul>
     </div>

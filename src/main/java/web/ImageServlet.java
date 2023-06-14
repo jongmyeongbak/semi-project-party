@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/images/*")
 public class ImageServlet extends HttpServlet {
 
-	private static final String SAVE_DIR = "C:/workspace/party/images";
+	private static final String SAVE_DIR = System.getenv("PROJECT_IMAGE");
 
 	// POST, PUT, DELETE 등의 요청에 대해서는 405 Method Not Allowed 반환
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
