@@ -3,6 +3,7 @@
 <%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!-- 
+	// 메인(menu)
 	홈 : home
 	공지사항 : notice
 	회원가입 : register
@@ -10,8 +11,9 @@
 	내정보보기 : userInfo
 	파티리스트 : partylist
 	
-	// 파티 
+	// 파티(pmenu)
 	게시판 : home
+	공지사항 : notice
 	방명록 : gbook
 	앨범 : album
 	투표 : vote
@@ -154,7 +156,10 @@
                 <a href="/party/home.jsp?no=<%=no %>" class="nav-link <%= "home".equals(pmenu) ? "active fw-bold" : "" %>">게시판</a>
             </li>
             <li class="nav-item">
-                <a href="/party/gbook.jsp" class="nav-link <%= "gbook".equals(pmenu) ? "active fw-bold" : "" %>">방명록</a>
+                <a href="/party/home.jsp?no=<%=no %>" class="nav-link <%= "notice".equals(pmenu) ? "active fw-bold" : "" %>">게시판</a>
+            </li>
+            <li class="nav-item">
+                <a href="/party/gbook.jsp?no=<%=no %>" class="nav-link <%= "gbook".equals(pmenu) ? "active fw-bold" : "" %>">방명록</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link <%= "album".equals(pmenu) ? "active fw-bold" : "" %>">앨범</a>
