@@ -178,13 +178,13 @@ List<Party> partyList = partyListDao.getAllParties();
         }
 %>
   <div class="box">
-    <div class="image" onclick="window.location.href='party/list.jsp';">
-     	<img src="<%=request.getContextPath() %>/resources/thumbnail/<%= party.getFilename() %>" alt="">
+    <div class="image" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
+     	<img src="<%=request.getContextPath() %>/resources/thumbnail/<%= party.getFilename() %>" alt=" ">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/list.jsp';">
+    <div class="text" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
       <ul>
-        <li><%=party.getName()%></li>
+        <li ><%=party.getName()%></li>
         <li>파티인원 : <%=party.getCurCnt()%>명</li>
       </ul>
     </div>
