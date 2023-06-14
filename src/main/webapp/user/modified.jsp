@@ -1,7 +1,13 @@
+<%@page import="vo.User"%>
 <%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
+	String loginId = (String) session.getAttribute("loginId");
+	String name = request.getParameter("name");
 	
+	UserDao userDao = UserDao.getInstance();
+
+	User user = userDao.getUserById(loginId);
 %>
 <!doctype html>
 <html lang="ko">
@@ -23,13 +29,13 @@
 <div class="container my-3">
 	<div class="row mb-3">
 		<div class="col-12">
-			<h1 class="border bg-light fs-4 p-2">정보수정</h1>
+			<h1 class="border bg-light fs-4 p-2">정보수정 페이지</h1>
 				
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-12">
-			<strong>정보수정 완료</strong><p>정보수정이 완료되었습니다.</p>
+			<strong><%=user.getName() %>님!</strong><p>정보수정이 완료되었습니다.</p>
 		</div>
 	</div>
 </div>

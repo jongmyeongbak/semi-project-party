@@ -1,3 +1,4 @@
+<%@page import="util.StringUtils"%>
 <%@page import="vo.User"%>
 <%@page import="dao.UserDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
@@ -52,6 +53,7 @@
 		background-color: rgb(194, 225, 255);
 		height: 50px;
         margin-top: 90px;
+        z-index: 0;
 	}
 	.nav2 > li {
 	    margin-left: 30px;
@@ -143,27 +145,28 @@
 </div>
 <% 
 	if (pmenu != null) {
+		int no = StringUtils.stringToInt(request.getParameter("no"));
 %>
 <nav class="navbar fixed-top navbar-expand-sm">
     <div class="container justify-content-center">
         <ul class="navbar-nav nav2">
             <li class="nav-item">
-                <a href="/home.jsp" class="nav-link <%= "home".equals(menu) ? "active fw-bold" : "" %>">게시판</a>
+                <a href="/party/home.jsp?no=<%=no %>" class="nav-link <%= "home".equals(pmenu) ? "active fw-bold" : "" %>">게시판</a>
             </li>
             <li class="nav-item">
-                <a href="/notice/list.jsp" class="nav-link <%= "gbook".equals(menu) ? "active fw-bold" : "" %>">방명록</a>
+                <a href="/party/gbook.jsp" class="nav-link <%= "gbook".equals(pmenu) ? "active fw-bold" : "" %>">방명록</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "album".equals(menu) ? "active fw-bold" : "" %>">앨범</a>
+                <a href="#" class="nav-link <%= "album".equals(pmenu) ? "active fw-bold" : "" %>">앨범</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "vote".equals(menu) ? "active fw-bold" : "" %>">투표</a>
+                <a href="#" class="nav-link <%= "vote".equals(pmenu) ? "active fw-bold" : "" %>">투표</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "calandar".equals(menu) ? "active fw-bold" : "" %>">일정</a>
+                <a href="#" class="nav-link <%= "calandar".equals(pmenu) ? "active fw-bold" : "" %>">일정</a>
             </li>
             <li class="nav-item">
-                <a href="/party/list.jsp" class="nav-link <%= "member".equals(menu) ? "active fw-bold" : "" %>">멤버</a>
+                <a href="#" class="nav-link <%= "member".equals(pmenu) ? "active fw-bold" : "" %>">멤버</a>
             </li>
         </ul>
     </div>
