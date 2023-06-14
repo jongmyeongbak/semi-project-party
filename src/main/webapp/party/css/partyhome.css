@@ -1,0 +1,16 @@
+@charset "UTF-8";
+#card-outline {
+	border: 3px solid #CEE9FF;
+	margin-bottom: 20px;
+}
+
+#insert-btn {
+    color: #6DA1FF;
+    border-color: #6DA1FF;
+}
+
+#insert-btn:hover {
+    color: #ffffff;
+    border-color: #6DA1FF;
+    background-color: #6DA1FF;
+}

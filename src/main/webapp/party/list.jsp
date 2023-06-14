@@ -7,7 +7,8 @@
 <%
 	// 로그인 회원아이디 세션 조회
 	String loginId = (String) session.getAttribute("loginId");
-
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
 	PartyListDao partyListDao = PartyListDao.getInstance();
 
 	List<Category> categories = partyListDao.getCategories();
@@ -32,6 +33,15 @@
 	<jsp:param value="partylist" name="menu"/>
 </jsp:include>
 <div class="container" >
+<%
+	if ("req".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong><%=job %></strong> 에 대한 요청은 거부되었습니다.
+	</div>
+<%
+	}
+%>
 <!-- 로그인 유저가 가입한 파티 조회 -->
 <%
 	if (loginId != null) {
