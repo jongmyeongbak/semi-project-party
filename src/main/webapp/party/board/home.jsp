@@ -66,7 +66,7 @@
 	}
 %>
 
-<!-- 로그인이 되어있고 파티에 가입이 되었으면서 강퇴, 또는 탈퇴 상태가 아닐 때 글쓰기 버튼 노출 -->
+<!-- 로그인이 되어있고 파티에 가입이 되어있으면서 유저의 접근권이 강퇴, 또는 탈퇴 상태가 아닐 때 글쓰기 버튼 노출 -->
 
 <%
 	if (loginId != null && authNo != null) {
@@ -93,6 +93,7 @@
 			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>
 			    	
 <!-- 자신이 쓴 게시물인지 아닌지에 따라 드롭다운 메뉴가 다름 -->
+<!-- 본인이 작성한 게시물 -->
 <%
 	if (loginId != null) {
 		if (loginId.equals(board.getUser().getId())) {
@@ -100,13 +101,14 @@
 			        <div class="dropdown" style="position: relative; top: -5px;">
 		          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 		          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		            		<li><a class="dropdown-item" href="#">수정</a></li>
-		            		<li><a class="dropdown-item" href="#">삭제</a></li>
+		            		<li><a class="dropdown-item" href="modify-form.jsp?boardNo=<%=board.getNo() %>">수정</a></li>
+		            		<li><a class="dropdown-item" href="delete.jsp?boardNo=<%=board.getNo() %>">삭제</a></li>
 		          		</ul>
 		   			</div>
 <%
 		} else {
 %>
+<!-- 남이 작성한 게시물 -->
 				<div class="dropdown" style="position: relative; top: -5px;">
 		          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 		          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">

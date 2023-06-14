@@ -63,8 +63,8 @@
 			for (Party regParty : regParties) {
 %>
 					<a href="board/home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
-						<div class="regparty-item">
-							<img class="regparty-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=regParty.getFilename() %>" alt="">
+						<div class="regparty-item" >
+							<img class="regparty-item img" src="/resources/images/thumbnail/<%=regParty.getFilename() %>" alt="">
 							<div>
 								<strong><%=regParty.getName() %></strong>
 								<p><%=regParty.getCurCnt() %>명</p>
@@ -123,13 +123,13 @@
 <!-- 파티 정보 출력 -->
 		            <div class="party-item">
 			          <a href="board/home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
-			          	<img class="party-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=party.getFilename() %>" alt="썸네일">
+			          	<img class="party-item img" src="/resources/images/thumbnail/<%=party.getFilename() %>" alt="썸네일">
 		    	        <div>
 		         	    	<strong><%=party.getName() %></strong>
 		            	    <p class='text-truncate'><%=party.getDescription() %></p>
 		              	</div>
 			          </a>
-			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-light"><%=party.getCategory().getName() %> 파티 더보기</a>
+			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-light btn-sm"><%=party.getCategory().getName() %> 파티 더보기</a>
 		            </div>
 
 <% 

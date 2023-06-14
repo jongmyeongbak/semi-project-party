@@ -67,10 +67,12 @@
     border-radius: 10px;
 }
 
+
+
 /* 생성된 파티 아이템 width는 컨테이너안에서 아이템에 적용되는 비율
    overflow는 요소 밖으로 넘치는 데이터를 숨김 */
 .party-item {
-	width: 98%;
+	width: 100%;
 	float: left;
 	overflow: hidden;
 	margin: 2px;
@@ -83,6 +85,7 @@
 	width: 100px;
 	height: 100px;
 	margin-right: 15px;
+	object-fit: contain;
 }
 
 /* h5태그 css */
