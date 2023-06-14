@@ -25,7 +25,7 @@ public class PartyListDao {
 			party.setDescription(rs.getString("party_description"));
 			party.setFilename(rs.getString("party_filename"));
 			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
-			
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
 			return party;
 		});
 	}
@@ -52,7 +52,8 @@ public class PartyListDao {
 			party.setName(rs.getString("party_name"));
 			party.setCurCnt(rs.getInt("party_cur_cnt"));
 			party.setFilename(rs.getString("party_filename"));
-			
+			party.setQuota(rs.getInt("party_quota"));
+			party.setDescription(rs.getString("party_description"));
 			return party;
 		}, loginId);
 	}
