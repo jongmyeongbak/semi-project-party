@@ -19,9 +19,9 @@ public class PartyAccessDao {
 				userPartyAccess.getDescription());
 	}
 	
-	public Integer getAuthNoByIdName(String loginId, int no) {
-		return DaoHelper.selectOne("partyAccessDao.getAuthNoByIdName", rs -> {
+	public Integer getAuthNoByPartyNoAndUserId(int partyNo, String userId) {
+		return DaoHelper.selectOne("partyAccessDao.getAuthNoByPartyNoAndUserId", rs -> {
 			return rs.getInt("auth_no");
-		}, loginId, no);
+		}, partyNo, userId);
 	}
 }

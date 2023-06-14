@@ -49,6 +49,14 @@
 }
 %>
    			<form class="border bg-light p-3" method="post" action="login.jsp">
+	   			<%
+	   			String redirect = request.getParameter("redirect");
+	   			if (redirect != null) {
+	   			%>
+   				<input type="hidden" name="redirect" value=<%=redirect %> />
+   				<%
+	   			}
+   				%>
    				<div class="form-group mb-2 w-75">
    					<label class="form-label">아이디</label>
    					<input type="text" class="form-control" name="id" required />

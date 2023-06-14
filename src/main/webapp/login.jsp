@@ -37,6 +37,11 @@
 	session.setAttribute("auth", userAuthDao.getAuthById(id));
 	
 	// 홈화면으로 리디렉트
+	String redirect = request.getParameter("redirect");
+	if (redirect !=null) {
+		response.sendRedirect(redirect);
+		return;
+	}
 	response.sendRedirect("home.jsp");
 	
 %>

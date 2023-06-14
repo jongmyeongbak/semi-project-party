@@ -24,7 +24,7 @@
 	// 해당 파티의 운영자가 아니라면 돌려보낸다.
 	PartyAccessDao userPartyAccessDao = PartyAccessDao.getInstance();
 	// 아이디와 파티번호로 유저의 파티접근권 정보를 가져온다.
-	Integer authNo = userPartyAccessDao.getAuthNoByIdName(loginId, no);
+	Integer authNo = userPartyAccessDao.getAuthNoByPartyNoAndUserId(no, loginId);
 	// 해당 파티의 운영자가 아니면 오류메세지와 함께 돌려보낸다.
 	if (authNo == null || authNo != 6) {
 		response.sendRedirect("home.jsp?err=req&job=" + URLEncoder.encode("파티 수정", "utf-8"));
