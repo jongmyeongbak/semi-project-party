@@ -151,7 +151,7 @@
 				<div class="col-6">
 					<p>썸네일 예시</p>
 					<div class="col-6" style="margin:auto;" id="showimage">
-						<img src="<%=request.getContextPath() %>/resources/thumbnail/<%=savedParty.getFilename() %>" alt="샘플사진">
+						<img src="<%=request.getContextPath() %>/images/thumbnail/<%=savedParty.getFilename() %>" alt="파티대표사진">
 					</div>	
 				</div>
 				<div class="text-end">
