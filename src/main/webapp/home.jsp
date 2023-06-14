@@ -1,3 +1,6 @@
+<%@page import="vo.Category"%>
+<%@page import="dao.PartyListDao"%>
+<%@page import="vo.Party"%>
 <%@page import="vo.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.AdminNoticeDao"%>
@@ -5,98 +8,24 @@
 <%
 //samllnotice 로직
 final int first = 1;
-final int last = 3;
+final int last = 5;
 AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
 List<Board> adminNoticeList = adminNoticeDao.getNotices("N", first, last);
 //로그인 로직
 String loginId = (String) session.getAttribute("loginId");
+//smallparty 로직
+PartyListDao partyListDao = PartyListDao.getInstance();
+List<Category> categoryList = partyListDao.getCategories();
+//로그인 하면 보여지는 내 파티가입리스트에 사용됨
+List<Party> smallPartyList = partyListDao.getUserRegPartiesByUserId(loginId);
+//모든 파티에 대한 정보를 가져오는데 사용됨
+List<Party> partyList = partyListDao.getAllParties();
 %>
 <!doctype html>
 <html lang="ko">
 <head>
 <title>파티홈입니다.</title>
-<style >
-	
-	div.smallnotice {
-  		position: relative;
-  		top: 50px;
- 		left: 160px;
-  		padding: 10px; 
-	}
-	
-	div.smallpartylist{
-		position: relative;
-		padding: 10px;
-		top: 110px;
-		left: 130px;
-	}
-	div.text-end{
-		position: relative;
-		margin-top: 20px;
-	}
-	thead {
-		font-size : 15px;
-		text-align: center;
-	}
-	tbody {
-		font-size : 15px;
-		text-align: center;
-	}
-	div.box-container {
- 		display: flex;
-  		flex-wrap: wrap;
- 		margin-top: 50px;
- 		justify-content: center;
-	}
-	
-	div.background {
-		background-color: rgb(237, 246, 255);
-		border-radius: 70px;
-	}
-
-	div.box {
-  		width: 15%;
-  		height: 300px;
-  		margin: 23px;
- 		border: 1px solid #000;
-  		border-radius: 20px;
-  		overflow: hidden;
-  		display: flex;
-  		flex-direction: column;
-	}
-	
-	div.image {
- 		 width: 100%;
- 		 height: 70%;
- 		 cursor: pointer;
- 		 background-color: #ffffff;
-	}
-
-	div.separator {
-  		border-top: 1px solid #000;
-	}
-
-	div.text {
-  		width: 100%;
-  		height: 45%;
-  		padding: 10px;
-  		cursor: pointer;
-  		list-style-type: none;
-  		margin: 0;
-  		padding-left: 0;
-  		display: flex;
- 		 flex-direction: column;
-  		justify-content: center;
-  		background-color: #ffffff;
-	}
-
-	div.text li {
- 		margin-bottom: 5px;
-  		overflow: hidden;
-  		white-space: nowrap;
-  		text-overflow: ellipsis;
-	}
-</style>
+ <link rel="stylesheet" href="css/home.css"/>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -108,17 +37,18 @@ String loginId = (String) session.getAttribute("loginId");
 	<jsp:param name="menu" value="home"/>
 </jsp:include>
 
+<div class="background1">
 <div class="content">
-	<div class="row">
+	<div class="row"> 
 		<div class="col-6">
-			<div class="smallnotice">
+			<div class="smallnotice" >
 		<p class="fs-3">공지사항</p> <!-- fs-3  p-->
 	</div>		
 
 <div class="smallnotice ">
 	<div class="row mb-3">
 		<div class="col-10">
-			<p class="border bg-light fs-4 p-2">공지사항</p>
+			<div class="border bg-light fs-5 p-2 ">공지사항</div>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -155,15 +85,15 @@ String loginId = (String) session.getAttribute("loginId");
 					</table>
 				</div>
 			</div>
-		<div class="row mb-3">
+		<div class="row mb-2">
 		<div class="col-10">
-			<p class="border bg-light fs-4 p-3" st></p>
-		</div>
-	</div>
-			</div><!-- class="smallnotice" 닫김 -->
+			<p class="border bg-light p-3 "></p>
 		<div class="text-end">
   			<a href="notice/list.jsp" class="btn btn-primary btn-sm ">더보기</a>
 		</div>
+			</div>
+		</div>
+			</div><!-- class="smallnotice" 닫김 -->
 	</div>	<!-- col1-6 닫김 -->	
 		
 <!-- 카테고리, 이름, 현재인원, 설명  로그인한사람들한테 보이는 파티가입 리스트-->
@@ -171,24 +101,22 @@ String loginId = (String) session.getAttribute("loginId");
 	<div class="smallpartylist my-3">
 		<div class="row mb-3">
 			<div class="col-14">
-				<P class="border bg-light fs-4 p-2">파티 가입리스트</P>
+				<div class="border bg-light fs-5 p-2 ">파티 가입리스트</div>
 			</div>
 		</div>
 	<div class="row mb-3">
 		<div class="col-12">
 			<table class="table table-sm">
 				<colgroup>
-					<col width="15%">
-					<col width="55%">
-					<col width="20%">
-					<col width="10%">
+					<col width="40%">
+					<col width="30%">
+					<col width="30%">
 				</colgroup>
 				<thead>
 					<tr>
-						<th>카테고리</th>
 						<th>파티이름</th>
 						<th>현재인원</th>
-						<th>설명</th>
+						<th>파티설명</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -196,26 +124,22 @@ String loginId = (String) session.getAttribute("loginId");
 		if (loginId == null) {
 			
 		}else{
-			
+%>
+<%
+	int partyCount = 0;
+	for(Party party: smallPartyList){
+		if (partyCount >= 5) {
+            break;
+        }
 %>
 <tr>
-		<td>1</td>
-		<td>2</td>
-		<td>3</td>
-		<td>4</td>
+		
+		<td><a href="party/board.jsp?no=<%=party.getNo()%>"><%= party.getName() %></td>
+		<td><%=party.getQuota()  %>/<%=party.getCurCnt()%>(명)</td>
+		<td class ="ellipsis"><%= party.getDescription() %></td>		
 </tr>
-<tr>
-		<td>1</td>
-		<td>2</td>
-		<td>3</td>
-		<td>4</td>
-</tr>
-<tr>
-		<td>1</td>
-		<td>2</td>
-		<td>3</td>
-		<td>4</td>
-</tr>
+<%	partyCount++; 
+} %>
 	</tbody>
 <% 
 		}
@@ -223,7 +147,7 @@ String loginId = (String) session.getAttribute("loginId");
 	</table>
 		</div>
 			<div class="col-14">
-				<p class="border bg-light fs-4 p-3"></p>
+				<p class="border bg-light p-3 "></p>
 			<div class="text-end">
 			<%	if (loginId == null) { %>
   				<a href="" class="btn btn-primary btn-sm" onclick="alert('로그인 해주세요.'); return false;">더보기</a>
@@ -234,76 +158,46 @@ String loginId = (String) session.getAttribute("loginId");
 		
 		</div>
 			</div>
+
 		</div> 
 	</div> <!-- col-6 닫김 -->
+	
 </div>	<!-- row 닫김 -->
+</div>	<!-- content 닫김 -->	
+</div>
+
+<div class="content">
 	
 <!-- 최근 순으로 파티를 추천하는 파트 -->
-<div class="background">	
 <div class="box-container">
+<%
+	int partyCount = 0;
+	for(Party party: partyList){ 
+		if (partyCount >= 5) {
+            break;
+        }
+%>
   <div class="box">
     <div class="image" onclick="window.location.href='party/list.jsp';">
-      <!-- 이미지 태그 또는 배경 이미지 설정 -->
+     	<img src="<%=request.getContextPath() %>/resources/thumbnail/<%= party.getFilename() %>" alt="">
     </div>
     <div class="separator"></div>
     <div class="text" onclick="window.location.href='party/list.jsp';">
       <ul>
-        <li>밴드 이름 1</li>
-        <li>멤버 수 </li>
+        <li><%=party.getName()%></li>
+        <li>파티인원 : <%=party.getCurCnt()%>명</li>
       </ul>
     </div>
   </div>
+      
+ <%	partyCount++;
+ } %>
   
-  <div class="box">
-    <div class="image" onclick="window.location.href='party/list.jsp';">
-    </div>
-    <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/list.jsp';">
-      <ul>
-        <li>밴드 이름 2</li>
-        <li>멤버 수 </li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="box">
-    <div class="image" onclick="window.location.href='party/list.jsp';">
-    </div>
-    <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/list.jsp';">
-      <ul>
-        <li>밴드 이름 3</li>
-        <li>멤버 수 </li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="box">
-    <div class="image" onclick="window.location.href='party/list.jsp';">
-    </div>
-    <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/list.jsp';">
-      <ul>
-        <li>밴드 이름 4</li>
-        <li>멤버 수 </li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="box">
-    <div class="image" onclick="window.location.href='party/list.jsp';">
-    </div>
-    <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/list.jsp';">
-      <ul>
-        <li>밴드 이름 5</li>
-        <li>멤버 수 </li>
-      </ul>
-    </div>
-  </div>
 
 </div> <!-- 박스 컨테이너 닫김 -->
 </div> <!--  background 닫김 -->
-</div>	<!-- content 닫김 -->
+</div><!-- content 닫김 -->
+
+
 </body>
 </html>
