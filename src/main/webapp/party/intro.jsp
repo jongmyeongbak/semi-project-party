@@ -26,20 +26,13 @@ String loginId = (String) session.getAttribute("loginId");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-	function redirectToLogin() {
-		var originalUrl = window.location.href;
-		window.location.href = "로그인 페이지 주소?redirect=" + encodeURIComponent(originalUrl);
-	}
-
 	function toggleTextTruncate(e) {
 		var content = document.getElementById("leadContent");
 
 		if (content.classList.contains("text-truncate")) {
-			// text-truncate 클래스 제거
 			content.classList.remove("text-truncate");
 			e.target.textContent = "...접기";
 		} else {
-			// text-truncate 클래스 추가
 			content.classList.add("text-truncate");
 			e.target.textContent = "...더보기";
 		}
