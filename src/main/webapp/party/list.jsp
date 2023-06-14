@@ -29,7 +29,7 @@
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param value="partylist" name="파티리스트"/>
+	<jsp:param value="partylist" name="menu"/>
 </jsp:include>
 <div class="container" >
 <!-- 로그인 유저가 가입한 파티 조회 -->
