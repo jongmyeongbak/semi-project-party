@@ -60,7 +60,7 @@ public class PartyModifyServlet extends HttpServlet {
 			int length = upfilePart.getSubmittedFileName().length();
 			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
 			// 업로드된 첨부파일을 지정된 폴더에 저장
-			String uploadPath = "C:/workspace/party/images";
+			String uploadPath = System.getenv("PROJECT_IMAGE") + "/thumbnail";
 			InputStream in = upfilePart.getInputStream();
 			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
 			IOUtils.copy(in, out);
