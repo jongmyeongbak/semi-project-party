@@ -37,74 +37,70 @@ List<Party> partyList = partyListDao.getAllParties();
 	<jsp:param name="menu" value="home"/>
 </jsp:include>
 
-<div class="background1">
-<div class="content">
-	<div class="row"> 
-		<div class="col-6">
-			<div class="smallnotice" >
-		<p class="fs-3">공지사항</p> <!-- fs-3  p-->
-	</div>		
-
-<div class="smallnotice ">
-	<div class="row mb-3">
-		<div class="col-10">
-			<div class="border bg-light fs-5 p-2 ">공지사항</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-10">
-			<table class="table table-sm">
-				<colgroup>
-					<col width="10%">
-					<col width="60%">
-					<col width="20%">
-					<col width="10%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th>글쓴이</th>
-						<th>제목</th>
-						<th>등록일</th>
-						<th>조회수</th>
-					</tr>
-				</thead>
-				<tbody>
+<div class="container">
+<h1 class="fs-3">파티(로고)</h1> <!-- fs-3  p-->
+	<div class="container mt-3">
+		<div class="row"> 
+			<div class="col-6">
+					<div class="row mb-3">
+						<div class="col-10">
+							<div class="border bg-light fs-5 p-2 ">공지사항</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-10">
+								<table class="table table-sm">
+									<colgroup>
+										<col width="15%">
+										<col width="45%">
+										<col width="20%">
+										<col width="20%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>글쓴이</th>
+											<th>제목</th>
+											<th>등록일</th>
+											<th>조회수</th>
+										</tr>
+									</thead>
+									<tbody>
 <%
 	for(Board board: adminNoticeList){
 %>
-	<tr>
-		<td><%=board.getUser().getNickname() %></td>
-		<td><a href="notice/detail.jsp?no=<%=board.getNo() %>"><%=board.getTitle() %></a></td>
-		<td><%=board.getCreateDate() %></td>
-		<td><%=board.getReadCnt() %></td>
-	</tr>
+										<tr>
+											<td><%=board.getUser().getNickname() %></td>
+											<td><a href="notice/detail.jsp?no=<%=board.getNo() %>"><%=board.getTitle() %></a></td>
+											<td><%=board.getCreateDate() %></td>
+											<td><%=board.getReadCnt() %></td>
+										</tr>
 <% 
 	}
 %>		
-						</tbody>
-					</table>
-				</div>
-			</div>
-		<div class="row mb-2">
-		<div class="col-10">
-			<p class="border bg-light p-3 "></p>
-		<div class="text-end">
-  			<a href="notice/list.jsp" class="btn btn-primary btn-sm ">더보기</a>
-		</div>
-			</div>
-		</div>
-			</div><!-- class="smallnotice" 닫김 -->
-	</div>	<!-- col1-6 닫김 -->	
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-10">
+								<p class="border bg-light p-3 "></p>
+								<div class="text-end">
+				  					<a href="notice/list.jsp" class="btn btn-primary btn-sm ">더보기</a>
+								</div>
+							</div>
+						</div>
+					
+				</div>	<!-- col1-6 닫김 -->	
 		
 <!-- 카테고리, 이름, 현재인원, 설명  로그인한사람들한테 보이는 파티가입 리스트-->
-<div class="col-4">
-	<div class="smallpartylist my-3">
-		<div class="row mb-3">
-			<div class="col-14">
-				<div class="border bg-light fs-5 p-2 ">파티 가입리스트</div>
-			</div>
-		</div>
-	<div class="row mb-3">
+				<div class="col-6 justify-content-center">
+					
+						<div class="row mb-3">
+							<div class="col-14">
+								<div class="border bg-light fs-5 p-2 ">파티 가입리스트</div>
+							</div>
+						</div>
+						<div class="row mb-3">
 		<div class="col-12">
 			<table class="table table-sm">
 				<colgroup>
@@ -159,7 +155,7 @@ List<Party> partyList = partyListDao.getAllParties();
 		</div>
 			</div>
 
-		</div> 
+		
 	</div> <!-- col-6 닫김 -->
 	
 </div>	<!-- row 닫김 -->
