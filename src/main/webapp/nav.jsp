@@ -39,9 +39,16 @@
 	.form {
     	position: relative;
    	}
+	.inputbox {
+		padding-left: 10px;
+		border: 1px solid #333;
+		border-radius: 20px;
+		background-color: #fff;
+	}
 	input {
 		border-radius: 20px;
-		border: 1px solid #333;
+		border: none;
+		outline: none;
 	}
 	.search {
 	    display: inline-block;
@@ -89,10 +96,12 @@
                 <li class="nav-item ms-2">
                     <div class="form mt-3">
 				    	<form method="get" action="/party/list.jsp" name="searchParty">
-				        	<input type="text" placeholder="  파티검색" name="value">
-				        	<div class="search" id="search">
-					    		<i class="fa-solid fa-magnifying-glass"></i>
-				        	</div>
+				    		<div class="inputbox">
+					        	<input type="text" placeholder="파티검색" name="value">
+					        	<div class="search" id="search">
+						    		<i class="fa-solid fa-magnifying-glass"></i>
+					        	</div>
+				    		</div>
 			   			</form>
 		        	</div>
 	       	 	</li>
