@@ -17,6 +17,47 @@ String partyFileUrl = (party.getFilename() == null)
 String loginId = (String) session.getAttribute("loginId");
 %>
 <script>
+	function redirectToLogin() {
+		let originalUrl = window.location.href;
+		window.location.href = "../login-form.jsp?redirect=" + encodeURIComponent(originalUrl);
+	}
+	
+	function joinParty(no) {
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				let data = xhr.responseText;
+				switch (data) {
+					case 'login':
+						alert("로그인이 필요합니다.");
+						redirectToLogin();
+						break;
+					case 'join':
+						alert("가입을 환영합니다.");
+						location.reload();
+						break;
+					case 'rejoin':
+						alert("재가입을 환영합니다.");
+						location.reload();
+						break;
+					case 'ban':
+						alert("이 파티에 가입할 수 없습니다.");
+						location.reload(true);
+						break;
+					case 'already':
+						alert("이미 가입되어 있습니다.");
+						location.reload(true);
+						break;
+					default:
+						alert(data);
+						break;
+				}
+			}
+		}
+		xhr.open("Get", "join.jsp?no=" + no, false);
+		xhr.send(null);
+	}
+	
 	function toggleTextTruncate(e) {
 		var content = document.getElementById("leadContent");
 
@@ -38,19 +79,18 @@ String loginId = (String) session.getAttribute("loginId");
 			<h2 class="fs-2 fw-bolder"><%=party.getName() %>
 			<%
 			if (loginId == null) {
-				String targetPath = URLEncoder.encode("party/join.jsp?no=", "utf-8");
 			%>
-				<a href="../login-form.jsp?redirect=<%= targetPath %><%=no %>" class="btn btn-success btn-lg ms-3 mb-2">가입</a>
+				<button class="btn btn-success btn-lg ms-3 mb-2" onclick="confirm('로그인이 필요합니다.') && redirectToLogin()">가입</button>
 			<%
 			} else {
 				Integer partyAuth = PartyAccessDao.getInstance().getAuthNoByPartyNoAndUserId(no, loginId);
-				if (partyAuth == null) {
+				if (partyAuth == null || partyAuth == 8) {
 			%>
-				<a href="join.jsp?no=<%=no %>" class="btn btn-success btn-lg ms-3 mb-2">가입</a>
+				<button type="button" class="btn btn-success btn-lg ms-3 mb-2" onclick="confirm('가입하시겠습니까?') && joinParty(<%=no %>)">가입</button>
 			<%
 				} else if (partyAuth == 6) {
 			%>
-				<a href="modify-form.jsp?no=<%=no %>" class="btn btn-success ms-3 mb-2">파티설정</a>
+				<a href="modify-form.jsp?no=<%=no %>" class="btn btn-success ms-3 mb-2" onclick="return confirm('이동하시겠습니까?')">파티설정</a>
 			<%
 				}
 			}
