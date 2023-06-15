@@ -38,24 +38,15 @@
 	if ("req".equals(err)) {
 %>
 	<div class="alert alert-danger">
-		<strong><%=job %></strong> 에 대한 요청은 거부되었습니다.
+		<strong>[<%=job %>]</strong> 에 대한 요청은 거부되었습니다.
 	</div>
-<%
-	}
-%>
-<!-- 로그인 유저가 가입한 파티 조회 -->
-<%
-	if ("deny".equals(err)) {
-%>
-		<div class="alert alert-danger">
-		<strong><%=job %></strong>에 대한 요청은 거부되었습니다.
-		</div>
 <%
 	}
 
 	if (loginId != null) {
 		if (!regParties.isEmpty()) {
 %>
+<!-- 로그인 유저가 가입한 파티 조회 -->
 <div>
 	<div><h5>나의 파티</h5></div>
 		<div class="regparty-container">

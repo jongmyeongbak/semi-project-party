@@ -15,8 +15,35 @@ public class BoardDao {
 		return instance;
 	}
 	
+	// 게시판 번호로 게시판 업데이트
+	public void updateBoard(Board board) {
+		DaoHelper.update("boardDao.updateBoard", board.getTitle(),
+												 board.getContent(),
+											     board.getDeleted(),
+											     board.getFilename(),
+											     board.getNo());
+	}
+	// 게시판 번호로 게시판 조회
+	public Board getBoardByBoardNo(int boardNo) {
+		return DaoHelper.selectOne("boardDao.getBoardByBoardNo", rs -> {
+			Board board = new Board();
+			board.setNo(rs.getInt("board_no"));
+			board.setUser(new User(rs.getString("user_id")));
+			board.setParty(new Party(rs.getInt("party_no")));
+			board.setTitle(rs.getString("board_title"));
+			board.setContent(rs.getString("board_content"));
+			board.setCommentCnt(rs.getInt("board_comment_cnt"));
+			board.setDeleted(rs.getString("board_deleted"));
+			board.setUpdateDate(rs.getDate("board_update_date"));
+			board.setCreateDate(rs.getDate("board_create_date"));
+			board.setFilename(rs.getString("board_filename"));
+			
+			return board;
+		}, boardNo);
+	}
+	
 	// 파티 게시판 생성
-	public void insertBoard (Board board) {
+	public void insertBoard(Board board) {
 		DaoHelper.update("boardDao.insertBoard", board.getUser().getId(),
 												 board.getParty().getNo(),
 												 board.getTitle(),
@@ -35,7 +62,7 @@ public class BoardDao {
 			board.setContent(rs.getString("board_content"));
 			board.setCommentCnt(rs.getInt("board_comment_cnt"));
 			board.setDeleted(rs.getString("board_deleted"));
-			board.setUpdateDate(rs.getDate("board_update_date"));
+			board.setCreateDate(rs.getDate("board_create_date"));
 			board.setFilename(rs.getString("board_filename"));
 			
 			return board;

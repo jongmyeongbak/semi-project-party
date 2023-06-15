@@ -31,10 +31,10 @@
 		authNo =  partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 	}
 	
-	// 존재하는 파티인지 확인, 존재하지 않는 파티라면 파티리스트로 리디렉트
+	// 존재하는 파티가 아니거나 유저의 파티 접근권 상태가 탈퇴, 강퇴인 경우 리디렉트
 	PartyDao partyDao = PartyDao.getInstance();
 	Party party = partyDao.getPartyByNo(partyNo);
-	if (party == null) {
+	if (party == null || authNo >= 8) {
 		response.sendRedirect("../list.jsp?err=req&job=" + URLEncoder.encode("파티 홈으로 가기", "UTF-8"));
 	}
 	
@@ -60,14 +60,12 @@
 	if ("req".equals(err)) {
 %>
 	<div class="alert alert-danger">
-		<strong><%=job %></strong> 에 대한 요청은 거부되었습니다.
+		<strong>[<%=job %>]</strong> 에 대한 요청은 거부되었습니다.
 	</div>
 <%
 	}
 %>
-
 <!-- 로그인이 되어있고 파티에 가입이 되어있으면서 유저의 접근권이 강퇴, 또는 탈퇴 상태가 아닐 때 글쓰기 버튼 노출 -->
-
 <%
 	if (loginId != null && authNo != null) {
 		if (authNo < 8) {
@@ -87,7 +85,7 @@
 		    <div class="d-flex justify-content-between align-items-center">
 		     	<div>
 			        <h5 class="card-title"><%=board.getTitle() %></h5>
-			        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted"><%=board.getUpdateDate() %></small></p>
+			        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted"><%=board.getCreateDate() %></small></p>
 		      	</div>
 		      	<div class="d-flex align-items-center">
 			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>

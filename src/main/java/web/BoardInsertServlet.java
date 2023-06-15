@@ -45,7 +45,7 @@ public class BoardInsertServlet extends HttpServlet {
 		}
 		
 		// 유효성 검사
-		// 게시글 작성을 시도하는 유저가 
+		// 게시글 작성을 시도하는 유저가 파티 접근권을 가지고 있는지, 강퇴나 탈퇴 상태인지 확인
 		PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 		Integer authNo = partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 		

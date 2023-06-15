@@ -53,7 +53,7 @@ img {
 					<label class="form-label">제목</label>
 					<input type="text" class="form-control" name="title" required="required"/>
 				</div>
-				<div class="form-group mb-2">
+				<div class="form-group mb-2" >
 					<label class="form-label">내용</label>
 					<textarea rows="5" class="form-control" name="content" required="required"></textarea>
 				</div>
@@ -70,8 +70,10 @@ img {
 					</div>	
 				</div>
 				<div class="text-end">
-					<button type="submit" class="btn btn-primary">등록</button>
+					<button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+					<button type="submit" class="btn btn-primary" onclick="return confirm('게시물을 등록하시겠습니까?')">등록</button>
 				</div>
+				
 			</form>
 		</div>
 	</div>
