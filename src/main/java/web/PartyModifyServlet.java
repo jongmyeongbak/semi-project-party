@@ -59,11 +59,19 @@ public class PartyModifyServlet extends HttpServlet {
 		// 파티 no로 저장된 파티객체 불러오기
 		Party savedParty = partyDao.getPartyByNo(no);
 		// 수정 가능한 항목들 setter로 바꾸기
+		
+		// 유효성 검사
 		// 파티명이 동일한지 유효성 검사 진행 (이름만 검사)
 		Party nameParty = partyDao.getPartyByName(name);
 		// 기존 파티명과 같은건 상관 없으나, 다른 파티의 이름과 중복되면 안됨
 		if (!savedParty.getName().equals(name) && nameParty != null) {
 			res.sendRedirect("modify-form.jsp?no="+no+"&err=name");
+			return;
+		}
+		// 최소나이가 최대 나이보다 값이 작을 때
+		// 값이 String이기 때문에 int로 변환해서 크기 비교를 진행한다.
+		if (StringUtils.stringToInt(birthStart) < StringUtils.stringToInt(birthEnd)) {
+			res.sendRedirect("form.jsp?err=birth");
 			return;
 		}
 		
