@@ -66,7 +66,7 @@ img {
 				</div>
 				<div class="col-6">
 					<div class="col-6" style="margin:auto;" id="showimage">
-						<img src="<%=request.getContextPath() %>/resources/thumbnail/sample.jpg" alt="샘플사진">
+						<img src="<%=request.getContextPath() %>/resources/board/sample.jpg" alt="샘플사진">
 					</div>	
 				</div>
 				<div class="text-end">
@@ -74,7 +74,6 @@ img {
 				</div>
 			</form>
 		</div>
-	
 	</div>
 </div>
 <script>

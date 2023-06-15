@@ -62,7 +62,7 @@
 		background-color: rgb(194, 225, 255);
 		height: 50px;
         margin-top: 90px;
-        z-index: 0;
+        z-index: 1;
 	}
 	.nav2 > li {
 	    margin-left: 30px;
