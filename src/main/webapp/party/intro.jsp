@@ -22,7 +22,7 @@ String loginId = (String) session.getAttribute("loginId");
 		window.location.href = "../login-form.jsp?redirect=" + encodeURIComponent(originalUrl);
 	}
 	
-	function joinParty(no) {
+	function joinParty(no, e) {
 		let xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -34,11 +34,11 @@ String loginId = (String) session.getAttribute("loginId");
 						break;
 					case 'join':
 						alert("가입을 환영합니다.");
-						location.reload();
+						e.target.remove();
 						break;
 					case 'rejoin':
 						alert("재가입을 환영합니다.");
-						location.reload();
+						e.target.remove();
 						break;
 					case 'ban':
 						alert("이 파티에 가입할 수 없습니다.");
@@ -86,7 +86,7 @@ String loginId = (String) session.getAttribute("loginId");
 				Integer partyAuth = PartyAccessDao.getInstance().getAuthNoByPartyNoAndUserId(no, loginId);
 				if (partyAuth == null || partyAuth == 8) {
 			%>
-				<button type="button" class="btn btn-success btn-lg ms-3 mb-2" onclick="confirm('가입하시겠습니까?') && joinParty(<%=no %>)">가입</button>
+				<button type="button" class="btn btn-success btn-lg ms-3 mb-2" onclick="confirm('가입하시겠습니까?') && joinParty(<%=no %>, event)">가입</button>
 			<%
 				} else if (partyAuth == 6) {
 			%>
