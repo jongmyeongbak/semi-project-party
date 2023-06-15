@@ -53,20 +53,6 @@ public class PartyModifyServlet extends HttpServlet {
 		String birthEnd = req.getParameter("birthEnd");
 		String reqGen = req.getParameter("reqGen");
 		String gender = req.getParameter("gender");
-		// 첨부파일 값 불러오기
-		Part upfilePart = req.getPart("partyImage");
-		String filename = null;
-		if (!upfilePart.getSubmittedFileName().isEmpty()) {
-			int length = upfilePart.getSubmittedFileName().length();
-			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
-			// 업로드된 첨부파일을 지정된 폴더에 저장
-			String uploadPath = System.getenv("PROJECT_IMAGE") + "/thumbnail";
-			InputStream in = upfilePart.getInputStream();
-			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
-			IOUtils.copy(in, out);
-			in.close();
-			out.close();
-		}
 		
 		// 업무로직 수행
 		PartyDao partyDao = PartyDao.getInstance();
@@ -80,9 +66,25 @@ public class PartyModifyServlet extends HttpServlet {
 			res.sendRedirect("modify-form.jsp?no="+no+"&err=name");
 			return;
 		}
+		
+		// 변경사항 기존 객체에 저장
 		savedParty.setName(name);
 		savedParty.setQuota(quota);
 		savedParty.setDescription(description);
+		// 첨부파일 값 불러오고 저장
+		Part upfilePart = req.getPart("partyImage");
+		String filename = null;
+		if (!upfilePart.getSubmittedFileName().isEmpty()) {
+			int length = upfilePart.getSubmittedFileName().length();
+			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
+			// 업로드된 첨부파일을 지정된 폴더에 저장
+			String uploadPath = System.getenv("PROJECT_IMAGE") + "/thumbnail";
+			InputStream in = upfilePart.getInputStream();
+			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
+			IOUtils.copy(in, out);
+			in.close();
+			out.close();
+		}
 		savedParty.setFilename(filename);
 		// 수정된 파티 객체를 데이터베이스에 업데이트 하기
 		partyDao.updateParty(savedParty);

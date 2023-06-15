@@ -53,20 +53,6 @@ public class PartyInsertServlet extends HttpServlet {
 		String birthStart = req.getParameter("birthStart");
 		String birthEnd = req.getParameter("birthEnd");
 		String gender = req.getParameter("gender");
-		// 첨부파일 입력필드의 처리
-		Part upfilePart = req.getPart("partyImage");
-		String filename = null;
-		if (!upfilePart.getSubmittedFileName().isEmpty()) {
-			int length = upfilePart.getSubmittedFileName().length();
-			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
-			// 업로드된 첨부파일을 지정된 폴더에 저장
-			String uploadPath = System.getenv("PROJECT_IMAGE") + "/thumbnail";
-			InputStream in = upfilePart.getInputStream();
-			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
-			IOUtils.copy(in, out);
-			in.close();
-			out.close();
-		}
 		
 		// 유효성 검사
 		// 카테고리가 선택되어 있지 않을 때
@@ -86,6 +72,21 @@ public class PartyInsertServlet extends HttpServlet {
 		if (StringUtils.stringToInt(birthStart) < StringUtils.stringToInt(birthEnd)) {
 			res.sendRedirect("form.jsp?err=birth");
 			return;
+		}
+		
+		// 첨부파일 입력필드의 처리
+		Part upfilePart = req.getPart("partyImage");
+		String filename = null;
+		if (!upfilePart.getSubmittedFileName().isEmpty()) {
+			int length = upfilePart.getSubmittedFileName().length();
+			filename = System.currentTimeMillis() + upfilePart.getSubmittedFileName().substring(Math.max(0,length-5));
+			// 업로드된 첨부파일을 지정된 폴더에 저장
+			String uploadPath = System.getenv("PROJECT_IMAGE") + "/thumbnail";
+			InputStream in = upfilePart.getInputStream();
+			OutputStream out = new FileOutputStream(new File(uploadPath, filename));
+			IOUtils.copy(in, out);
+			in.close();
+			out.close();
 		}
 		
 		// 업무로직 수행
