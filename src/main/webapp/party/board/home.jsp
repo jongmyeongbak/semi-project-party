@@ -28,14 +28,15 @@
 	PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 	Integer authNo = null;
 	if (loginId != null) {
-		authNo =  partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
+		authNo =  partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);	
 	}
 	
-	// 존재하는 파티가 아니거나 유저의 파티 접근권 상태가 탈퇴, 강퇴인 경우 리디렉트
+	// 생성되지 않은 파티에 대한 리디렉트
 	PartyDao partyDao = PartyDao.getInstance();
 	Party party = partyDao.getPartyByNo(partyNo);
-	if (party == null || authNo >= 8) {
+	if (party == null) {
 		response.sendRedirect("../list.jsp?err=req&job=" + URLEncoder.encode("파티 홈으로 가기", "UTF-8"));
+		return;
 	}
 	
 %>

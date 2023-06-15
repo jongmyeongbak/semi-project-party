@@ -70,7 +70,7 @@ img {
 					</div>	
 				</div>
 				<div class="text-end">
-					<button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+					<button type="button" class="btn btn-secondary" onclick="confirm('작성 중인 내용이 저장되지 않고 사라집니다.') && history.back()">취소</button>
 					<button type="submit" class="btn btn-primary" onclick="return confirm('게시물을 등록하시겠습니까?')">등록</button>
 				</div>
 				

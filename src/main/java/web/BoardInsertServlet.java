@@ -54,6 +54,9 @@ public class BoardInsertServlet extends HttpServlet {
 			return;
 		}
 		
+		// 해당 파티가 활성상태인지 체크
+		
+		
 		// 요청 파라미터 조회
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
