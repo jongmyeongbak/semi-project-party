@@ -13,7 +13,7 @@
 		return;
 	}
 	
-	// 파티접근권 자체가 존재하지 않거나 유저 접근권의 상태가 강퇴나 탈퇴인 경우 파티 리스트로 리디렉트
+	// 파티접근권 자체가 존재하지 않거나(파티에 가입한 적 없음) 유저 접근권의 상태가 강퇴나 탈퇴인 경우 파티 리스트로 리디렉트
 	PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 	Integer authNo = partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 	if (authNo == null || authNo >= 8) {

@@ -1,3 +1,4 @@
+<%@page import="info.Pagination"%>
 <%@page import="vo.Party"%>
 <%@page import="dao.PartyDao"%>
 <%@page import="dao.PartyAccessDao"%>
@@ -22,7 +23,9 @@
 	
 	// 각 파티에 저장된 게시글 불러오기
 	BoardDao boardDao = BoardDao.getInstance();
-	List<Board> boards = boardDao.getBoardsByPartyNo(partyNo);
+	int totalRows = boardDao.getBoardsTotalRowsByPartyNo(partyNo);
+	Pagination pagination = new Pagination(1, totalRows);
+	List<Board> boards = boardDao.getBoardsByPartyNo(partyNo, pagination.getFirstRow(), pagination.getLastRow());
 	
 	// 글쓰기 버튼 노출을 위해 해당 파티에 가입된 사용자인지 확인
 	PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
@@ -49,7 +52,6 @@
 <link rel="stylesheet" href="../css/partyhome.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 </head>
 <body>
@@ -78,6 +80,8 @@
 		}
 	}
 %>
+
+<div id="post-data">
 <%
 	for (Board board : boards) {
 %>
@@ -108,12 +112,12 @@
 		} else {
 %>
 <!-- 남이 작성한 게시물 -->
-				<div class="dropdown" style="position: relative; top: -5px;">
-		          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
-		          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		            		<li><a class="dropdown-item" href="#">신고</a></li>
-		          		</ul>
-		   		</div>
+					<div class="dropdown" style="position: relative; top: -5px;">
+			          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+			          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			            		<li><a class="dropdown-item" href="#">신고</a></li>
+			          		</ul>
+			   		</div>
 <%
 		}
 	}
@@ -135,8 +139,52 @@
 	}
 %>
 
-	<!-- 무한 스크롤 구현 스크립트 & ajax (금요일?)  -->
 </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
 
+$(window).scroll(function() {
+	if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    loadMoreData();
+	}
+});
+
+	let partyNo = <%=partyNo%>
+	let pageNum = 1; // 페이지 번호
+	function loadMoreData() {
+		$.ajax({
+		    url: 'load-more-boards.jsp?pageNum=' + pageNum + '&partyNo=' + partyNo,
+		    type: 'GET',
+		}).done(function(response) {
+		  	response.forEach(function (board, index) {
+		    	let htmlContents = `
+		    	<div class="card" id="card-outline">
+		            <div class="card-body">
+		                <div class="d-flex justify-content-between align-items-center">
+		                    <div>
+		                        <h5 class="card-title">\${board.title}</h5>
+		                        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${board.createDate}</small></p>
+		                    </div>
+		                    <div class="d-flex align-items-center">
+		                        <p class="card-text mr-2"><small>\${board.user.nickname}</small></p>
+		                        /* 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? */
+		                        
+		                    </div>
+		                </div>
+		                <p class="card-text">\${board.content}</p>
+		                <p class="card-text"><small class="text-muted">댓글 \${board.commentCnt}</small></p>
+		            </div>
+		        </div>`;
+			   $("#post-data").append(htmlContents); // 불러온 데이터를 기존 게시글 뒤에 붙임
+			});
+		    pageNum++; // 페이지 번호 증가
+		    console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
+		}).fail(function(jqXHR, ajaxOptions, thrownError) {
+		    console.log('Server error occured');
+		});
+	}
+
+</script>
 </body>
 </html>
