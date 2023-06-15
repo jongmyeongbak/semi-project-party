@@ -153,7 +153,7 @@
 				<div class="col-6">
 					<div class="form-group mb-3 col">
 						<label class="form-label">썸네일 이미지</label>
-						<p style="font-size: 15px; font-style: italic; font-weight: lighter;"><span style="font-weight: bolder; color: #555;">.jpg, .jpeg, .png</span> 형식의 75x75 사진파일</p>
+						<p style="font-size: 15px; font-style: italic; font-weight: lighter;"><span style="font-weight: bolder; color: #555;">.jpg, .jpeg, .png</span> 형식의 사진파일</p>
 						<input class="form-control" type="file" name="partyImage" id="inputImage" accept="image/jpeg, image/png">
 					</div>
 				</div>
