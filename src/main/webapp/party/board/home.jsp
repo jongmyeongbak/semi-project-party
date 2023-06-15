@@ -168,7 +168,7 @@ $(window).scroll(function() {
 		                    </div>
 		                    <div class="d-flex align-items-center">
 		                        <p class="card-text mr-2"><small>\${board.user.nickname}</small></p>
-		                        /* 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? */
+		                        <!-- 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? -->
 		                        
 		                    </div>
 		                </div>
