@@ -8,6 +8,8 @@
 	// 로그인 회원아이디 세션 조회
 	String loginId = (String) session.getAttribute("loginId");
 
+	String err = request.getParameter("err");
+	String job = request.getParameter("job");
 	PartyListDao partyListDao = PartyListDao.getInstance();
 
 	List<Category> categories = partyListDao.getCategories();
@@ -32,20 +34,28 @@
 	<jsp:param value="partylist" name="menu"/>
 </jsp:include>
 <div class="container" >
-<!-- 로그인 유저가 가입한 파티 조회 -->
 <%
+	if ("req".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>[<%=job %>]</strong> 에 대한 요청은 거부되었습니다.
+	</div>
+<%
+	}
+
 	if (loginId != null) {
 		if (!regParties.isEmpty()) {
 %>
+<!-- 로그인 유저가 가입한 파티 조회 -->
 <div>
 	<div><h5>나의 파티</h5></div>
 		<div class="regparty-container">
 <%
 			for (Party regParty : regParties) {
 %>
-					<a href="home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
-						<div class="regparty-item">
-							<img class="regparty-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=regParty.getFilename() %>" alt="">
+					<a href="board/home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
+						<div class="regparty-item" >
+							<img class="regparty-item img" src="/images/thumbnail/<%=regParty.getFilename() %>" alt="">
 							<div>
 								<strong><%=regParty.getName() %></strong>
 								<p><%=regParty.getCurCnt() %>명</p>
@@ -103,14 +113,14 @@
 %>
 <!-- 파티 정보 출력 -->
 		            <div class="party-item">
-			          <a href="home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
-			          	<img class="party-item img" src="<%=request.getContextPath() %>/resources/thumbnail/<%=party.getFilename() %>" alt="썸네일">
+			          <a href="board/home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
+			          	<img class="party-item img" src="/resources/images/thumbnail/<%=party.getFilename() %>" alt="썸네일">
 		    	        <div>
 		         	    	<strong><%=party.getName() %></strong>
 		            	    <p class='text-truncate'><%=party.getDescription() %></p>
 		              	</div>
 			          </a>
-			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-light"><%=party.getCategory().getName() %> 파티 더보기</a>
+			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-light btn-sm"><%=party.getCategory().getName() %> 파티 더보기</a>
 		            </div>
 
 <% 
