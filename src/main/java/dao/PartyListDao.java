@@ -101,4 +101,21 @@ public class PartyListDao {
 			return party;
 		}, beginPage, endPage);
 	}
+	
+	// 검색 단어가 포함된 카페 가져오기
+	public List<Party> getPartiesWithSearchValue(String value, int beginPage, int endPage) {
+		return DaoHelper.selectList("partyListDao.getPartiesWithSearchValue", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setQuota(rs.getInt("party_quota"));
+			party.setFilename(rs.getString("party_filename"));
+			party.setManager(new User(rs.getString("user_id"), rs.getString("user_nickname")));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			return party;
+		},value, beginPage, endPage);
+	}
+	
 }

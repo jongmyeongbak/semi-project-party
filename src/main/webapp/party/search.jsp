@@ -44,6 +44,8 @@
 	let documentHeight;
 	let windowHeight;
 	let scrollTop;
+	let value = "<%=value %>";
+	console.log(value);
 	
 	function selectCategory(cat) {
 		let btns = document.querySelectorAll(".cat-button button");
@@ -55,6 +57,7 @@
 		document.querySelector("#party-list").innerHTML = "";
 		
 		catNo = cat;
+		value = " ";
 		
 		isChecked = true;
 		currentPage = 1;
@@ -70,31 +73,16 @@
 		threshole: 0.5
 	}
 	
-	
 	const onIntersect = (entries, observer) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting){
 				console.log("hello");
 				getParties();
-			} else {
-				console.log("sorry....")
 			}
 		})
 	}
 	const observer = new IntersectionObserver(onIntersect, option);
 	observer.observe(target);
-
-	
-	document.addEventListener("scroll", ()=>{
-		documentHeight = document.body.clientHeight;
-		windowHeight = document.documentElement.clientHeight;
-		scrollTop = document.documentElement.scrollTop;
-		height = windowHeight + scrollTop
-		if (documentHeight === height + 100) {
-			//getParties();
-			console.log("hello");
-		}
-	});
 
 	// ajax 쓰기
 	function getParties(pageNo){
@@ -139,7 +127,7 @@
 						document.querySelector("#party-list").innerHTML += htmlContent;
 				}
 			})
-			xhr.open("GET", "get-parties.jsp?pageNo=" + currentPage + "&catNo=" + catNo);
+			xhr.open("GET", "get-parties.jsp?pageNo=" + currentPage + "&catNo=" + catNo + "&value=" + value);
 			xhr.send(null);
 		} else {
 			document.querySelector("#party-list").innerHTML = htmlContent;

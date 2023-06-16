@@ -7,15 +7,20 @@
 <%
 	int pageNo = StringUtils.stringToInt(request.getParameter("pageNo"));
 	int catNo = StringUtils.stringToInt(request.getParameter("catNo"));
+	String value = request.getParameter("value");
 	int beginPage = pageNo*5 - 4;
 	int endPage = pageNo*5;
 	
 	PartyListDao partyListDao = PartyListDao.getInstance();
 	List<Party> partyList;
-	if (catNo == 0){
-		partyList = partyListDao.getAllPartiesWithCat(beginPage, endPage);
+	if (value.isBlank()) {
+		if (catNo == 0){
+			partyList = partyListDao.getAllPartiesWithCat(beginPage, endPage);
+		} else {
+			partyList = partyListDao.getPartiesWithCatByCatNo(catNo, beginPage, endPage);	
+		}
 	} else {
-		partyList = partyListDao.getPartiesWithCatByCatNo(catNo, beginPage, endPage);	
+		partyList = partyListDao.getPartiesWithSearchValue('%' + value + '%', beginPage, endPage);
 	}
 	
 	Gson gson = new Gson();

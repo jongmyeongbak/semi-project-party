@@ -140,7 +140,7 @@
 						<li><span class="align-middle bolder ms-3"><strong class="text-black"><%=nickname %> 님</strong></span></li>
 	           			<li><hr class="dropdown-divider"></li>
 	           			<li><a href="/user/detail.jsp" class="dropdown-item">내정보보기</a></li>
-	           			<li><a href="/user/user-partylist.jsp" class="dropdown-item">내파티리스트</a></li>
+	           			<li><a href="/party/manage-my-party.jsp" class="dropdown-item">내파티관리</a></li>
 						<li><hr class="dropdown-divider"></li>
                         <li><a href="/logout.jsp" class="dropdown-item">로그아웃</a></li>
 	           		</ul>
