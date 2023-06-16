@@ -155,28 +155,31 @@ $(window).scroll(function() {
 
 	let partyNo = <%=partyNo%>
 	let pageNum = <%=pageNum%> // 페이지 번호
+	let loginId = <%=loginId%> //로긴아디
 	function loadMoreBoards() {
 		$.ajax({
-		    url: 'load-more-boards.jsp?pageNum=' + pageNum + '&partyNo=' + partyNo,
-		    type: 'GET',
+		    url: "load-more-boards.jsp?pageNum=" + pageNum + "&partyNo=" + partyNo,
+		    type: "GET",
+		    dataType: "json"
 		}).done(function(response) {
-		  	response.forEach(function (board, index) {
+		    console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
+		  	response.forEach(function (boardWithCheckMyId, index) {
 		    	let htmlContents = `
 		    	<div class="card" id="card-outline">
 		            <div class="card-body">
 		                <div class="d-flex justify-content-between align-items-center">
 		                    <div>
-		                        <h5 class="card-title">\${board.title}</h5>
-		                        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${board.createDate}</small></p>
+		                        <h5 class="card-title">\${boardWithCheckMyId[0].title}</h5>
+		                        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${boardWithCheckMyId[0].createDate}</small></p>
 		                    </div>
 		                    <div class="d-flex align-items-center">
-		                        <p class="card-text mr-2"><small>\${board.user.nickname}</small></p>
+		                        <p class="card-text mr-2"><small>\${boardWithCheckMyId[0].user.nickname}</small></p>
 		                        <!-- 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? -->
-
+		                 
 		                    </div>
 		                </div>
-		                <p class="card-text">\${board.content}</p>
-		                <p class="card-text"><small class="text-muted">댓글 \${board.commentCnt}</small></p>
+		                <p class="card-text">\${boardWithCheckMyId[0].content}</p>
+		                <p class="card-text"><small class="text-muted">댓글 \${boardWithCheckMyId[0].commentCnt}</small></p>
 		            </div>
 		        </div>`;
 			   $("#post-data").append(htmlContents); // 불러온 데이터를 기존 게시글 뒤에 붙임
