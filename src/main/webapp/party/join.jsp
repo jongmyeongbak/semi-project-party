@@ -1,4 +1,4 @@
-<%@page import="web.PartyJoinValidator"%>
+<%@page import="validator.PartyJoinValidator"%>
 <%@page import="vo.User"%>
 <%@page import="vo.PartyAccess"%>
 <%@page import="dao.PartyAccessDao"%>

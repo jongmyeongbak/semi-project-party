@@ -1,4 +1,4 @@
-package web;
+package validator;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
