@@ -5,6 +5,7 @@ import java.util.List;
 import util.DaoHelper;
 import vo.Category;
 import vo.Party;
+import vo.User;
 
 public class PartyListDao {
 
@@ -67,6 +68,54 @@ public class PartyListDao {
 			
 			return category;
 		});
+	}
+	
+	// 카테고리별로 파티를 가져오기
+	public List<Party> getPartiesWithCatByCatNo(int catNo, int beginPage, int endPage) {
+		return DaoHelper.selectList("partyListDao.getPartiesWithCatByCatNo", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setQuota(rs.getInt("party_quota"));
+			party.setManager(new User(rs.getString("user_id"), rs.getString("user_nickname")));
+			party.setFilename(rs.getString("party_filename"));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			return party;
+		}, catNo, beginPage, endPage);
+	}
+	
+	// 모든 파티 가져오기(페이지네이션)
+	public List<Party> getAllPartiesWithCat(int beginPage, int endPage) {
+		return DaoHelper.selectList("partyListDao.getAllPartiesWithCat", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setQuota(rs.getInt("party_quota"));
+			party.setFilename(rs.getString("party_filename"));
+			party.setManager(new User(rs.getString("user_id"), rs.getString("user_nickname")));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			return party;
+		}, beginPage, endPage);
+	}
+	
+	// 검색 단어가 포함된 카페 가져오기
+	public List<Party> getPartiesWithSearchValue(String value, int beginPage, int endPage) {
+		return DaoHelper.selectList("partyListDao.getPartiesWithSearchValue", rs -> {
+			Party party = new Party();
+			party.setNo(rs.getInt("party_no"));
+			party.setName(rs.getString("party_name"));
+			party.setDescription(rs.getString("party_description"));
+			party.setQuota(rs.getInt("party_quota"));
+			party.setFilename(rs.getString("party_filename"));
+			party.setManager(new User(rs.getString("user_id"), rs.getString("user_nickname")));
+			party.setCategory(new Category(rs.getInt("cat_no"), rs.getString("cat_name")));
+			party.setCurCnt(rs.getInt("party_cur_cnt"));
+			return party;
+		},value, beginPage, endPage);
 	}
 	
 }
