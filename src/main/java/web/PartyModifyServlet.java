@@ -71,7 +71,7 @@ public class PartyModifyServlet extends HttpServlet {
 		// 최소나이가 최대 나이보다 값이 작을 때
 		// 값이 String이기 때문에 int로 변환해서 크기 비교를 진행한다.
 		if (StringUtils.stringToInt(birthStart) < StringUtils.stringToInt(birthEnd)) {
-			res.sendRedirect("form.jsp?err=birth");
+			res.sendRedirect("modify-form.jsp?err=birth");
 			return;
 		}
 		
