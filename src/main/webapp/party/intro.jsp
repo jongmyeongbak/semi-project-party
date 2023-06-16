@@ -33,11 +33,8 @@ String loginId = (String) session.getAttribute("loginId");
 						redirectToLogin();
 						break;
 					case 'join':
-						alert("가입을 환영합니다.");
-						e.target.remove();
-						break;
 					case 'rejoin':
-						alert("재가입을 환영합니다.");
+						alert("가입을 환영합니다.");
 						e.target.remove();
 						break;
 					case 'ban':
