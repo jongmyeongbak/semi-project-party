@@ -62,6 +62,9 @@
 	<jsp:param value="home" name="pmenu"/>
 </jsp:include>
 <div class="container my-3">
+<jsp:include page="../intro.jsp">
+	<jsp:param value="<%=partyNo %>" name="no"/>
+</jsp:include>
 <%
 	if ("req".equals(err)) {
 %>
@@ -112,17 +115,17 @@
 		          		</ul>
 		   			</div>
 <%
-		} else {
+		} 
+	} else {
 %>
 <!-- 남이 작성한 게시물일 때 -->
 					<div class="dropdown" style="position: relative; top: -5px;">
 			          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 			          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			            		<li><a class="dropdown-item" href="#">신고</a></li>
+			            		<li><a class="dropdown-item" href="">신고</a></li>
 			          		</ul>
 			   		</div>
-<%
-		}
+<%	
 	}
 %>
 				</div>
@@ -155,37 +158,73 @@ $(window).scroll(function() {
 
 	let partyNo = <%=partyNo%>
 	let pageNum = <%=pageNum%> // 페이지 번호
-	let loginId = <%=loginId%> //로긴아디
+	
 	function loadMoreBoards() {
 		$.ajax({
 		    url: "load-more-boards.jsp?pageNum=" + pageNum + "&partyNo=" + partyNo,
 		    type: "GET",
 		    dataType: "json"
 		}).done(function(response) {
-		    console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
-		  	response.forEach(function (boardWithCheckMyId, index) {
-		    	let htmlContents = `
+		    //console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
+		    let htmlContents = "";
+		  	response.forEach(function (item, index) {
+		  		if (item[1]) {
+		  		/* 로그인이 되어있고 로그인 유저와 작성자 아이디가 같을 때 */
+		  		htmlContents += `
 		    	<div class="card" id="card-outline">
 		            <div class="card-body">
 		                <div class="d-flex justify-content-between align-items-center">
 		                    <div>
-		                        <h5 class="card-title">\${boardWithCheckMyId[0].title}</h5>
-		                        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${boardWithCheckMyId[0].createDate}</small></p>
+		                        <h5 class="card-title">\${item[0].title}</h5>
+		                        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${item[0].createDate}</small></p>
 		                    </div>
 		                    <div class="d-flex align-items-center">
-		                        <p class="card-text mr-2"><small>\${boardWithCheckMyId[0].user.nickname}</small></p>
-		                        <!-- 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? -->
-		                 
+		                        <p class="card-text mr-2"><small>\${item[0].user.nickname}</small></p>
+		                        <!-- 사용자의 드롭다운 버튼 -->
+		    			        <div class="dropdown" style="position: relative; top: -5px;">
+				          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+				          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				            		<li><a class="dropdown-item" href="modify-form.jsp?boardNo=\${item[0].no}">수정</a></li>
+				            		<li><a class="dropdown-item" href="delete.jsp?boardNo=\${item[0].no}">삭제</a></li>
+				          		</ul>
+				   			</div>
 		                    </div>
 		                </div>
-		                <p class="card-text">\${boardWithCheckMyId[0].content}</p>
-		                <p class="card-text"><small class="text-muted">댓글 \${boardWithCheckMyId[0].commentCnt}</small></p>
+		                <p class="card-text">\${item[0].content}</p>
+		                <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
 		            </div>
-		        </div>`;
-			   $("#post-data").append(htmlContents); // 불러온 데이터를 기존 게시글 뒤에 붙임
-			});
+		        </div>
+		        `
+		  		} else {
+		  		htmlContents += `
+		  			<div class="card" id="card-outline"> <!-- 게시물 시작 -->
+		  			<div class="card-body">
+		  			    <div class="d-flex justify-content-between align-items-center">
+		  			     	<div>
+		  				        <h5 class="card-title">\${item[0].title}</h5>
+		  				        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted">\${item[0].createDate}</small></p>
+		  			      	</div>
+		  			      	<div class="d-flex align-items-center">
+		  				    	<p class="card-text mr-2"><small>\${item[0].user.nickname}</small></small></p>
+		  	<!-- 남이 작성한 게시물일 때 -->
+		  						<div class="dropdown" style="position: relative; top: -5px;">
+		  				          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+		  				          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+		  				            		<li><a class="dropdown-item" href="#">신고</a></li>
+		  				          		</ul>
+		  				   		</div>
+		  					</div>
+		  				</div>
+		  			    <p class="card-text">\${item[0].content}</small></p>
+		  			    <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
+		  			</div>
+		  		</div> <!-- 게시물 닫힘 -->
+		  		`
+		  		}
+		  	});
+			$("#post-data").append(htmlContents); // 불러온 데이터를 기존 게시글 뒤에 붙임
 		    pageNum++; // 페이지 번호 증가
-		    console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
+		    console.log(response);
 		}).fail(function(jqXHR, ajaxOptions, thrownError) {
 		    console.log('Server error occured');
 		});
