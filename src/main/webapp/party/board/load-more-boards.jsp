@@ -8,7 +8,6 @@
 <%@page contentType="application/json;charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%
 	// 요청 파라미터 값 조회
-	String loginId = (String) session.getAttribute("loginId");
 	int pageNum = StringUtils.stringToInt(request.getParameter("pageNum"));
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	BoardDao boardDao = BoardDao.getInstance();
@@ -25,7 +24,7 @@
 				   .setDateFormat("yyyy-MM-dd")
 				   .create();
     String text = gson.toJson(boards);
-
+	
     // 응답으로 json텍스트를 보낸다.
     out.write(text);
 	

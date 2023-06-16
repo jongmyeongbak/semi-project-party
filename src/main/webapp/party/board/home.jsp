@@ -24,7 +24,10 @@
 	// 각 파티에 저장된 게시글 불러오기
 	BoardDao boardDao = BoardDao.getInstance();
 	int totalRows = boardDao.getBoardsTotalRowsByPartyNo(partyNo);
-	Pagination pagination = new Pagination(1, totalRows);
+	
+	// 무한 스크롤에 사용될 
+	int pageNum = 1;
+	Pagination pagination = new Pagination(pageNum, totalRows);
 	List<Board> boards = boardDao.getBoardsByPartyNo(partyNo, pagination.getFirstRow(), pagination.getLastRow());
 	
 	// 글쓰기 버튼 노출을 위해 해당 파티에 가입된 사용자인지 확인
@@ -96,7 +99,7 @@
 			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>
 			    	
 <!-- 자신이 쓴 게시물인지 아닌지에 따라 드롭다운 메뉴가 다름 -->
-<!-- 본인이 작성한 게시물 -->
+<!-- 본인이 작성한 게시물일 때 -->
 <%
 	if (loginId != null) {
 		if (loginId.equals(board.getUser().getId())) {
@@ -111,7 +114,7 @@
 <%
 		} else {
 %>
-<!-- 남이 작성한 게시물 -->
+<!-- 남이 작성한 게시물일 때 -->
 					<div class="dropdown" style="position: relative; top: -5px;">
 			          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 			          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -146,13 +149,13 @@
 
 $(window).scroll(function() {
 	if($(window).scrollTop() + $(window).height() == $(document).height()) {
-    loadMoreData();
+	loadMoreBoards();
 	}
 });
 
 	let partyNo = <%=partyNo%>
-	let pageNum = 1; // 페이지 번호
-	function loadMoreData() {
+	let pageNum = <%=pageNum%> // 페이지 번호
+	function loadMoreBoards() {
 		$.ajax({
 		    url: 'load-more-boards.jsp?pageNum=' + pageNum + '&partyNo=' + partyNo,
 		    type: 'GET',
@@ -169,7 +172,7 @@ $(window).scroll(function() {
 		                    <div class="d-flex align-items-center">
 		                        <p class="card-text mr-2"><small>\${board.user.nickname}</small></p>
 		                        <!-- 사용자에 따른 드롭다운 메뉴를 어떻게? 댓글은? -->
-		                        
+
 		                    </div>
 		                </div>
 		                <p class="card-text">\${board.content}</p>
