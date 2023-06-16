@@ -11,15 +11,16 @@ Party party = PartyDao.getInstance().getPartyByNo(no);
 if (party == null) {
 	return;
 }
+String contextPath = request.getContextPath();
 String partyFileUrl = (party.getFilename() == null)
-		? request.getContextPath() + "/resources/thumbnail/sample.jpg"
+		? contextPath + "/resources/thumbnail/sample.jpg"
 		: "/images/thumbnail/" + party.getFilename();
 String loginId = (String) session.getAttribute("loginId");
 %>
 <script>
 	function redirectToLogin() {
 		let originalUrl = window.location.href;
-		window.location.href = "../login-form.jsp?redirect=" + encodeURIComponent(originalUrl);
+		window.location.href = "<%=contextPath %>/login-form.jsp?redirect=" + encodeURIComponent(originalUrl);
 	}
 	
 	function joinParty(no, e) {
@@ -51,7 +52,7 @@ String loginId = (String) session.getAttribute("loginId");
 				}
 			}
 		}
-		xhr.open("Get", "join.jsp?no=" + no, false);
+		xhr.open("Get", "<%=contextPath %>/party/join.jsp?no=" + no, false);
 		xhr.send(null);
 	}
 	
@@ -87,7 +88,7 @@ String loginId = (String) session.getAttribute("loginId");
 			<%
 				} else if (partyAuth == 6) {
 			%>
-				<a href="modify-form.jsp?no=<%=no %>" class="btn btn-success ms-3 mb-2" onclick="return confirm('이동하시겠습니까?')">파티설정</a>
+				<a href="<%=contextPath %>/party/modify-form.jsp?no=<%=no %>" class="btn btn-success ms-3 mb-2" onclick="return confirm('이동하시겠습니까?')">파티설정</a>
 			<%
 				}
 			}
