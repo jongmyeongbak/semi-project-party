@@ -104,11 +104,11 @@ public class PartyInsertServlet extends HttpServlet {
 		party.setFilename(filename);
 		
 		// 유저 파티접근권 객체 생성
-		PartyAccess UserPartyAccess = new PartyAccess();
-		UserPartyAccess.setAuthNo(6);
-		UserPartyAccess.setParty(new Party(partyNo));
-		UserPartyAccess.setUser(new User(loginId));
-		UserPartyAccess.setDescription(party.getName() + "파티 운영자");
+		PartyAccess partyAccess = new PartyAccess();
+		partyAccess.setAuthNo(6);
+		partyAccess.setParty(new Party(partyNo));
+		partyAccess.setUser(new User(loginId));
+		partyAccess.setDescription(party.getName() + "파티 운영자");
 		
 		// 파티 제한 객체 생성
 		PartyReq partyReq1 = new PartyReq();
@@ -126,11 +126,11 @@ public class PartyInsertServlet extends HttpServlet {
 		
 		// 데이터베이스에 저장
 		PartyReqDao partyReqDao = PartyReqDao.getInstance();
-		PartyAccessDao userPartyAccessDao = PartyAccessDao.getInstance();
+		PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 		// 파티 저장
 		partyDao.insertParty(party);			
 		// 유저의 파티 접근권 저장
-		userPartyAccessDao.insertUserPartyAccess(UserPartyAccess);
+		partyAccessDao.insertPartyAccess(partyAccess);
 		// 파티 가입조건 저장
 		partyReqDao.insertPartyReq(partyReq1, partyReq2, partyReq3);
 		

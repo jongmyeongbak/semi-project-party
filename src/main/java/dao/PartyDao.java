@@ -85,4 +85,8 @@ public class PartyDao {
 				party.getFilename(),
 				party.getNo());
 	}
+	
+	public void increaseCurCntByNo(int no) {
+		DaoHelper.update("partyDao.increaseCurCntByNo", no);
+	}
 }
