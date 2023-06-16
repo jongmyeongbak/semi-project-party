@@ -52,7 +52,7 @@ public class BoardDao {
 	}
 	
 	// 파티 번호로 파티에 생성된 게시판들을 조회
-	public List<Board> getBoardsByPartyNo(int no) {
+	public List<Board> getBoardsByPartyNo(int partyNo, int first, int last) {
 		return DaoHelper.selectList("boardDao.getBoardsByPartyNo", rs -> {
 			Board board = new Board();
 			board.setNo(rs.getInt("board_no"));
@@ -66,7 +66,12 @@ public class BoardDao {
 			board.setFilename(rs.getString("board_filename"));
 			
 			return board;
-		}, no);
+		}, partyNo, first, last);
 	}
 
+	public int getBoardsTotalRowsByPartyNo(int partyNo) {
+		return DaoHelper.selectOne("boardDao.getBoardsTotalRowsByPartyNo", rs -> {
+			return rs.getInt("cnt");
+		}, partyNo);
+	}
 }

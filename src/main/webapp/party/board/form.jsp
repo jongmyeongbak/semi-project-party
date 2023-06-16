@@ -13,7 +13,7 @@
 		return;
 	}
 	
-	// 파티접근권 자체가 존재하지 않거나 유저 접근권의 상태가 강퇴나 탈퇴인 경우 파티 리스트로 리디렉트
+	// 파티접근권 자체가 존재하지 않거나(파티에 가입한 적 없음) 유저 접근권의 상태가 강퇴나 탈퇴인 경우 파티 리스트로 리디렉트
 	PartyAccessDao partyAccessDao = PartyAccessDao.getInstance();
 	Integer authNo = partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 	if (authNo == null || authNo >= 8) {
@@ -70,7 +70,7 @@ img {
 					</div>	
 				</div>
 				<div class="text-end">
-					<button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+					<button type="button" class="btn btn-secondary" onclick="confirm('작성 중인 내용이 저장되지 않고 사라집니다.') && history.back()">취소</button>
 					<button type="submit" class="btn btn-primary" onclick="return confirm('게시물을 등록하시겠습니까?')">등록</button>
 				</div>
 				

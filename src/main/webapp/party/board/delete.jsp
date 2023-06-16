@@ -23,6 +23,12 @@
 		return;
 	}
 	
+	// 로그인된 아이디와 게시물 작성자의 아이디가 일치하지 않으면 리디렉트
+	if (!loginId.equals(board.getUser().getId())) {
+		response.sendRedirect("../list.jsp?err=id&job=" + URLEncoder.encode("게시물 삭제", "UTF-8"));
+		return;
+	}
+	
 	// 게시물 삭제 여부를 Y로 변경
 	board.setDeleted("Y");
 	boardDao.updateBoard(board);
