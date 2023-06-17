@@ -14,6 +14,9 @@
 	
 	// 로그인 유저 조회
 	String loginId = (String)session.getAttribute("loginId");
+	// 스크립트에서 로그인 여부에 따른 드롭메뉴 표시에 사용할 변수
+	boolean isLoggedIn = loginId != null ? true : false;
+	
 	// 파티 번호 조회
 	int partyNo = StringUtils.stringToInt(request.getParameter("no"));
 	
@@ -114,23 +117,18 @@
 		   			</div>
 <%
 	} else {
+		if (loginId != null) {
 %>
 <!-- 남이 작성한 게시물일 때 -->
+
 					<div class="dropdown" style="position: relative; top: -5px;">
 			          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 			          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		<!-- 로그인 여부를 따져 신고 버튼을 눌렀을 때 경고창을 띄움 -->
-<% 		if (loginId != null) { 
-%>
-							        <li><a class="dropdown-item" href="#">신고</a></li>
-<% 		} else {
-%>
-							        <li><a class="dropdown-item" href="#" onclick="alert('로그인 후 사용가능한 서비스입니다.'); return false;">신고</a></li>
-<%		} 
-%>
+			            		<li><a class="dropdown-item" href="">신고</a></li>
 			          		</ul>
 			   		</div>
 <%	
+		}
 	}
 %>
 				</div>
@@ -162,11 +160,9 @@
    	</div>
    	<!-- 댓글 닫힘 -->
 	</div> <!-- 게시물 닫힘 -->
-
 <%
 	}
 %>
-
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -180,6 +176,7 @@ $(window).scroll(function() {
 	let partyNo = <%=partyNo %>
 	let pageNum = <%=pageNum %> +1 // 페이지 번호
 	let authNo = <%=authNo %> // 유저의 파티 접근권한이 강퇴나 탈퇴시를 구별하기 위한 권한 번호
+	let isLoggedIn = <%=isLoggedIn %> // 로그인이 되어있지 않으면 드롭메뉴 표시하지 않기위해 로그인 여부 확인 변수
 	
 	function loadMoreBoards() {
 		$.ajax({
@@ -191,7 +188,7 @@ $(window).scroll(function() {
 		    let htmlContents = "";
 		  	response.forEach(function (item, index) {
 		  		if (item[1] && authNo < 8) {
-		  		/* 로그인 유저와 작성자 아이디가 같을 때 */
+		  		// 로그인 유저와 작성자 아이디가 같을 때 
 		  		htmlContents += `
 		    	<div class="card" id="card-outline">
 		            <div class="card-body">
@@ -202,7 +199,7 @@ $(window).scroll(function() {
 		                    </div>
 		                    <div class="d-flex align-items-center">
 		                        <p class="card-text mr-2"><small>\${item[0].user.nickname}</small></p>
-		                        <!-- 사용자의 드롭다운 버튼 -->
+		                        <!-- 자신의 게시글일 때 드롭다운 메뉴 -->
 		    			        <div class="dropdown" style="position: relative; top: -5px;">
 				          			<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 				          			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -229,14 +226,14 @@ $(window).scroll(function() {
 		  			      	</div>
 		  			      	<div class="d-flex align-items-center">
 		  				    	<p class="card-text mr-2"><small>\${item[0].user.nickname}</small></small></p>
-		  	<!-- 남이 작성한 게시물일 때 -->
-		  						<div class="dropdown" style="position: relative; top: -5px;">
-		  				          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
-		  				          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  				            		\${item[1] = true ? `<li><a class="dropdown-item" href="#">신고</a></li>` : 
-		  				            		` <li><a class="dropdown-item" href="#" onclick="alert('로그인 후 사용가능한 서비스입니다.'); return false;">신고</a></li>`}
-		  				          		</ul>
-		  				   		</div>
+		  						<!-- 남이 작성한 게시물일 때 드롭다운 메뉴- 로그인 여부에 따라 출연여부 다름 -->
+					  			 \${isLoggedIn ?
+				                `<div class="dropdown" style="position: relative; top: -5px;">
+				                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+				                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				                        <li><a class="dropdown-item" href="">신고</a></li>
+				                    </ul>
+				                </div>` : ''}
 		  					</div>
 		  				</div>
 		  				 \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ''}
