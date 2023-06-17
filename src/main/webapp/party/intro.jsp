@@ -70,8 +70,8 @@ String loginId = (String) session.getAttribute("loginId");
 </script>
 <div class="container p-4 p-md-5 mb-4 rounded bg-primary bg-opacity-10">
     <div class="row">
-    	<div class="col-md-4">
-		    <img src=<%=partyFileUrl %> alt="intro image" style="width: 100%; height: 100%; object-fit: contain; object-position: top;">
+    	<div class="col-md-4" style="height: 300px; position: relative; overflow: hidden;">
+		    <img src=<%=partyFileUrl %> alt="cover image of party" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; max-width: 300px; max-height: 300px; object-fit: cover;">
     	</div>
     	<div class="col-md-8 mt-3 ps-3">
 			<h2 class="fs-2 fw-bolder"><%=party.getName() %>
