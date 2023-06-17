@@ -61,7 +61,7 @@
 %>
 					<a href="board/home.jsp?no=<%=regParty.getNo() %>" class="text-black text-decoration-none">
 						<div class="regparty-item" >
-							<img class="regparty-item img" src="/resources/images/thumbnail/<%=regParty.getFilename() %>" alt="">
+							<img class="regparty-item img" src="/images/thumbnail/<%=regParty.getFilename() %>" alt="">
 							<div>
 								<strong><%=regParty.getName() %></strong>
 								<p><%=regParty.getCurCnt() %>명</p>

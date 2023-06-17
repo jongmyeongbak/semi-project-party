@@ -175,7 +175,7 @@ List<Party> partyList = partyListDao.getAllParties();
 %>
   <div class="box">
     <div class="image" onclick="window.location.href='party/board/home.jsp?no=<%=party.getNo()%>';">
-     	<img src="<%=request.getContextPath() %>/resources/images/thumbnail/<%= party.getFilename() %>" alt=" ">
+     	<img src="<%=request.getContextPath() %>/images/thumbnail/<%= party.getFilename() %>" alt=" ">
     </div>
     <div class="separator"></div>
     <div class="text" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
