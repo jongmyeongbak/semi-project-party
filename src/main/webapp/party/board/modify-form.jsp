@@ -16,8 +16,8 @@
 		return;
 	}
 	
-	// 수정할 게시물이 존재하지 않거나 로그인된 아이디와 게시물 작성자의 아이디가 일치하지 않으면 리디렉트
-	// 부적절한 URL접근 차단 
+	// 수정할 게시물이 존재하지 않거나 로그인된 아이디와 게시물 작성자의 아이디가 일치하지 않거나,
+	// 저장된 게시물의 파티번호와 URL로 전달받은 파티 번호가 일치하지 않을 때 리디렉트- 부적절한 URL접근 차단 
 	BoardDao boardDao = BoardDao.getInstance();
 	Board savedBoard = boardDao.getBoardByBoardNo(boardNo);
 	if (savedBoard == null || !loginId.equals(savedBoard.getUser().getId()) || partyNo != savedBoard.getParty().getNo()) {
