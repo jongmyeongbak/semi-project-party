@@ -44,7 +44,6 @@
 		response.sendRedirect("../list.jsp?err=req&job=" + URLEncoder.encode("파티 홈으로 가기", "UTF-8"));
 		return;
 	}
-	
 %>
 <!doctype html>
 <html lang="ko">
@@ -80,7 +79,7 @@
 		if (authNo < 8) {
 %>
 	<div style="margin-bottom: 10px;" class="text-end"> <!-- 글쓰기 버튼 -->
-		<a href="form.jsp?no=<%=partyNo %>" class="btn btn-outline-primary btn-sm" id="insert-btn">글쓰기</a>
+		<a href="form.jsp?partyNo=<%=partyNo %>" class="btn btn-outline-primary btn-sm" id="insert-btn">글쓰기</a>
 	</div>
 <%
 		}
@@ -102,27 +101,33 @@
 			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>
 			    	
 <!-- 자신이 쓴 게시물인지 아닌지에 따라 드롭다운 메뉴가 다름 -->
-<!-- 본인이 작성한 게시물일 때 -->
+<!-- 본인이 작성한 게시물이고 유저 접근권한이 강퇴나 탈퇴가 아닐 때 -->
 <%
-	if (loginId != null) {
-		if (loginId.equals(board.getUser().getId())) {
+	if (loginId != null && loginId.equals(board.getUser().getId()) && authNo < 8) {
 %>
 			        <div class="dropdown" style="position: relative; top: -5px;">
 		          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 		          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		            		<li><a class="dropdown-item" href="modify-form.jsp?boardNo=<%=board.getNo() %>">수정</a></li>
-		            		<li><a class="dropdown-item" href="delete.jsp?boardNo=<%=board.getNo() %>">삭제</a></li>
+		            		<li><a class="dropdown-item" href="modify-form.jsp?boardNo=<%=board.getNo() %>&partyNo=<%=partyNo %>">수정</a></li>
+		            		<li><a class="dropdown-item" href="delete.jsp?boardNo=<%=board.getNo() %>&partyNo=<%=partyNo %>" onclick="return confirm('게시된 글을 삭제하시겠습니까?')">삭제</a></li>
 		          		</ul>
 		   			</div>
 <%
-		} 
 	} else {
 %>
 <!-- 남이 작성한 게시물일 때 -->
 					<div class="dropdown" style="position: relative; top: -5px;">
 			          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 			          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			            		<li><a class="dropdown-item" href="">신고</a></li>
+		<!-- 로그인 여부를 따져 신고 버튼을 눌렀을 때 경고창을 띄움 -->
+<% 		if (loginId != null) { 
+%>
+							        <li><a class="dropdown-item" href="#">신고</a></li>
+<% 		} else {
+%>
+							        <li><a class="dropdown-item" href="#" onclick="alert('로그인 후 사용가능한 서비스입니다.'); return false;">신고</a></li>
+<%		} 
+%>
 			          		</ul>
 			   		</div>
 <%	
@@ -139,6 +144,23 @@
 		    <p class="card-text"><%=board.getContent() %></p>
 		    <p class="card-text"><small class="text-muted">댓글 <%=board.getCommentCnt() %></small></p>
 		</div>
+		<!-- 댓글 -->
+		<div class="row mb-3">
+   		<div class="col-12">
+
+   			<div class="border p-2 mb-2">
+	   			<div class="d-flex justify-content-between mb-1">
+	   				<span>홍길동</span> <span class="text-muted">2023-06-18</span>
+	   			</div>
+	   			<div>
+	   				댓글내용입니다.
+	   				<a href="deleteComment.jsp?no=&cno="class="btn btn-link text-danger text-decoration-none float-end"><i class="bi bi-trash"></i></a>
+	   		 </div>   			
+   			</div>
+
+   		</div>
+   	</div>
+   	<!-- 댓글 닫힘 -->
 	</div> <!-- 게시물 닫힘 -->
 
 <%
@@ -155,9 +177,9 @@ $(window).scroll(function() {
 	loadMoreBoards();
 	}
 });
-
-	let partyNo = <%=partyNo%>
-	let pageNum = <%=pageNum%> // 페이지 번호
+	let partyNo = <%=partyNo %>
+	let pageNum = <%=pageNum %> +1 // 페이지 번호
+	let authNo = <%=authNo %> // 유저의 파티 접근권한이 강퇴나 탈퇴시를 구별하기 위한 권한 번호
 	
 	function loadMoreBoards() {
 		$.ajax({
@@ -168,8 +190,8 @@ $(window).scroll(function() {
 		    //console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
 		    let htmlContents = "";
 		  	response.forEach(function (item, index) {
-		  		if (item[1]) {
-		  		/* 로그인이 되어있고 로그인 유저와 작성자 아이디가 같을 때 */
+		  		if (item[1] && authNo < 8) {
+		  		/* 로그인 유저와 작성자 아이디가 같을 때 */
 		  		htmlContents += `
 		    	<div class="card" id="card-outline">
 		            <div class="card-body">
@@ -182,14 +204,15 @@ $(window).scroll(function() {
 		                        <p class="card-text mr-2"><small>\${item[0].user.nickname}</small></p>
 		                        <!-- 사용자의 드롭다운 버튼 -->
 		    			        <div class="dropdown" style="position: relative; top: -5px;">
-				          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
-				          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				            		<li><a class="dropdown-item" href="modify-form.jsp?boardNo=\${item[0].no}">수정</a></li>
-				            		<li><a class="dropdown-item" href="delete.jsp?boardNo=\${item[0].no}">삭제</a></li>
-				          		</ul>
-				   			</div>
+				          			<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+				          			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				            			<li><a class="dropdown-item" href="modify-form.jsp?boardNo=\${item[0].no}&partyNo=\${item[0].party.no}">수정</a></li>
+				            			<li><a class="dropdown-item" href="delete.jsp?boardNo=\${item[0].no}&partyNo=\${item[0].party.no}" onclick="return confirm('게시된 글을 삭제하시겠습니까?')">삭제</a></li>
+				          			</ul>
+				   				</div>
 		                    </div>
 		                </div>
+		                \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ''}
 		                <p class="card-text">\${item[0].content}</p>
 		                <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
 		            </div>
@@ -210,11 +233,13 @@ $(window).scroll(function() {
 		  						<div class="dropdown" style="position: relative; top: -5px;">
 		  				          		<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 		  				          		<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  				            		<li><a class="dropdown-item" href="#">신고</a></li>
+		  				            		\${item[1] = true ? `<li><a class="dropdown-item" href="#">신고</a></li>` : 
+		  				            		` <li><a class="dropdown-item" href="#" onclick="alert('로그인 후 사용가능한 서비스입니다.'); return false;">신고</a></li>`}
 		  				          		</ul>
 		  				   		</div>
 		  					</div>
 		  				</div>
+		  				 \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ''}
 		  			    <p class="card-text">\${item[0].content}</small></p>
 		  			    <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
 		  			</div>
@@ -229,7 +254,6 @@ $(window).scroll(function() {
 		    console.log('Server error occured');
 		});
 	}
-
 </script>
 </body>
 </html>

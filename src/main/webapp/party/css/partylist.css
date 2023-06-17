@@ -75,7 +75,7 @@
 	width: 100%;
 	float: left;
 	overflow: hidden;
-	margin: 2px;
+	margin: 3px;
 	border-radius: 10px;
 }
 
@@ -96,7 +96,7 @@ h5 {
 
 /* 가입된 파티 마우스 호버 효과 */
 .regparty-item:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 /* 파티 생성 카테고리 마우스 호버 효과 */

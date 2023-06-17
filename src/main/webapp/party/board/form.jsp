@@ -5,7 +5,7 @@
 <%
 	// 요청 파라미터 조회
 	String loginId = (String) session.getAttribute("loginId");
-	int partyNo = StringUtils.stringToInt(request.getParameter("no"));
+	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	
 	// 로그인 상태가 아니라면 로그인 폼으로 리디렉트
 	if (loginId == null) {
@@ -18,6 +18,7 @@
 	Integer authNo = partyAccessDao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 	if (authNo == null || authNo >= 8) {
 		response.sendRedirect("../list.jsp?err=req&job=" + URLEncoder.encode("게시글 작성", "UTF-8"));
+		return;
 	}
 %>
 <!doctype html>
@@ -66,12 +67,12 @@ img {
 				</div>
 				<div class="col-6">
 					<div class="col-6" style="margin:auto;" id="showimage">
-						<img src="<%=request.getContextPath() %>/resources/board/sample.jpg" alt="샘플사진">
+						<img src="/images/board/sample.jpg" alt="샘플사진">
 					</div>	
 				</div>
 				<div class="text-end">
 					<button type="button" class="btn btn-secondary" onclick="confirm('작성 중인 내용이 저장되지 않고 사라집니다.') && history.back()">취소</button>
-					<button type="submit" class="btn btn-primary" onclick="return confirm('게시물을 등록하시겠습니까?')">등록</button>
+					<button type="submit" class="btn btn-primary" onclick="confirm('게시물을 등록하시겠습니까?')">등록</button>
 				</div>
 				
 			</form>
