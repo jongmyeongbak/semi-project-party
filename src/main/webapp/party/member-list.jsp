@@ -64,7 +64,7 @@
 	<div class="text-center">
 	    <h3>멤버 목록을 확인하세요</h3>
 	</div>
-    <div class="user-box pt-3 px-5 my-5">
+    <div class="user-box pt-3 pb-5 px-5 my-5">
     	<div class="row pb-3 fs-5">총 멤버 수 : <%=userList.size() %>명</div>
         <div class="bg row">
 <%
