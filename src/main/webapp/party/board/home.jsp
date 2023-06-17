@@ -210,7 +210,7 @@ $(window).scroll(function() {
 				   				</div>
 		                    </div>
 		                </div>
-		                \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ''}
+		                \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ""}
 		                <p class="card-text">\${item[0].content}</p>
 		                <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
 		            </div>
@@ -234,10 +234,10 @@ $(window).scroll(function() {
 				                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 				                        <li><a class="dropdown-item" href="">신고</a></li>
 				                    </ul>
-				                </div>` : ''}
+				                </div>` : ""}
 		  					</div>
 		  				</div>
-		  				 \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ''}
+		  				 \${item[0].filename ? `<img src="/images/board/\${item[0].filename}" class="img-fluid" alt="게시물 이미지">` : ""}
 		  			    <p class="card-text">\${item[0].content}</small></p>
 		  			    <p class="card-text"><small class="text-muted">댓글 \${item[0].commentCnt}</small></p>
 		  			</div>
