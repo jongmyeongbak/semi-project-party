@@ -19,6 +19,7 @@ public class BoardDao {
 	public void updateBoard(Board board) {
 		DaoHelper.update("boardDao.updateBoard", board.getTitle(),
 												 board.getContent(),
+												 board.getCommentCnt(),
 											     board.getDeleted(),
 											     board.getFilename(),
 											     board.getNo());

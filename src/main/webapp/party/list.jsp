@@ -47,6 +47,12 @@
 		<strong>[<%=job %>]</strong> 은/는 자신이 등록한 게시물만 수정/삭제할 수 있습니다.
 	</div>
 <%
+	} else if ("id2".equals(err)) {
+%>
+	<div class="alert alert-danger">
+		<strong>[<%=job %>]</strong> 은/는 자신이 등록한 댓글만 수정/삭제할 수 있습니다.
+	</div>
+<%		
 	}
 
 	if (loginId != null) {
