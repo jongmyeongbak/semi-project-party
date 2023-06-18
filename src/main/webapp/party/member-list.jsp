@@ -76,7 +76,7 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#">프로필</a></li>
                     <li><a class="dropdown-item" href="#">1:1 채팅</a></li>
-                    <li><a class="dropdown-item" href="#">메세지 보내기</a></li>
+                    <li><a class="dropdown-item" href="#">메시지 보내기</a></li>
                 </ul>
             </div>
 <%
