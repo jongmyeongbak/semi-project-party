@@ -69,7 +69,7 @@ public class BoardDao {
 		}, partyNo, first, last);
 	}
 
-	// 파티에 생성된 게시물 전체 행 조회
+	// 파티에 생성된 게시물 전체 갯수(행) 조회
 	public int getBoardsTotalRowsByPartyNo(int partyNo) {
 		return DaoHelper.selectOne("boardDao.getBoardsTotalRowsByPartyNo", rs -> {
 			return rs.getInt("cnt");
