@@ -27,7 +27,7 @@
 	Integer authNo = userPartyAccessDao.getAuthNoByPartyNoAndUserId(no, loginId);
 	// 해당 파티의 운영자가 아니면 오류메세지와 함께 돌려보낸다.
 	if (authNo == null || authNo != 6) {
-		response.sendRedirect("home.jsp?err=req&job=" + URLEncoder.encode("파티 수정", "utf-8"));
+		response.sendRedirect("list.jsp?err=req&job=" + URLEncoder.encode("파티 수정", "utf-8"));
 		return;
 	}
 	PartyDao partyDao = PartyDao.getInstance();
