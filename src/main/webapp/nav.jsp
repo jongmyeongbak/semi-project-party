@@ -180,7 +180,7 @@
                 <a href="#" class="nav-link <%= "calandar".equals(pmenu) ? "active fw-bold" : "" %>">일정</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link <%= "member".equals(pmenu) ? "active fw-bold" : "" %>">멤버</a>
+                <a href="/party/member-list.jsp?no=<%=no %>" class="nav-link <%= "member".equals(pmenu) ? "active fw-bold" : "" %>">멤버</a>
             </li>
         </ul>
     </div>

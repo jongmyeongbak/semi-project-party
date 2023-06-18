@@ -1,6 +1,10 @@
 package dao;
 
+import java.util.List;
+
 import util.DaoHelper;
+import vo.Party;
+import vo.PartyAccess;
 import vo.User;
 
 public class UserDao {
@@ -96,6 +100,26 @@ public class UserDao {
 			
 			return user;
 		}, email);
+	}
+	
+	public List<User> getUserByPartyNo(int no) {
+		return DaoHelper.selectList("userDao.getUserByPartyNo", rs -> {
+			User user = new User();
+			user.setId(rs.getString("user_id"));
+			user.setPassword(rs.getString("user_password"));
+			user.setName(rs.getString("user_name"));
+			user.setNickname(rs.getString("user_nickname"));
+			user.setGender(rs.getString("user_gender"));
+			user.setBirthdate(rs.getDate("user_birthdate"));
+			user.setEmail(rs.getString("user_email"));
+			user.setTel(rs.getString("user_tel"));
+			user.setDeleted(rs.getString("user_deleted"));
+			user.setUpdateDate(rs.getDate("user_update_date"));
+			user.setCreateDate(rs.getDate("user_create_date"));
+			
+			return user;
+			
+		}, no);
 	}
 	
 	
