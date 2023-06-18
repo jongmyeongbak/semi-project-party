@@ -19,7 +19,7 @@ List<Category> categoryList = partyListDao.getCategories();
 //로그인 하면 보여지는 내 파티가입리스트에 사용됨
 List<Party> smallPartyList = partyListDao.getUserRegPartiesByUserId(loginId);
 //모든 파티에 대한 정보를 가져오는데 사용됨
-List<Party> partyList = partyListDao.getAllParties();
+List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 %>
 <!doctype html>
 <html lang="ko">
@@ -130,7 +130,7 @@ List<Party> partyList = partyListDao.getAllParties();
 %>
 <tr>
 		
-		<td><a href="party/board.jsp?no=<%=party.getNo()%>"><%= party.getName() %></td>
+		<td><a href="party/board/home.jsp?no=<%=party.getNo()%>"><%= party.getName() %></td>
 		<td><%=party.getQuota()  %>/<%=party.getCurCnt()%>(명)</td>
 		<td class ="ellipsis"><%= party.getDescription() %></td>		
 </tr>
@@ -174,11 +174,11 @@ List<Party> partyList = partyListDao.getAllParties();
         }
 %>
   <div class="box">
-    <div class="image" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
-     	<img src="<%=request.getContextPath() %>/resources/thumbnail/<%= party.getFilename() %>" alt=" ">
+    <div class="image" onclick="window.location.href='party/board/home.jsp?no=<%=party.getNo()%>';">
+     	<img src="<%=request.getContextPath() %>/images/thumbnail/<%= party.getFilename() %>" alt=" ">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
+    <div class="text" onclick="window.location.href='party/board/home.jsp?no=<%=party.getNo()%>';">
       <ul>
         <li ><%=party.getName()%></li>
         <li>파티인원 : <%=party.getCurCnt()%>명</li>
