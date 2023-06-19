@@ -159,7 +159,7 @@
 		    <p class="card-text"><%=board.getContent() %></p>
 		    <p class="card-text">
 		    	<small class="text-muted">댓글 <%=board.getCommentCnt() %></small>
-		    	<i class="bi bi-chevron-down more-button" style="cursor: pointer;"></i>
+		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(<%=board.getNo()%>); this.onclick=null;" style="cursor: pointer;"></i>
 			</p>
 			
 		</div>
@@ -167,11 +167,11 @@
 <!-- 댓글 창 -->
     <div class="col-12">
 <% 
-	List<Comment> comments = commentDao.getAllCommentsByBoardNo(board.getNo());
+	List<Comment> comments = commentDao.getCommentsByBoardNo(board.getNo());
 	int index = 0;
 	for (Comment comment : comments) {
 %>
-        <div class="comments <%=index >= 2 ? "hidden" : ""%>">
+        <div id="comments<%=board.getNo()%><%=index%>" >
                 <div class="col-12">
                     <div class="border p-2 mb-2">
                         <div class="d-flex justify-content-between mb-1" >
@@ -182,7 +182,7 @@
                             <p><%=comment.getContent() %></p>
 <%
 		if (loginId != null) {
-			if (loginId.equals(board.getUser().getId())) {
+			if (loginId.equals(comment.getUser().getId())) {
 %>
 						<div>
                             <a href="delete-comment.jsp?bno=<%=board.getNo() %>&cno=<%=comment.getNo() %>" class="btn btn-link text-danger text-decoration-none float-end" 
@@ -245,7 +245,6 @@
 	});
 
 	function loadMoreBoards() {
-		console.log(partyNo);
 		$.ajax({
 		    url: "load-more-boards.jsp?pageNum=" + pageNum + "&partyNo=" + partyNo,
 		    type: "GET",
@@ -318,18 +317,19 @@
 		  		`
 		  		}
 		  	    comments.forEach(function (comment, index) {
+		  	    	if (comment[1]) {
 		  	        htmlContents += `
         	        <div id="comments\${board.no}\${index}">
         	                <div class="col-12">
         	                    <div class="border p-2 mb-2">
         	                        <div class="d-flex justify-content-between mb-1" >
-        	                            <span>\${comment.user.nickname}</span>
-        	                            <span class="text-muted">\${comment.createDate}</span>
+        	                            <span>\${comment[0].user.nickname}</span>
+        	                            <span class="text-muted">\${comment[0].createDate}</span>
         	                        </div>
         	                        <div>
-        	                            \${comment.content}
+        	                            \${comment[0].content}
         	                            \${isLoggedIn ?
-        	                             `<a href="delete-comment.jsp?bno=\${board.no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end"
+										`<a href="delete-comment.jsp?bno=\${board.no}&cno=\${comment[0].no}" class="btn btn-link text-danger text-decoration-none float-end"
         	                             	onclick="return confirm('댓글을 삭제하시겠습니까?')">
         	                            	<i class="bi bi-trash"></i>
         	                             </a>
@@ -340,6 +340,22 @@
         	                    </div>
         	                </div>
         	            </div>`;
+		  	    	} else {
+		  	    		htmlContents += `
+		  	    		<div id="comments\${board.no}\${index}">
+        	                <div class="col-12">
+        	                    <div class="border p-2 mb-2">
+        	                        <div class="d-flex justify-content-between mb-1" >
+        	                            <span>\${comment[0].user.nickname}</span>
+        	                            <span class="text-muted">\${comment[0].createDate}</span>
+        	                        </div>
+        	                        <div>
+        	                            \${comment[0].content}
+        	                        </div>
+        	                    </div>
+        	                </div>
+        	            </div>`;
+		  	    	}
 	  	  		  });
 		  	    htmlContents += `
 		  	        <div class="row mb-3" id="comment-form\${board.no}">
@@ -426,12 +442,12 @@
 			    }
 		    })
 		    $("#comments" + no + "1").append(htmlContents);
-		 // 토글로 댓글을 숨기고 보여주기 설정
+			// 토글로 댓글을 숨기고 보여주기 설정
 			document.querySelectorAll(".more-button").forEach(function(button) {
 			    button.addEventListener("click", function() {
 			    	console.log("click");
 			    	 let comments = button.closest('.card').querySelectorAll('.comments');
-			        for (let i = 2; i < comments.length; i++) {
+			        for (let i = 0; i < comments.length; i++) {
 			            comments[i].classList.toggle('hidden');
 			        }
 			        button.classList.toggle('bi-chevron-down');
@@ -442,19 +458,19 @@
 		    console.log('Server error occured');
 		});
 	}
-
-	 // 토글로 댓글을 숨기고 보여주기 설정 - 이미 생성된 게시물에 사용해야 하기 때문에 바깥에도 하나 둠
+	// 토글로 댓글을 숨기고 보여주기 설정
 	document.querySelectorAll(".more-button").forEach(function(button) {
 	    button.addEventListener("click", function() {
 	    	console.log("click");
 	    	 let comments = button.closest('.card').querySelectorAll('.comments');
-	        for (let i = 2; i < comments.length; i++) {
+	        for (let i = 0; i < comments.length; i++) {
 	            comments[i].classList.toggle('hidden');
 	        }
 	        button.classList.toggle('bi-chevron-down');
 	        button.classList.toggle('bi-chevron-up');
 	    });
 	});
+
 	
 
 </script>

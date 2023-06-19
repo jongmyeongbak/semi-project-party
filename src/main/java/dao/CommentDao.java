@@ -40,6 +40,20 @@ public class CommentDao {
 		}, boardNo);
 	}
 	
+	// 최근 두개만 조회한 두개의 댓글이 자신이 쓴 댓글인지 확인
+	public List<Object[]> getCommentsWithIsMineByBoardNo(int boardNo, String userId) {
+		return DaoHelper.selectList("commentDao.getCommentsByBoardNo", rs -> {
+			Comment comment = new Comment();
+			comment.setNo(rs.getInt("comment_no"));
+			comment.setContent(rs.getString("comment_content"));
+			comment.setCreateDate(rs.getDate("comment_create_date"));
+			comment.setUser(new User(null, rs.getString("user_nickname")));
+			String commentUserId = rs.getString("user_id");
+			boolean isMine = commentUserId.equals(userId);
+			return new Object[] {comment, isMine};
+		}, boardNo);
+	}
+	
 	// 게시판에 달린 모든 댓글 조회
 	public List<Comment> getAllCommentsByBoardNo(int boardNo) {
 		return DaoHelper.selectList("commentDao.getAllCommentsByBoardNo", rs -> {

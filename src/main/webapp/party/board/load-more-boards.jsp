@@ -34,7 +34,8 @@
     	Map<String, Object> boardMap = new HashMap<>();
         boardMap.put("board", board);
         boardMap.put("isMine", board.getUser().getId().equals(loginId));
-        boardMap.put("comments", commentDao.getCommentsByBoardNo(board.getNo()));
+        boardMap.put("comments", commentDao.getCommentsWithIsMineByBoardNo(board.getNo(), loginId));
+        
         boardsCommentsIsMine.add(boardMap);
     }
     // 게시판 목록정보를 json형식으로 텍스트로 변환한다
