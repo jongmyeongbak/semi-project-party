@@ -61,27 +61,27 @@ String job = request.getParameter("job");
 				</colgroup>
 				<tbody>
 					<tr>
-						<th class="table-dark">제목</th>
-						<td style='white-space: break-spaces;'><%=board.getTitle() %></td>
-						<th class="table-dark">글쓴이</th>
-						<td><%=board.getUser().getNickname() %></td>
-					</tr>
-					<tr>
 						<%
 						if (auth != null && auth < 4) {
 						%>
-						<th class="table-dark">조회수</th>
-						<td><%=board.getReadCnt() %></td>
+						<th class="table-dark">제목</th>
+						<td style='white-space: break-spaces;'><%=board.getTitle() %></td>
 						<th class="table-dark">삭제여부</th>
 						<td><%=board.getDeleted() %></td>
 						<%
 						} else {
 						%>
-						<th class="table-dark">조회수</th>
-						<td colspan="3"><%=board.getReadCnt() %></td>
+						<th class="table-dark">제목</th>
+						<td colspan="3" style='font-weight: bolder; white-space: break-spaces;'><%=board.getTitle() %></td>
 						<%
 						}
 						%>
+					</tr>
+					<tr>
+						<th class="table-dark">글쓴이</th>
+						<td><%=board.getUser().getNickname() %></td>
+						<th class="table-dark">조회수</th>
+						<td><%=board.getReadCnt() %></td>
 					</tr>
 					<tr>
 						<th class="table-dark">등록일</th>
