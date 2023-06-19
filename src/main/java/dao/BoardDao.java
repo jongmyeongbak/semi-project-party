@@ -15,10 +15,11 @@ public class BoardDao {
 		return instance;
 	}
 	
-	// 게시판 번호로 게시판 업데이트
+	// 게시판 업데이트
 	public void updateBoard(Board board) {
 		DaoHelper.update("boardDao.updateBoard", board.getTitle(),
 												 board.getContent(),
+												 board.getCommentCnt(),
 											     board.getDeleted(),
 											     board.getFilename(),
 											     board.getNo());
@@ -69,6 +70,7 @@ public class BoardDao {
 		}, partyNo, first, last);
 	}
 
+	// 파티에 생성된 게시물 전체 갯수(행) 조회
 	public int getBoardsTotalRowsByPartyNo(int partyNo) {
 		return DaoHelper.selectOne("boardDao.getBoardsTotalRowsByPartyNo", rs -> {
 			return rs.getInt("cnt");
