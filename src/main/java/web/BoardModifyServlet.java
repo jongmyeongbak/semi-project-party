@@ -20,15 +20,13 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import util.StringUtils;
 import vo.Board;
-import vo.Party;
-import vo.User;
 
-@WebServlet(urlPatterns = "/party/board/insert")
+@WebServlet(urlPatterns = "/party/board/modify")
 @MultipartConfig(
 		fileSizeThreshold = 1024*1024*1,
 		maxFileSize = 1024*1024*5,
 		maxRequestSize = 1024*1024*10)
-public class BoardInsertServlet extends HttpServlet {
+public class BoardModifyServlet extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,18 +34,19 @@ public class BoardInsertServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		String loginId = (String) session.getAttribute("loginId");
 		
-		// 로그인 상태가 아닌 경우 로그인 폼으로 리디렉트
+		// 로그인 상태가 아닌 경우 리디렉트
 		if (loginId == null) {
-			resp.sendRedirect("../../login-form.jsp?err=req&job=" + URLEncoder.encode("게시물 작성", "utf-8"));
+			resp.sendRedirect("../../login-form.jsp?err=req&job=" + URLEncoder.encode("게시물 수정", "utf-8"));
 			return;
 		}
-
-		// 요청 파라미터 조회
+		
+		// 변경할 요소 요청 파라미터 조회		
+		int boardNo = StringUtils.stringToInt(req.getParameter("boardNo"));
 		int partyNo = StringUtils.stringToInt(req.getParameter("partyNo"));
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		
-		// 첨부파일 처리
+		// 변경할 첨부파일 처리
 		Part upfilePart = req.getPart("boardImage");
 		String filename = null;
 		if (!upfilePart.getSubmittedFileName().isEmpty()) {
@@ -62,17 +61,15 @@ public class BoardInsertServlet extends HttpServlet {
 			out.close();
 		}
 		
-		//업무로직 수행
-		Board board = new Board();
-		board.setUser(new User(loginId));
-		board.setParty(new Party(partyNo));
-		board.setTitle(title);
-		board.setContent(content);
-		board.setFilename(filename);
-		
-		// 데이터 베이스에 게시글 추가
+		// 업무 로직 수행- 기존의 게시물을 수정폼에 입력된 내용으로 변경
 		BoardDao boardDao = BoardDao.getInstance();
-		boardDao.insertBoard(board);
+		Board savedBoard = boardDao.getBoardByBoardNo(boardNo);
+		savedBoard.setTitle(title);
+		savedBoard.setContent(content);
+		savedBoard.setFilename(filename);
+		
+		// 변경된 사항을 데이터 베이스에 업데이트
+		boardDao.updateBoard(savedBoard);
 		
 		resp.sendRedirect("home.jsp?no=" + partyNo);
 	}
