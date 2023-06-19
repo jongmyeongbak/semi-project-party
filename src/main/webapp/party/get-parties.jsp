@@ -13,7 +13,7 @@
 	
 	PartyListDao partyListDao = PartyListDao.getInstance();
 	List<Party> partyList;
-	if (value.isBlank()) {
+	if (value == null || value.isBlank()) {
 		if (catNo == 0){
 			partyList = partyListDao.getAllPartiesWithCat(beginPage, endPage);
 		} else {

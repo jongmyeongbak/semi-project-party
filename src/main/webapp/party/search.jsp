@@ -1,8 +1,16 @@
+<%@page import="vo.Party"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.PartyListDao"%>
 <%@page import="util.StringUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	String value = request.getParameter("value");
 	int cat = StringUtils.stringToInt(request.getParameter("cat"));
+	String value;
+	if (request.getParameter("value") == null) {
+		value = " ";
+	} else {
+		value = request.getParameter("value");
+	}
 %>
 <!doctype html>
 <html lang="ko">
@@ -41,11 +49,7 @@
 	let currentPage = 1;
 	let catNo = <%=cat %>;
 	let isChecked = true;
-	let documentHeight;
-	let windowHeight;
-	let scrollTop;
 	let value = "<%=value %>";
-	console.log(value);
 	
 	function selectCategory(cat) {
 		let btns = document.querySelectorAll(".cat-button button");
@@ -61,7 +65,6 @@
 		
 		isChecked = true;
 		currentPage = 1;
-		console.log(catNo);
 		getParties();
 	}
 	
@@ -76,7 +79,8 @@
 	const onIntersect = (entries, observer) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting){
-				console.log("hello");
+				
+				isChecked = true;
 				getParties();
 			}
 		})
@@ -86,13 +90,14 @@
 
 	// ajax 쓰기
 	function getParties(pageNo){
+		console.log(isChecked);
 		if (isChecked) {
 			let xhr = new XMLHttpRequest();
 			xhr.addEventListener("readystatechange", ()=>{
 				if (xhr.readyState == 4) {
-					
 					let data = xhr.responseText;
 					let arr = JSON.parse(data);
+					console.log(arr);
 					if (arr.length == 0){
 						isCheked = false;
 					}
@@ -124,13 +129,16 @@
 					    	</div>
 						`
 					})
-						document.querySelector("#party-list").innerHTML += htmlContent;
+					document.querySelector("#party-list").innerHTML = htmlContent;
 				}
 			})
+			console.log(currentPage);
+			console.log(catNo);
+			console.log(value);
 			xhr.open("GET", "get-parties.jsp?pageNo=" + currentPage + "&catNo=" + catNo + "&value=" + value);
 			xhr.send(null);
 		} else {
-			document.querySelector("#party-list").innerHTML = htmlContent;
+			document.querySelector("#party-list").innerHTML += htmlContent;
 		}
 		currentPage++;
 	}

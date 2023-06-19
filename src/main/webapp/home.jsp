@@ -19,18 +19,29 @@ List<Category> categoryList = partyListDao.getCategories();
 //로그인 하면 보여지는 내 파티가입리스트에 사용됨
 List<Party> smallPartyList = partyListDao.getUserRegPartiesByUserId(loginId);
 //모든 파티에 대한 정보를 가져오는데 사용됨
-List<Party> partyList = partyListDao.getAllParties();
+List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 %>
 <!doctype html>
 <html lang="ko">
 <head>
 <title>파티홈입니다.</title>
- <link rel="stylesheet" href="css/home.css"/>
+<link rel="stylesheet" href="css/home.css"/>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style type="text/css">
+	td a, td a:active, td a:visited {
+		color: #333;
+		text-decoration: none;
+		transition: color 0.1s;
+	}
+	td a:hover {
+		color: rgb(58, 156, 255);
+		text-decoration: none;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="nav.jsp">
@@ -130,9 +141,9 @@ List<Party> partyList = partyListDao.getAllParties();
 %>
 <tr>
 		
-		<td><a href="party/board/home.jsp?no=<%=party.getNo()%>"><%= party.getName() %></td>
+		<td><a href="party/board/home.jsp?no=<%=party.getNo()%>"><%= party.getName() %></a></td>
 		<td><%=party.getQuota()  %>/<%=party.getCurCnt()%>(명)</td>
-		<td class ="ellipsis"><%= party.getDescription() %></td>		
+		<td class ="ellipsis"><%= party.getDescription() == null ? "없음" : party.getDescription() %></td>		
 </tr>
 <%	partyCount++; 
 } %>
@@ -178,7 +189,7 @@ List<Party> partyList = partyListDao.getAllParties();
      	<img src="<%=request.getContextPath() %>/images/thumbnail/<%= party.getFilename() %>" alt=" ">
     </div>
     <div class="separator"></div>
-    <div class="text" onclick="window.location.href='party/board.jsp?no=<%=party.getNo()%>';">
+    <div class="text" onclick="window.location.href='party/board/home.jsp?no=<%=party.getNo()%>';">
       <ul>
         <li ><%=party.getName()%></li>
         <li>파티인원 : <%=party.getCurCnt()%>명</li>
