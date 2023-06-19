@@ -1,0 +1,63 @@
+@charset "UTF-8";
+.party-box {
+	background-color: rgb(237, 246, 255);
+}
+.party-container {
+	background-color: #fff;
+}
+.tabs {
+	display: flex;
+	gap: 1px;
+}
+.tab {
+	padding: 5px 10px;
+	border: 3px solid rgb(194, 225, 255);;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.tab.active {
+	background-color: rgb(237, 246, 255);
+}
+table {
+	text-align: center;
+}
+thead {
+	background-color: rgb(237, 246, 255);
+}
+tr td:first-of-type {
+	line-height: 70px;
+}
+tr td:nth-of-type(2), tr th:nth-of-type(2) {
+	padding-left: 10%;
+	text-align: left;
+}
+td button {
+	margin-top: 10%;
+}
+.withdraw {
+	border-radius: 10px;
+	border: 1px solid #999;
+	background-color: rgb(247, 247, 247);
+}
+.manage {
+	border-radius: 10px;
+	border: 2px solid #999;
+	background-color: rgb(200, 225, 225);
+}
+td img {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	border-radius: 25%;
+	margin-right: 20px;
+}
+.withdraw:active {
+	background-color: rgb(175, 175, 175);
+}
+.manage:active {
+	background-color: rgb(130, 155, 155);
+}
+tbody i {
+	color: red;
+	cursor: pointer;
+}
