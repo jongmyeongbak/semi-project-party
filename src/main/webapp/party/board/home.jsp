@@ -317,6 +317,7 @@
 		  		`
 		  		}
 		  	    comments.forEach(function (comment, index) {
+		  	    	// 무한로딩으로 추가되는 게시물 중 2개의 댓글에 대한 로그인 유저와 일치 여부
 		  	    	if (comment[1]) {
 		  	        htmlContents += `
         	        <div id="comments\${board.no}\${index}">
@@ -384,7 +385,7 @@
 		});
 	}
 	function moreComments(no) {
-		console.log(no);
+		// 처음에 보여주는 2개의 댓글 외에 출력되는 나머지 전체 댓글
 		$.ajax({
 		    url: "load-more-comments.jsp?boardNo=" + no,
 		    type: "GET",
@@ -396,8 +397,7 @@
 		    	let comment = comments["comments"];
 		    	let isMine = comments["isMine"];
 			    if (isMine) {
-			    	console.log(comment);
-			    	console.log("true가 실행되서 나의 댓글")
+			    	// 내 댓글일 때
 			    	htmlContents += `
 		    		<div id="comments" class="collapse show comments">
     	                <div class="col-12">
@@ -423,7 +423,7 @@
     	            </div>
 			    	`
 			    } else {
-			    	console.log("나의 댓글이 아니어라....")
+			    // 내 댓글이 아닐 때	
 			    	htmlContents += `
 		    		<div id="comments" class="collapse show comments">
     	                <div class="col-12">
