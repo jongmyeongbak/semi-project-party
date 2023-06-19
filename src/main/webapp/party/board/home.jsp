@@ -171,7 +171,7 @@
 	int index = 0;
 	for (Comment comment : comments) {
 %>
-        <div id="comments<%=board.getNo()%><%=index%>" >
+        <div id="comments<%=board.getNo()%><%=index%>">
                 <div class="col-12">
                     <div class="border p-2 mb-2">
                         <div class="d-flex justify-content-between mb-1" >
@@ -450,7 +450,6 @@
 			        for (let i = 0; i < comments.length; i++) {
 			            comments[i].classList.toggle('hidden');
 			        }
-			        button.classList.toggle('bi-chevron-down');
 			        button.classList.toggle('bi-chevron-up');
 			    });
 			});
@@ -458,21 +457,6 @@
 		    console.log('Server error occured');
 		});
 	}
-	// 토글로 댓글을 숨기고 보여주기 설정
-	document.querySelectorAll(".more-button").forEach(function(button) {
-	    button.addEventListener("click", function() {
-	    	console.log("click");
-	    	 let comments = button.closest('.card').querySelectorAll('.comments');
-	        for (let i = 0; i < comments.length; i++) {
-	            comments[i].classList.toggle('hidden');
-	        }
-	        button.classList.toggle('bi-chevron-down');
-	        button.classList.toggle('bi-chevron-up');
-	    });
-	});
-
-	
-
 </script>
 </body>
 </html>
