@@ -33,15 +33,13 @@ List<UserPartyDto> partyList = UserPartyDtoDao.getInstance().getAllMyParties(log
 </head>
 <body>
 <jsp:include page="../nav.jsp">
-	<jsp:param name="menu" value="home"/>
+	<jsp:param name="menu" value="userInfo"/>
 </jsp:include>
-<div class="blank mb-3">
-</div>
-<div class="container">
-	<div class="text-center">
+<div class="container py-3">
+	<div class="text-center pb-3">
 		<h3>내 파티 목록을 확인하세요</h3>
 	</div>
-	<div class="party-box py-5 px-5 my-5">
+	<div class="party-box py-5 px-5 my-3">
 		<div class="party-container px-5">
 			<div class="tabs mb-3 px-5 pt-5">
 				<div class="tab active" id="join">가입 파티</div>
