@@ -89,4 +89,7 @@ public class PartyDao {
 	public void increaseCurCntByNo(int no) {
 		DaoHelper.update("partyDao.increaseCurCntByNo", no);
 	}
+	public void decreaseCurCntByNo(int no) {
+		DaoHelper.update("partyDao.decreaseCurCntByNo", no);
+	}
 }

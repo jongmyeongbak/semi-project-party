@@ -44,6 +44,6 @@ public class PartyAccessDao {
 		DaoHelper.update("partyAccessDao.updatePartyAccess",
 				partyAccess.getAuthNo(),
 				partyAccess.getDescription(),
-				partyAccess.getAuthNo());
+				partyAccess.getNo());
 	}
 }
