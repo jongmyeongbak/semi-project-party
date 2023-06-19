@@ -76,7 +76,7 @@ List<UserPartyDto> partyList = UserPartyDtoDao.getInstance().getAllMyParties(log
 					%>
 						<tr data-no="<%=no %>">
 							<td><i class="<%=dto.getIsFavorite() ? "fa-solid" : "fa-regular" %> fa-star fa-lg"></i></td>
-							<td><img src="/images/thumbnail/<%=dto.getFilename() == null ? "sample.jpg" : dto.getFilename() %>"><%=dto.getName() %></td>
+							<td><img src="/images/thumbnail/<%=dto.getFilename() == null ? "sample.jpg" : dto.getFilename() %>"><a href="board/home.jsp?no=<%=no %>"><%=dto.getName() %></a></td>
 							<td>
 							<%
 							if (dto.getIsManaged() == true) {

@@ -94,7 +94,7 @@ function switchTab(el) {
 				partyList.forEach(function(party) {
 					partyHtml += '<tr data-no=' + party.no + '>';
 						partyHtml += '<td><i class="' + (party.isFavorite ? 'fa-solid' : 'fa-regular') + ' fa-star fa-lg"></i></td>';
-						partyHtml += '<td><img src="/images/thumbnail/' + (party.filename === undefined ? 'sample.jpg' : party.filename) + '">' + party.name + '</td>';
+						partyHtml += '<td><img src="/images/thumbnail/' + (party.filename === undefined ? 'sample.jpg' : party.filename) + '"><a href="board/home.jsp?no=' + party.no + '">' + party.name + '</a></td>';
 						partyHtml += '<td>';
 						if (party.isManaged) {
 							partyHtml += '<button type="button" class="manage">관리</button>';
