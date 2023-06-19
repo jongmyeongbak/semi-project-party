@@ -159,28 +159,32 @@
 		    <p class="card-text"><%=board.getContent() %></p>
 		    <p class="card-text">
 		    	<small class="text-muted">댓글 <%=board.getCommentCnt() %></small>
-		    	<a class="bi bi-chevron-down" data-bs-toggle="collapse" href="#comments<%= board.getNo() %>" role="button" aria-expanded="false" aria-controls="comments<%= board.getNo() %>" ></a>
+		    	<i class="bi bi-chevron-down more-button" style="cursor: pointer;"></i>
 			</p>
+			
 		</div>
 
 <!-- 댓글 창 -->
     <div class="col-12">
-        <div id="comments<%= board.getNo() %>" class="collapse">
 <% 
-	List<Comment> comments = commentDao.getCommentsByBoardNo(board.getNo());
+	List<Comment> comments = commentDao.getAllCommentsByBoardNo(board.getNo());
+	int index = 0;
 	for (Comment comment : comments) {
 %>
+        <div class="comments <%=index >= 2 ? "hidden" : ""%>">
                 <div class="col-12">
                     <div class="border p-2 mb-2">
                         <div class="d-flex justify-content-between mb-1" >
                             <span><%=comment.getUser().getNickname() %></span>
                             <span class="text-muted"><%=comment.getCreateDate() %></span>
                         </div>
-                        <div>
-                            <p id="comment-text"><%=comment.getContent() %></p>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p><%=comment.getContent() %></p>
 <%
 		if (loginId != null) {
+			if (loginId.equals(board.getUser().getId())) {
 %>
+						<div>
                             <a href="delete-comment.jsp?bno=<%=board.getNo() %>&cno=<%=comment.getNo() %>" class="btn btn-link text-danger text-decoration-none float-end" 
                                 onclick="return confirm('댓글을 삭제하시겠습니까?')" >
                             	<i class="bi bi-trash"></i>
@@ -188,16 +192,19 @@
                             <a href="#" class="btn btn-link text-muted text-decoration-none float-end">
    								<i class="bi bi-pencil"></i>
 							</a>
+						</div>	
 <%
+			}
 		} 
 %>                           
                         </div>
                     </div>
                 </div>
+	        </div>
 <% 
+	index++;
 	}
 %>
-        </div>
     </div>
    	<!-- 댓글 닫힘 -->
     <!-- 댓글 폼 -->
@@ -225,18 +232,20 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-
-$(window).scroll(function() {
-	if($(window).scrollTop() + $(window).height() == $(document).height()) {
-	loadMoreBoards();
-	}
-});
+	
 	let partyNo = <%=partyNo %>;
-	let pageNum = <%=pageNum %> +1; // 페이지 번호
+	let pageNum = <%=pageNum%> +1 ; // 페이지 번호
 	let authNo = <%=authNo %>; // 유저의 파티 접근권한이 강퇴나 탈퇴시를 구별하기 위한 권한 번호
 	let isLoggedIn = <%=isLoggedIn %>; // 로그인이 되어있지 않으면 드롭메뉴 표시하지 않기위해 로그인 여부 확인 변수
+	
+	$(window).scroll(function() {
+		if($(window).scrollTop() + $(window).height() == $(document).height()) {
+		loadMoreBoards();
+		}
+	});
 
 	function loadMoreBoards() {
+		console.log(partyNo);
 		$.ajax({
 		    url: "load-more-boards.jsp?pageNum=" + pageNum + "&partyNo=" + partyNo,
 		    type: "GET",
@@ -262,7 +271,7 @@ $(window).scroll(function() {
 		                        <p class="card-text mr-2"><small>\${board.user.nickname}</small></p>
 		                        <!-- 자신의 게시글일 때 드롭다운 메뉴 -->
 		    			        <div class="dropdown" style="position: relative; top: -5px;">
-				          			<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+				          			<a class="btn dropdown-toggle more-button" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
 				          			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 				            			<li><a class="dropdown-item" href="modify-form.jsp?boardNo=\${board.no}&partyNo=\${board.party.no}">수정</a></li>
 				            			<li><a class="dropdown-item" href="delete.jsp?boardNo=\${board.no}&partyNo=\$board.party.no}" onclick="return confirm('게시된 글을 삭제하시겠습니까?')">삭제</a></li>
@@ -274,7 +283,7 @@ $(window).scroll(function() {
 		                <p class="card-text">\${board.content}</p>
 		    		    <p class="card-text">
 		    		    	<small class="text-muted">댓글 \${board.commentCnt}</small>
-		    		    	<a class="bi bi-chevron-down" data-bs-toggle="collapse" href="#comments\${board.no}" role="button" aria-expanded="false" aria-controls="comments\${board.no}" ></a>
+		    		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(\${board.no}); this.onclick=null;" style="cursor: pointer;"></i>
 		    			</p>
 		    		</div>
 		        `
@@ -303,14 +312,14 @@ $(window).scroll(function() {
 		                <p class="card-text">\${board.content}</p>
 		    		    <p class="card-text">
 		    		    	<small class="text-muted">댓글 \${board.commentCnt}</small>
-		    		    	<a class="bi bi-chevron-down" data-bs-toggle="collapse" href="#comments\${board.no}" role="button" aria-expanded="false" aria-controls="comments\${board.no}" ></a>
+		    		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(\${board.no}); this.onclick=null;" style="cursor: pointer;"></i>
 		    			</p>
 		    		</div>
 		  		`
 		  		}
 		  	    comments.forEach(function (comment, index) {
 		  	        htmlContents += `
-        	        <div id="comments\${board.no}" class="collapse">
+        	        <div id="comments\${board.no}\${index}">
         	                <div class="col-12">
         	                    <div class="border p-2 mb-2">
         	                        <div class="d-flex justify-content-between mb-1" >
@@ -320,7 +329,7 @@ $(window).scroll(function() {
         	                        <div>
         	                            \${comment.content}
         	                            \${isLoggedIn ?
-        	                            `<a href="deleteComment.jsp?bno=\${board.no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end"
+        	                             `<a href="delete-comment.jsp?bno=\${board.no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end"
         	                             	onclick="return confirm('댓글을 삭제하시겠습니까?')">
         	                            	<i class="bi bi-trash"></i>
         	                             </a>
@@ -333,9 +342,9 @@ $(window).scroll(function() {
         	            </div>`;
 	  	  		  });
 		  	    htmlContents += `
-		  	        <div class="row mb-3">
+		  	        <div class="row mb-3" id="comment-form\${board.no}">
 		  	            <div class="col-12">
-		  	                <form class="border bg-light p-2" method="post" action="insertComment.jsp">
+		  	                <form class="border bg-light p-2" method="post" action="insert-comment.jsp?partyNo=\${partyNo}">
 		  	                    <input type="hidden" name="boardNo" value="\${board.no}" />
 		  	                    <div class="row">
 		  	                        <div class="col-11">
@@ -353,12 +362,100 @@ $(window).scroll(function() {
 		  	
 			$("#post-data").append(htmlContents); // 불러온 데이터를 기존 게시글 뒤에 붙임
 		    pageNum++; // 페이지 번호 증가
-		    console.log(response);
 		    
 		}).fail(function(jqXHR, ajaxOptions, thrownError) {
 		    console.log('Server error occured');
 		});
 	}
+	function moreComments(no) {
+		console.log(no);
+		$.ajax({
+		    url: "load-more-comments.jsp?boardNo=" + no,
+		    type: "GET",
+		    dataType: "json"
+		}).done(function(response) {
+		    console.log(response); // json으로 변환된 텍스트가 자바스크립트 객체로 변환되어 오고 있나 확인
+		    let htmlContents = "";
+		    response.forEach(comments =>{
+		    	let comment = comments["comments"];
+		    	let isMine = comments["isMine"];
+			    if (isMine) {
+			    	console.log(comment);
+			    	console.log("true가 실행되서 나의 댓글")
+			    	htmlContents += `
+		    		<div id="comments" class="collapse show comments">
+    	                <div class="col-12">
+    	                    <div class="border p-2 mb-2">
+    	                        <div class="d-flex justify-content-between mb-1" >
+    	                            <span>\${comment.user.nickname}</span>
+    	                            <span class="text-muted">\${comment.createDate}</span>
+    	                        </div>
+    	                        <div>
+    	                            \${comment.content}
+    	                            \${isLoggedIn ? 
+   	                            	`<a href="delete-comment.jsp?bno=\${no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end" onclick="return confirm('댓글을 삭제하시겠습니까?')">
+    	                            	<i class="bi bi-trash"></i>
+	                           		</a>
+	                         		<a href="#" class="btn btn-link text-muted text-decoration-none float-end">
+	   									<i class="bi bi-pencil"></i>
+    								</a>
+    								` : ""}
+    								
+    	                        </div>
+    	                    </div>
+    	                </div>
+    	            </div>
+			    	`
+			    } else {
+			    	console.log("나의 댓글이 아니어라....")
+			    	htmlContents += `
+		    		<div id="comments" class="collapse show comments">
+    	                <div class="col-12">
+    	                    <div class="border p-2 mb-2">
+    	                        <div class="d-flex justify-content-between mb-1" >
+    	                            <span>\${comment.user.nickname}</span>
+    	                            <span class="text-muted">\${comment.createDate}</span>
+    	                        </div>
+    	                        <div>
+    	                            \${comment.content}
+    	                        </div>
+    	                    </div>
+    	                </div>
+    	            </div>
+			    	`
+			    }
+		    })
+		    $("#comments" + no + "1").append(htmlContents);
+		 // 토글로 댓글을 숨기고 보여주기 설정
+			document.querySelectorAll(".more-button").forEach(function(button) {
+			    button.addEventListener("click", function() {
+			    	console.log("click");
+			    	 let comments = button.closest('.card').querySelectorAll('.comments');
+			        for (let i = 2; i < comments.length; i++) {
+			            comments[i].classList.toggle('hidden');
+			        }
+			        button.classList.toggle('bi-chevron-down');
+			        button.classList.toggle('bi-chevron-up');
+			    });
+			});
+		}).fail(function(jqXHR, ajaxOptions, thrownError) {
+		    console.log('Server error occured');
+		});
+	}
+
+	 // 토글로 댓글을 숨기고 보여주기 설정 - 이미 생성된 게시물에 사용해야 하기 때문에 바깥에도 하나 둠
+	document.querySelectorAll(".more-button").forEach(function(button) {
+	    button.addEventListener("click", function() {
+	    	console.log("click");
+	    	 let comments = button.closest('.card').querySelectorAll('.comments');
+	        for (let i = 2; i < comments.length; i++) {
+	            comments[i].classList.toggle('hidden');
+	        }
+	        button.classList.toggle('bi-chevron-down');
+	        button.classList.toggle('bi-chevron-up');
+	    });
+	});
+	
 
 </script>
 </body>

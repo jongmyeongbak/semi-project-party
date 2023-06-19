@@ -27,9 +27,22 @@ public class CommentDao {
 		}, commentNo);
 	}
 	
-	// 게시판에 달린 모든 댓글 조회
+	// 게시판에 달린 모든 댓글 조회 (최근두개만조회)
 	public List<Comment> getCommentsByBoardNo(int boardNo) {
 		return DaoHelper.selectList("commentDao.getCommentsByBoardNo", rs -> {
+			Comment comment = new Comment();
+			comment.setNo(rs.getInt("comment_no"));
+			comment.setContent(rs.getString("comment_content"));
+			comment.setCreateDate(rs.getDate("comment_create_date"));
+			comment.setUser(new User(rs.getString("user_id"), rs.getString("user_nickname")));
+			
+			return comment;
+		}, boardNo);
+	}
+	
+	// 게시판에 달린 모든 댓글 조회
+	public List<Comment> getAllCommentsByBoardNo(int boardNo) {
+		return DaoHelper.selectList("commentDao.getAllCommentsByBoardNo", rs -> {
 			Comment comment = new Comment();
 			comment.setNo(rs.getInt("comment_no"));
 			comment.setContent(rs.getString("comment_content"));
