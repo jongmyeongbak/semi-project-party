@@ -29,7 +29,7 @@ if (partyAccess.getAuthNo() != 6) {
 partyAccess.setAuthNo(8);
 partyAccessDao.updatePartyAccess(partyAccess);
 PartyDao.getInstance().decreaseCurCntByNo(no);
-PartyFavoritesDao.getInstance().deletePartyFavoritesByuserId(loginId);
+PartyFavoritesDao.getInstance().deletePartyFavorite(loginId, no);
 
 // 응답으로 텍스트를 보내기
 out.write("withdraw");
