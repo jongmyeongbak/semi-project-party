@@ -24,7 +24,7 @@ public class GuestBookDao {
 	}	
 		
 	// 파티번호에 해당하는 방명록 조회하기
-	public List<GuestBook> getGuestBooksByNo(int partyNo){
+	public List<GuestBook> getGuestBooksByPartyNo(int partyNo){
 		return DaoHelper.selectList("guestBookDao.getGbooksByPartyNo", rs -> {
 			GuestBook guestBook = new GuestBook();
 			guestBook.setNo(rs.getInt("gb_no"));
@@ -37,7 +37,7 @@ public class GuestBookDao {
 	}
 	
 	// 파티번호를 통해 페이지네이션된 방명록 얻어오기
-	public List<GuestBook> getGuestBooksByNoPage(int partyNo, int first, int last){
+	public List<GuestBook> getGuestBooksByPartyNoPage(int partyNo, int first, int last){
 		return DaoHelper.selectList("guestBookDao.getGbooksByPartyNoPage", rs -> {
 			GuestBook guestBook = new GuestBook();
 			guestBook.setNo(rs.getInt("gb_no"));
@@ -59,11 +59,10 @@ public class GuestBookDao {
 			guestBook.setCreateDate(rs.getDate("gb_create_date"));
 			return guestBook;
 		}, gbNo);
-		
 	}
 		
 	// 방명록 삭제하기
-	public void deleteGuestBookByNo(int gbNo){
+	public void deleteGuestBookByGbNo(int gbNo){
 		DaoHelper.update("guestBookDao.deleteGbookByNo", gbNo);
 	}
 	
@@ -75,7 +74,7 @@ public class GuestBookDao {
 	}
 	
 	// 파티번호에 해당하는 방명록의 총 수 조회하기
-	public int getTotalRowsByNo(int partyNo) {
+	public int getTotalRowsByPartyNo(int partyNo) {
 	    return DaoHelper.selectOne("guestBookDao.getTotalRowsByPartyNo", rs -> {
 	        return rs.getInt("cnt");
 	    }, partyNo);

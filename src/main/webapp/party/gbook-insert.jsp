@@ -9,7 +9,7 @@
 <%@page import="vo.Party"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%	//insert
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	String content = request.getParameter("content");
 	
@@ -20,8 +20,14 @@
 		return;
 	}	
 	if(content == null || "".equals(content)){
-		response.sendRedirect("gbook.jsp?no="+partyNo);
+		 out.println("<script>alert('내용을 입력해주세요.');</script>");
+		    out.println("<script>history.back();</script>");
 		return;
+	}
+	if (content.getBytes("UTF-8").length > 500) {
+	    out.println("<script>alert('글자수를 초과했습니다(최대500자)');</script>");
+	    out.println("<script>history.back();</script>");
+	    return;
 	}
 	
   	GuestBookDao guestbookdao = GuestBookDao.getInstance();

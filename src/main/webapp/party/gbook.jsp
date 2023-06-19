@@ -25,7 +25,7 @@ if (loginId == null) {
 int partyNo = StringUtils.stringToInt(request.getParameter("no"));
 //파티번호로 방명록조회
 GuestBookDao gusetBookDao = GuestBookDao.getInstance();
-List<GuestBook> gusetbookList = gusetBookDao.getGuestBooksByNo(partyNo);
+List<GuestBook> gusetbookList = gusetBookDao.getGuestBooksByPartyNo(partyNo);
 
 //권한가져오기 (파티와 가입번호를 받아서 유저 권한 조회)
 PartyAccessDao partyaccessdao = PartyAccessDao.getInstance();
@@ -37,12 +37,11 @@ if (authNo == null) {
     return; 
 } 
 
-
 //페이지네이션
 int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-int totalRows = gusetBookDao.getTotalRowsByNo(partyNo);
+int totalRows = gusetBookDao.getTotalRowsByPartyNo(partyNo);
 Pagination pagination = new Pagination(pageNo, totalRows);
-List<GuestBook> guestBooks = gusetBookDao.getGuestBooksByNoPage(partyNo, pagination.getFirstRow(), pagination.getLastRow());
+List<GuestBook> guestBooks = gusetBookDao.getGuestBooksByPartyNoPage(partyNo, pagination.getFirstRow(), pagination.getLastRow());
 
 //유효하지 않은 페이지번호 검사
 if (pageNo < 1 || pageNo > pagination.getTotalPages()) {
@@ -82,7 +81,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 </div>
 
 
-<div class="container1">
+<div class="container">
 <div class="title fs-4 p-3 " style="margin-top :20px; text-align: center;" >방명록</div>
 
 <div class="mb-1">
@@ -94,7 +93,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<textarea rows="6" class="form-control col-11" name="content" placeholder="따뜻한 인사말을 건네보세요."></textarea>
+					<textarea rows="6" class="form-control col-11" name="content" placeholder="따뜻한 인사말을 건네보세요. (최대 500자.)"></textarea>
 				</div>
 			<div class="col-1">
 					<button class="btn btn-outline-primary h-100 w-100"onclick="return confirm('방명록을 등록하시겠습니까?')">등록</button>
@@ -115,7 +114,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<textarea rows="6" class="form-control col-11" name="content" readonly><%=guestBook.getContent() %></textarea>
+					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; "><%=guestBook.getContent() %></div >
 				</div>
 				<div class="col-1">
 					<%
@@ -137,13 +136,13 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	<%}%>
 
 </div><!-- mb3 닫김 -->
-		<div class="border bg-light p-3" style="margin-top: -20px;"></div>
-	<div class="title fs-4 p-4" style="margin-top: -35px;"></div>	
+		<div class="border bg-light p-3" style="margin-top: -23px;"></div>
+	<div class="title fs-4 p-4" style="margin-top: -30px;"></div>	
 <%
 	String baseUrl = "gbook.jsp?no=" + partyNo; // 기본 URL 주소에 파티 번호를 추가
 %>	
 	<div>
-			<ul class="pagination justify-content-center pagination-lg">
+			<ul class="pagination justify-content-center pagination-lg" style="margin-top: 10px">
 			<li class="page-item<%=pageNo <= 1 ? " disabled" : "" %>">
 				<a class="page-link" href="<%=baseUrl + "&page=" + (pageNo - 1) %>">이전</a>
 			</li>
@@ -162,6 +161,6 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			</li>
 				</ul>
 			</div>
-</div><!--container1닫김-->
+</div><!--container닫김-->
 </body>
 </html>

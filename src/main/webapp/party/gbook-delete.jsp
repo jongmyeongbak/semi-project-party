@@ -23,7 +23,7 @@
 	 }
 	 
 	 //방명록삭제
-	 guestbookdao.deleteGuestBookByNo(gbNo);
+	 guestbookdao.deleteGuestBookByGbNo(gbNo);
 	 
 	response.sendRedirect("gbook.jsp?no="+partyNo);
 %>		 
