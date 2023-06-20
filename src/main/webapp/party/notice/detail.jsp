@@ -25,6 +25,10 @@
 	int notiNo = StringUtils.stringToInt(request.getParameter("notino"));
 	PartyNoticeDao partyNoticeDao = PartyNoticeDao.getInstance();
 	PartyNotice partyNotice = partyNoticeDao.getPartyNoticeByNo(notiNo);
+	if (partyNotice == null || !"N".equals(partyNotice.getDeleted())) {
+		response.sendRedirect("list.jsp?no=" + partyNo);
+		return;
+	}
 %>
 <!doctype html>
 <html lang="ko">
