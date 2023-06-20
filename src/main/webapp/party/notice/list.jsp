@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Integer auth = (Integer) session.getAttribute("auth");  
+Integer auth = (Integer) session.getAttribute("auth");  
 	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
 	int partyNo = StringUtils.stringToInt(request.getParameter("no"));
 	int notiNo = StringUtils.stringToInt(request.getParameter("notino"));
@@ -16,9 +16,9 @@
   	Pagination pagination;
   	List<PartyNotice> partyNoticeList;
 
-	int totalRows = partyNoticeDao.getTotalRows();
+	int totalRows = partyNoticeDao.getTotalRowsByPartyNo(partyNo);
 	pagination = new Pagination(pageNo, totalRows);
-	partyNoticeList = partyNoticeDao.getAllNoticesByPartyNo(partyNo, pagination.getFirstRow(), pagination.getLastRow());
+	partyNoticeList = partyNoticeDao.getAllPartyNoticesByPartyNo(partyNo, pagination.getFirstRow(), pagination.getLastRow());
 %>
 <!doctype html>
 <html lang="ko">
@@ -65,7 +65,12 @@
 				</thead>
 				<tbody>
 <%
-	for(PartyNotice partyNotice : partyNoticeList) {
+	if (partyNoticeList.isEmpty()) {
+%>
+					<tr><td colspan="5" class="text-center">작성된 글이 없습니다.</td></tr>
+<%
+	}
+	for (PartyNotice partyNotice : partyNoticeList) {
 %>
 					<tr>
 						<td><%=partyNotice.getNo() %></td>
