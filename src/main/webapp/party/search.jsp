@@ -22,6 +22,33 @@
 <link rel="stylesheet" href="css/partysearch.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style type="text/css">
+	.category { 
+		border: 2px solid rgb(194, 225, 255);
+		background-color: #fff;
+	}
+	.cat-button button {
+	    border: 1px solid #6DA1FF;
+		color: #333;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.cat-button button.active {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+	.cat-button button.active:hover {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+	.cat-button button:hover {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../nav.jsp">

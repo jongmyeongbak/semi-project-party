@@ -41,6 +41,20 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 		color: rgb(58, 156, 255);
 		text-decoration: none;
 	}
+	.border {
+		background-color: rgb(237, 246, 255);
+	}
+	.btn {
+		border: 1px solid #6DA1FF;
+		color: #6DA1FF;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.btn:hover {
+		color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
 </style>
 </head>
 <body>
@@ -55,7 +69,7 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 			<div class="col-6">
 					<div class="row mb-3">
 						<div class="col-10">
-							<div class="border bg-light fs-5 p-2 ">공지사항</div>
+							<div class="border fs-5 p-2 ">공지사항</div>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -94,9 +108,9 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 						</div>
 						<div class="row mb-2">
 							<div class="col-10">
-								<p class="border bg-light p-3 "></p>
+								<p class="border p-3 "></p>
 								<div class="text-end">
-				  					<a href="notice/list.jsp" class="btn btn-primary btn-sm ">더보기</a>
+				  					<a href="notice/list.jsp" class="btn btn-sm ">더보기</a>
 								</div>
 							</div>
 						</div>
@@ -108,7 +122,7 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 					
 						<div class="row mb-3">
 							<div class="col-14">
-								<div class="border bg-light fs-5 p-2 ">파티 가입리스트</div>
+								<div class="border fs-5 p-2 ">파티 가입리스트</div>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -154,12 +168,12 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 	</table>
 		</div>
 			<div class="col-14">
-				<p class="border bg-light p-3 "></p>
+				<p class="border p-3 "></p>
 			<div class="text-end">
 			<%	if (loginId == null) { %>
   				<a href="" class="btn btn-primary btn-sm" onclick="alert('로그인 해주세요.'); return false;">더보기</a>
 			<%}else { %>
-				<a href="party/list.jsp" class="btn btn-primary btn-sm" >더보기</a>
+				<a href="party/list.jsp" class="btn btn-sm" >더보기</a>
 			<%}%>			
 			</div>
 		
