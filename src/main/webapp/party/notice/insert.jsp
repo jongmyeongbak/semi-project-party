@@ -13,10 +13,12 @@
 	Integer auth = (Integer) session.getAttribute("auth");
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 
-	if (auth == null || auth > 3) {
-		// 공지사항 목록으로 리다이렉트
-		return;
-	}
+//	if (auth == null || auth != 6 ) {
+//		// 공지사항 목록으로 리다이렉트
+//		System.out.println(auth);
+//		System.out.println("여기서 안된듯");
+//		return;
+//	}
 	
 	//로그인 상태인지 확인 후 로그인 권유
 	if (loginId == null) {
@@ -42,6 +44,7 @@
 	
 	// 제출받은 게시물 저장
 	PartyNoticeDao partyNoticeDao = PartyNoticeDao.getInstance();
+	int no = partyNoticeDao.getPartyNoticeSeq();
 	PartyNotice partyNotice = new PartyNotice();
 	partyNotice.setParty(new Party(partyNo));
 	partyNotice.setTitle(title);

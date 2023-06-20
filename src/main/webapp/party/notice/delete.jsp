@@ -5,8 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String loginId = (String) session.getAttribute("loginId");
+	String loginId = (String) session.getAttribute("loginId");
 	int partyNo = StringUtils.stringToInt(request.getParameter("no"));
+	Integer partyAuthNo = PartyAccessDao.getInstance().getAuthNoByPartyNoAndUserId(partyNo, loginId);
 
 	//로그인 상태인지 확인 후 로그인 권유
 	if (loginId == null) {
@@ -23,7 +24,6 @@ String loginId = (String) session.getAttribute("loginId");
 		response.sendRedirect("list.jsp?no=" + partyNo);
 		return;
 	} 
-	
 	// 게시글 삭제하기     
 	partyNoticeDao.deletePartyNoticeByNo(notiNo);
 	

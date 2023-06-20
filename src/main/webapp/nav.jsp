@@ -165,7 +165,7 @@
                 <a href="/party/board/home.jsp?no=<%=no %>" class="nav-link <%= "home".equals(pmenu) ? "active fw-bold" : "" %>">게시판</a>
             </li>
             <li class="nav-item">
-                <a href="/party/notice.jsp?no=<%=no %>" class="nav-link <%= "notice".equals(pmenu) ? "active fw-bold" : "" %>">공지사항</a>
+                <a href="/party/notice/list.jsp?no=<%=no %>" class="nav-link <%= "notice".equals(pmenu) ? "active fw-bold" : "" %>">공지사항</a>
             </li>
             <li class="nav-item">
                 <a href="/party/gbook.jsp?no=<%=no %>" class="nav-link <%= "gbook".equals(pmenu) ? "active fw-bold" : "" %>">방명록</a>
