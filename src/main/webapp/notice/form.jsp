@@ -76,7 +76,7 @@ if (auth == null || auth > 3) {
 			        <%
 					String dateStr = LocalDateTime.now().plusMinutes(10).toLocalDate().toString();
 					%>
-						<input type="date" name="date" value=<%=dateStr %> class="invisible" disabled>
+						<input type="date" name="date" min=<%=dateStr %> value=<%=dateStr %> class="invisible" disabled>
 						<input type="time" name="time" class="invisible" disabled>
 			        </span>
 				</div>
