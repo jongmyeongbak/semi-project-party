@@ -45,10 +45,10 @@ public class PartyNoticeDao {
 		});
 	}
 	
-	public int getTotalRows() {
-		return DaoHelper.selectOne("partyNoticeDao.getTotalRows", rs-> {
+	public int getTotalRowsByPartyNo(int partyNo) {
+		return DaoHelper.selectOne("partyNoticeDao.getTotalRowsByPartyNo", rs-> {
 			return rs.getInt("cnt");
-		});
+		}, partyNo);
 	}
 	
 	public int getWithDeletedTotalRows(String deleted) {
@@ -57,7 +57,7 @@ public class PartyNoticeDao {
 		}, 'N');
 	}
 	
-	public List<PartyNotice> getAllNoticesByPartyNo(int partyNo, int first, int last) {
+	public List<PartyNotice> getAllPartyNoticesByPartyNo(int partyNo, int first, int last) {
 		return DaoHelper.selectList("partyNoticeDao.getAllPartyNoticesByPartyNo", rs->{
 			PartyNotice partyNotice = new PartyNotice();
 			partyNotice.setNo(rs.getInt("notice_no"));
