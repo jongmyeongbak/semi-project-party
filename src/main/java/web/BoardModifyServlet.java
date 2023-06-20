@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -45,6 +46,41 @@ public class BoardModifyServlet extends HttpServlet {
 		int partyNo = StringUtils.stringToInt(req.getParameter("partyNo"));
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
+		
+		// 경고창 html코드 작성을 하기위해 PrintWriter 객체 생성
+		PrintWriter printWriter = resp.getWriter();
+		
+		// 제목이 null이거나 빈 문자열일 때
+		if (title == null || title.isBlank()) {
+			resp.setContentType("text/html; charset=UTF-8");
+			printWriter.println("<script>alert('제목을 입력해주세요.');</script>");
+			printWriter.println("<script>history.back();</script>");
+		    return;
+		}
+		
+		// 제목의 글자수를 초과했을 경우 경고창 생성
+		if (title.getBytes("UTF-8").length > 255) {
+			resp.setContentType("text/html; charset=UTF-8");
+			printWriter.println("<script>alert('제목의 글자수를 초과했습니다(최대255자)');</script>");
+			printWriter.println("<script>history.back();</script>");
+			return;
+		}
+		
+		// 내용이 비어있거나 빈 문자열일 때
+		if (content == null || content.isBlank()) {
+			resp.setContentType("text/html; charset=UTF-8");
+			printWriter.println("<script>alert('내용을 입력해주세요.');</script>");
+			printWriter.println("<script>history.back();</script>");
+		    return;
+		}
+		
+		// 내용의 글자수를 초과했을 경우 경고창 생성
+		if (content.getBytes("UTF-8").length > 2000) {
+		    resp.setContentType("text/html; charset=UTF-8");
+		    printWriter.println("<script>alert('내용의 글자수를 초과했습니다(최대2000자)');</script>");
+		    printWriter.println("<script>history.back();</script>");
+		    return;
+		}
 		
 		// 변경할 첨부파일 처리
 		Part upfilePart = req.getPart("boardImage");
