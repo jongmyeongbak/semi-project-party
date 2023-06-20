@@ -6,20 +6,20 @@
 <%@page import="dao.AdminNoticeDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-//samllnotice 로직
-final int first = 1;
-final int last = 5;
-AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
-List<Board> adminNoticeList = adminNoticeDao.getNotices("N", first, last);
-//로그인 로직
-String loginId = (String) session.getAttribute("loginId");
-//smallparty 로직
-PartyListDao partyListDao = PartyListDao.getInstance();
-List<Category> categoryList = partyListDao.getCategories();
-//로그인 하면 보여지는 내 파티가입리스트에 사용됨
-List<Party> smallPartyList = partyListDao.getUserRegPartiesByUserId(loginId);
-//모든 파티에 대한 정보를 가져오는데 사용됨
-List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
+	//samllnotice 로직
+	final int first = 1;
+	final int last = 5;
+	AdminNoticeDao adminNoticeDao = AdminNoticeDao.getInstance();
+	List<Board> adminNoticeList = adminNoticeDao.getNotices("N", first, last);
+	//로그인 로직
+	String loginId = (String) session.getAttribute("loginId");
+	//smallparty 로직
+	PartyListDao partyListDao = PartyListDao.getInstance();
+	List<Category> categoryList = partyListDao.getCategories();
+	//로그인 하면 보여지는 내 파티가입리스트에 사용됨
+	List<Party> smallPartyList = partyListDao.getUserRegPartiesByUserId(loginId);
+	//모든 파티에 대한 정보를 가져오는데 사용됨
+	List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 %>
 <!doctype html>
 <html lang="ko">

@@ -9,7 +9,9 @@
 <%@page import="vo.Party"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%	//insert
+    
+<%	
+	//insert
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	String content = request.getParameter("content");
 	
