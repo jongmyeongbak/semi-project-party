@@ -135,6 +135,6 @@ public class PartyInsertServlet extends HttpServlet {
 		partyReqDao.insertPartyReq(partyReq1, partyReq2, partyReq3);
 		
 		// 재요청 URL 전송(파티 홈으로 갈 것)
-		res.sendRedirect("home.jsp?no=" + partyNo);
+		res.sendRedirect("board/home.jsp?no=" + partyNo);
 	}
 }
