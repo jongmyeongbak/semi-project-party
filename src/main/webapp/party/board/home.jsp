@@ -156,8 +156,8 @@
 <%
 	}
 %>
-		    <p class="card-text"><%=board.getContent() %></p>
-		    <p class="card-text">
+		    <p class="card-text" style= "white-space: break-spaces;"><%=board.getContent() %></p>
+		    <p class="card-text" >
 		    	<small class="text-muted">댓글 <%=board.getCommentCnt() %></small>
 		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(<%=board.getNo()%>); this.onclick=null;" style="cursor: pointer;"></i>
 			</p>
@@ -178,8 +178,8 @@
                             <span><%=comment.getUser().getNickname() %></span>
                             <span class="text-muted"><%=comment.getCreateDate() %></span>
                         </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <p><%=comment.getContent() %></p>
+                        <div class="d-flex justify-content-between">
+                            <p style= "white-space: break-spaces;"><%=comment.getContent() %></p>
 <%
 		if (loginId != null) {
 			if (loginId.equals(comment.getUser().getId())) {
@@ -279,7 +279,7 @@
 		                    </div>
 		                </div>
 		                \${board.filename ? `<img src="/images/board/\${board.filename}" class="img-fluid" alt="게시물 이미지">` : ""}
-		                <p class="card-text">\${board.content}</p>
+		                <p class="card-text" style= "white-space: break-spaces;">\${board.content}</p>
 		    		    <p class="card-text">
 		    		    	<small class="text-muted">댓글 \${board.commentCnt}</small>
 		    		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(\${board.no}); this.onclick=null;" style="cursor: pointer;"></i>
@@ -308,7 +308,7 @@
 		  					</div>
 		  				</div>
 		  				\${board.filename ? `<img src="/images/board/\${board.filename}" class="img-fluid" alt="게시물 이미지">` : ""}
-		                <p class="card-text">\${board.content}</p>
+		                <p class="card-text" style= "white-space: break-spaces;">\${board.content}</p>
 		    		    <p class="card-text">
 		    		    	<small class="text-muted">댓글 \${board.commentCnt}</small>
 		    		    	<i class="bi bi-chevron-down more-button" onclick="moreComments(\${board.no}); this.onclick=null;" style="cursor: pointer;"></i>
@@ -327,16 +327,18 @@
         	                            <span>\${comment[0].user.nickname}</span>
         	                            <span class="text-muted">\${comment[0].createDate}</span>
         	                        </div>
-        	                        <div>
-        	                            \${comment[0].content}
+        	                        <div class="d-flex justify-content-between">
+        	                            <p style= "white-space: break-spaces;">\${comment[0].content}</p>
         	                            \${isLoggedIn ?
-										`<a href="delete-comment.jsp?bno=\${board.no}&cno=\${comment[0].no}" class="btn btn-link text-danger text-decoration-none float-end"
-        	                             	onclick="return confirm('댓글을 삭제하시겠습니까?')">
-        	                            	<i class="bi bi-trash"></i>
-        	                             </a>
-        	                             <a href="#" class="btn btn-link text-muted text-decoration-none float-end">
-        	   								<i class="bi bi-pencil"></i>
-        								</a>` : ""}
+										`<div>
+        	                            	<a href="delete-comment.jsp?bno=\${board.no}&cno=\${comment[0].no}" class="btn btn-link text-danger text-decoration-none float-end"
+        	                             		onclick="return confirm('댓글을 삭제하시겠습니까?')">
+        	                            		<i class="bi bi-trash"></i>
+        	                             	</a>
+        	                             	<a href="#" class="btn btn-link text-muted text-decoration-none float-end">
+        	   									<i class="bi bi-pencil"></i>
+        									</a>
+        								 </div>` : ""}
         	                        </div>
         	                    </div>
         	                </div>
@@ -351,7 +353,7 @@
         	                            <span class="text-muted">\${comment[0].createDate}</span>
         	                        </div>
         	                        <div>
-        	                            \${comment[0].content}
+        	                        	<p style= "white-space: break-spaces;">\${comment[0].content}</p>
         	                        </div>
         	                    </div>
         	                </div>
@@ -406,17 +408,17 @@
     	                            <span>\${comment.user.nickname}</span>
     	                            <span class="text-muted">\${comment.createDate}</span>
     	                        </div>
-    	                        <div>
-    	                            \${comment.content}
+    	                        <div class="d-flex justify-content-between">
+    	                   		    <p style= "white-space: break-spaces;">\${comment.content}</p>
     	                            \${isLoggedIn ? 
-   	                            	`<a href="delete-comment.jsp?bno=\${no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end" onclick="return confirm('댓글을 삭제하시겠습니까?')">
-    	                            	<i class="bi bi-trash"></i>
-	                           		</a>
-	                         		<a href="#" class="btn btn-link text-muted text-decoration-none float-end">
-	   									<i class="bi bi-pencil"></i>
-    								</a>
-    								` : ""}
-    								
+   	                            	`<div>
+    	                            	<a href="delete-comment.jsp?bno=\${no}&cno=\${comment.no}" class="btn btn-link text-danger text-decoration-none float-end" onclick="return confirm('댓글을 삭제하시겠습니까?')">
+    	                            		<i class="bi bi-trash"></i>
+	                           			</a>
+	                         			<a href="#" class="btn btn-link text-muted text-decoration-none float-end">
+	   										<i class="bi bi-pencil"></i>
+    									</a>
+    								 </div>` : ""}
     	                        </div>
     	                    </div>
     	                </div>
@@ -433,7 +435,7 @@
     	                            <span class="text-muted">\${comment.createDate}</span>
     	                        </div>
     	                        <div>
-    	                            \${comment.content}
+    	                       		<p style= "white-space: break-spaces;">\${comment.content}</p>
     	                        </div>
     	                    </div>
     	                </div>
