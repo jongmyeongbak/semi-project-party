@@ -41,6 +41,7 @@ img {
 <body>
 <jsp:include page="../../nav.jsp">
 	<jsp:param value="home" name="pmenu"/>
+	<jsp:param value="<%=partyNo %>" name="no"/>
 </jsp:include>
 
 <!-- 제목, 본문, 첨부파일 -->
