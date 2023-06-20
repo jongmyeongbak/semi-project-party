@@ -74,7 +74,7 @@ String loginId = (String) session.getAttribute("loginId");
 		    <img src=<%=partyFileUrl %> alt="cover image of party" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; max-width: 200px; max-height: 00px; object-fit: cover;">
     	</div>
     	<div class="col-md-10 mt-3 ps-3">
-			<h2 class="fs-2 fw-bolder"><%=party.getName() %>
+			<h2 class="fs-2 fw-bolder text-break"><%=party.getName() %>
 			<%
 			if (loginId == null) {
 			%>
