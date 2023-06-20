@@ -48,19 +48,13 @@ if (pageNo < 1 || pageNo > pagination.getTotalPages()) {
     out.println("<script>alert('유효하지 않은 페이지 번호입니다.'); history.back();</script>");
     return;
 }
-/* //유효하지않은 파라미터 검사
-String pageParam = request.getParameter("page");
-if (pageParam == null) {
-    out.println("<script>alert('유효하지 않은 페이지 번호입니다.'); history.back();</script>");
-    return;
-} */
+
 //현재 로그인한 유저닉네임 가져오는데 쓰임
 UserDao userdao = UserDao.getInstance();
 User user = userdao.getUserById(loginId);
 
 //create_date를 가져오는 것
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 %>
 <!doctype html>
 <html lang="ko">

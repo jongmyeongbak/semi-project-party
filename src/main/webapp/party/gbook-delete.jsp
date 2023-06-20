@@ -9,12 +9,6 @@
 	 int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	 String loginId = (String)session.getAttribute("loginId"); 
 	 
-	 
-	 /* if(loginId == null){ 
-			response.sendRedirect("../login-form.jsp?err=req&job="+URLEncoder.encode("방명록삭제","utf-8"));
-			return;
-		}  */
-	  
 	 GuestBookDao guestbookdao = GuestBookDao.getInstance();
 	 GuestBook guestbook = guestbookdao.getGuestBookByGbNo(gbNo);
 	 if(!loginId.equals(guestbook.getUser().getId())){
@@ -23,7 +17,7 @@
 	 }
 	 
 	 //방명록삭제
-	 guestbookdao.deleteGuestBookByGbNo(gbNo);
+	guestbookdao.deleteGuestBookByGbNo(gbNo);
 	 
 	response.sendRedirect("gbook.jsp?no="+partyNo);
 %>		 
