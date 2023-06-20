@@ -48,7 +48,7 @@ img {
 <div class="container">
 	<div class="row mb-3">
 		<div class="col">
-			<h5>파티에 게시물을 작성해보세요.</h5>
+			<h5>게시물을 수정해보세요.</h5>
 			<form class="border bg-light p-3" action="insert" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="partyNo" value="<%= partyNo %>"/> 
 				<div class="form-group mb-2">
@@ -57,7 +57,7 @@ img {
 				</div>
 				<div class="form-group mb-2" >
 					<label class="form-label">내용</label>
-					<textarea rows="5" class="form-control" name="content" required="required"></textarea>
+					<textarea rows="5" class="form-control" name="content"  placeholder="새로운 소식을 남겨보세요." required="required"></textarea>
 				</div>
 				<div class="col-6">
 					<div class="form-group mb-3 col">

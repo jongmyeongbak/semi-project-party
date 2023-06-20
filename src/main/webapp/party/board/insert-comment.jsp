@@ -30,6 +30,20 @@
        return;
    	}
   	
+    // 내용이 비어있거나 빈 문자열일 때
+	if (content == null || content.isBlank()) {
+		out.println("<script>alert('내용을 입력해주세요.');</script>");
+		out.println("<script>history.back();</script>");
+	    return;
+	}
+	
+	// 내용의 글자수를 초과했을 경우 경고창 생성
+	if (content.getBytes("UTF-8").length > 500) {
+	    out.println("<script>alert('댓글의 글자수를 초과했습니다(최대255자)');</script>");
+	    out.println("<script>history.back();</script>");
+	    return;
+	}
+  	
 	CommentDao commentDao = CommentDao.getInstance();
 	Comment comment = new Comment();
 	
