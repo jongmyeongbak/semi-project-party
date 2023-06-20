@@ -15,8 +15,6 @@ public class PartyListDao {
 		return instance;
 	}
 	
-	
-	
 	// 생성된 모든 파티 조회하기
 	public List<Party> getAllParties() {
 		return DaoHelper.selectList("partyListDao.getAllParties", rs -> {
