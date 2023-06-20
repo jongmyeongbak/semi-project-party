@@ -15,7 +15,6 @@
 		return;
 	}
 	
-	System.out.println("삭제");
 	int notiNo = StringUtils.stringToInt(request.getParameter("notino"));
 	PartyNoticeDao partyNoticeDao = PartyNoticeDao.getInstance();
 	PartyNotice partyNotice = partyNoticeDao.getPartyNoticeByNo(notiNo);
