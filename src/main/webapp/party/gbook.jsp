@@ -134,7 +134,7 @@
 	String baseUrl = "gbook.jsp?no=" + partyNo; // 기본 URL 주소에 파티 번호를 추가
 %>	
 	<div>
-			<ul class="pagination justify-content-center pagination-lg" style="margin-top: 10px">
+			<ul class="pagination justify-content-center" style="margin-top: 10px;">
 			<li class="page-item<%=pageNo <= 1 ? " disabled" : "" %>">
 				<a class="page-link" href="<%=baseUrl + "&page=" + (pageNo - 1) %>">이전</a>
 			</li>

@@ -32,29 +32,29 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <style type="text/css">
-   td a, td a:active, td a:visited {
-      color: #333;
-      text-decoration: none;
-      transition: color 0.1s;
-   }
-   td a:hover {
-      color: rgb(58, 156, 255);
-      text-decoration: none;
-   }
-   .border {
-      background-color: rgb(237, 246, 255);
-   }
-   .btn {
-      border: 1px solid #6DA1FF;
-      color: #6DA1FF;
-      background-color: #fff;
-      border-radius: 10px;
-   }
-   .btn:hover {
-      color: #ffffff;
-       border-color: #6DA1FF;
-         background-color: #6DA1FF;
-   }
+	td a, td a:active, td a:visited {
+		color: #333;
+		text-decoration: none;
+		transition: color 0.1s;
+	}
+	td a:hover {
+		color: rgb(58, 156, 255);
+		text-decoration: none;
+	}
+	.border {
+		background-color: rgb(237, 246, 255);
+	}
+	.btn {
+		border: 1px solid #6DA1FF;
+		color: #6DA1FF;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.btn:hover {
+		color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
 </style>
 </head>
 <body>
@@ -90,6 +90,7 @@ List<Party> partyList = partyListDao.getPartiesWithoutUser(loginId);
                               </tr>
                            </thead>
                            <tbody>
+
 <%
    for(Board board: adminNoticeList){
 %>

@@ -36,7 +36,7 @@ String loginId = (String) session.getAttribute("loginId");
 					case 'join':
 					case 'rejoin':
 						alert("가입을 환영합니다.");
-						e.target.remove();
+						location.reload(true);
 						break;
 					case 'ban':
 						alert("이 파티에 가입할 수 없습니다.");
@@ -94,7 +94,7 @@ String loginId = (String) session.getAttribute("loginId");
 			}
 			%>
 			</h2>
-			<p class="lead my-3 text-truncate" id="leadContent" style='white-space: break-spaces;'><%=party.getDescription() %></p>
+			<p class="lead my-3 text-truncate" id="leadContent" style='white-space: break-spaces;'><%=party.getDescription() == null ? " " : party.getDescription() %></p>
 			<span class="mb-0" onclick="toggleTextTruncate(event);">...더보기</span>
     	</div>
     </div>
