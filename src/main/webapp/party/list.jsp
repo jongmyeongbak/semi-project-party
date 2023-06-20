@@ -28,6 +28,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<style type="text/css">
+	.btn {
+		border: 1px solid #6DA1FF;
+		color: #6DA1FF;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.btn:hover {
+		color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../nav.jsp">
@@ -132,7 +145,7 @@
 		            	    <p class='text-truncate'><%=party.getDescription() %></p>
 		              	</div>
 			          </a>
-			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-light btn-sm"><%=party.getCategory().getName() %> 파티 더보기</a>
+			          <a href="search.jsp?cat=<%=party.getCategory().getNo() %>" class="btn btn-sm"><%=party.getCategory().getName() %> 파티 더보기</a>
 		            </div>
 
 <% 

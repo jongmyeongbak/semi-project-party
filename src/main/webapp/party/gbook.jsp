@@ -114,7 +114,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; "><%=guestBook.getContent() %></div >
+					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; white-space: break-spaces"><%=guestBook.getContent() %></div >
 				</div>
 				<div class="col-1">
 					<%
@@ -142,7 +142,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String baseUrl = "gbook.jsp?no=" + partyNo; // 기본 URL 주소에 파티 번호를 추가
 %>	
 	<div>
-			<ul class="pagination justify-content-center pagination-lg" style="margin-top: 10px">
+			<ul class="pagination justify-content-center" style="margin-top: 10px;">
 			<li class="page-item<%=pageNo <= 1 ? " disabled" : "" %>">
 				<a class="page-link" href="<%=baseUrl + "&page=" + (pageNo - 1) %>">이전</a>
 			</li>

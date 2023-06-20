@@ -50,7 +50,7 @@
             margin-left: 5px;
             padding: 2px;
             color: #333;
-            border: 1px solid rgb(237, 246, 255);
+            border: 1px solid #6DA1FF;
             background-color: rgb(216, 235, 255);
             border-radius: 6px;
         }  

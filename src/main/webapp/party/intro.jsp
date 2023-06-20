@@ -94,7 +94,7 @@ String loginId = (String) session.getAttribute("loginId");
 			}
 			%>
 			</h2>
-			<p class="lead my-3 text-truncate" id="leadContent" style='white-space: break-spaces;'><%=party.getDescription() %></p>
+			<p class="lead my-3 text-truncate" id="leadContent" style='white-space: break-spaces;'><%=party.getDescription() == null ? " " : party.getDescription() %></p>
 			<span class="mb-0" onclick="toggleTextTruncate(event);">...더보기</span>
     	</div>
     </div>
