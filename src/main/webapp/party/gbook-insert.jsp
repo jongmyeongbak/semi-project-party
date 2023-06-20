@@ -21,7 +21,7 @@
 	}	
 	if(content == null || "".equals(content)){
 		 out.println("<script>alert('내용을 입력해주세요.');</script>");
-		    out.println("<script>history.back();</script>");
+		 out.println("<script>history.back();</script>");
 		return;
 	}
 	if (content.getBytes("UTF-8").length > 500) {

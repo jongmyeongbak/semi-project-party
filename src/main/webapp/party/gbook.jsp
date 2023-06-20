@@ -119,8 +119,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				<div class="col-1">
 					<%
 				String guestBookLoginId = guestBook.getUser().getId();
-				if (loginId != null && loginId.equals(guestBookLoginId)) {
-				%>
+					if ((loginId != null && loginId.equals(guestBookLoginId)) || authNo.equals(6)) { %>
 					<button class="btn btn-outline-danger h-100 w-100" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
 				<%
 				} else {
