@@ -10,7 +10,7 @@
 }
 .cat-button button {
     background-color: rgb(250, 249, 249);
-    border: 2px solid rgb(212, 212, 212);
+    border: 2px solid rgb(194, 225, 255);
     font-size: 17px;
     border-radius: 10px;
 }
@@ -70,8 +70,8 @@
     display: inline;
     margin: 5px;
     padding: 7px;
-    background-color: rgb(250, 249, 249);
-    border: 2px solid rgb(212, 212, 212);
+    border: 2px solid rgb(194, 225, 255);
+	background-color: #fff;
     border-radius: 15px;
     font-size: 13px;
 }

@@ -22,6 +22,33 @@
 <link rel="stylesheet" href="css/partysearch.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style type="text/css">
+	.category { 
+		border: 2px solid rgb(194, 225, 255);
+		background-color: #fff;
+	}
+	.cat-button button {
+	    border: 1px solid #6DA1FF;
+		color: #333;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	.cat-button button.active {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+	.cat-button button.active:hover {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+	.cat-button button:hover {
+	    color: #ffffff;
+    	border-color: #6DA1FF;
+   		background-color: #6DA1FF;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../nav.jsp">
@@ -90,14 +117,12 @@
 
 	// ajax 쓰기
 	function getParties(pageNo){
-		console.log(isChecked);
 		if (isChecked) {
 			let xhr = new XMLHttpRequest();
 			xhr.addEventListener("readystatechange", ()=>{
 				if (xhr.readyState == 4) {
 					let data = xhr.responseText;
 					let arr = JSON.parse(data);
-					console.log(arr);
 					if (arr.length == 0){
 						isCheked = false;
 					}
@@ -129,12 +154,9 @@
 					    	</div>
 						`
 					})
-					document.querySelector("#party-list").innerHTML = htmlContent;
+					document.querySelector("#party-list").innerHTML += htmlContent;
 				}
 			})
-			console.log(currentPage);
-			console.log(catNo);
-			console.log(value);
 			xhr.open("GET", "get-parties.jsp?pageNo=" + currentPage + "&catNo=" + catNo + "&value=" + value);
 			xhr.send(null);
 		} else {
