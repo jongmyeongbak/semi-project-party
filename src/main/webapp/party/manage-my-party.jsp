@@ -11,8 +11,7 @@
 String loginId = (String) session.getAttribute("loginId");
 String contextPath = request.getContextPath();
 if (loginId == null) {
-	out.println("<script>alert('로그인이 필요합니다.');</script>");
-	response.sendRedirect(contextPath + "/login-form.jsp?redirect=party/manage-my-party.jsp");
+	out.println("<script>alert('로그인이 필요합니다.'); window.location.href = '/login-form.jsp?redirect=' + encodeURIComponent(window.location.href);</script>");
 	return;
 }
 
