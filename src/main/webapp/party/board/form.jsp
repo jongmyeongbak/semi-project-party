@@ -48,7 +48,7 @@ img {
 <div class="container">
 	<div class="row mb-3">
 		<div class="col">
-			<h5>게시물을 수정해보세요.</h5>
+			<h5>파티에 게시물을 작성해보세요.</h5>
 			<form class="border bg-light p-3" action="insert" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="partyNo" value="<%= partyNo %>"/> 
 				<div class="form-group mb-2">
