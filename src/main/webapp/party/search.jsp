@@ -90,14 +90,12 @@
 
 	// ajax 쓰기
 	function getParties(pageNo){
-		console.log(isChecked);
 		if (isChecked) {
 			let xhr = new XMLHttpRequest();
 			xhr.addEventListener("readystatechange", ()=>{
 				if (xhr.readyState == 4) {
 					let data = xhr.responseText;
 					let arr = JSON.parse(data);
-					console.log(arr);
 					if (arr.length == 0){
 						isCheked = false;
 					}
@@ -129,12 +127,9 @@
 					    	</div>
 						`
 					})
-					document.querySelector("#party-list").innerHTML = htmlContent;
+					document.querySelector("#party-list").innerHTML += htmlContent;
 				}
 			})
-			console.log(currentPage);
-			console.log(catNo);
-			console.log(value);
 			xhr.open("GET", "get-parties.jsp?pageNo=" + currentPage + "&catNo=" + catNo + "&value=" + value);
 			xhr.send(null);
 		} else {
