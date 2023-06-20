@@ -31,7 +31,7 @@ List<GuestBook> gusetbookList = gusetBookDao.getGuestBooksByPartyNo(partyNo);
 PartyAccessDao partyaccessdao = PartyAccessDao.getInstance();
 Integer authNo = partyaccessdao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
 
-if (authNo == null) {
+if (authNo == null || authNo.equals(8) || authNo.equals(9)) {
     out.println("<script>alert('파티의 멤버만 접근가능합니다.');</script>");
     out.println("<script>history.back();</script>");
     return; 
@@ -80,9 +80,8 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 </jsp:include>
 </div>
 
-
 <div class="container">
-<div class="title fs-4 p-3 " style="margin-top :20px; text-align: center;" >방명록</div>
+<div class="title fs-4 p-3 " style="margin-top:20px; text-align:center;" >방명록</div>
 
 <div class="mb-1">
 
@@ -114,7 +113,8 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; "><%=guestBook.getContent() %></div >
+					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; white-space: break-spaces;
+					 "><%=guestBook.getContent() %></div >
 				</div>
 				<div class="col-1">
 					<%
