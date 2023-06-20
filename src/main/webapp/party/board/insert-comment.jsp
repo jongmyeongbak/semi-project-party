@@ -39,7 +39,7 @@
 	
 	// 내용의 글자수를 초과했을 경우 경고창 생성
 	if (content.getBytes("UTF-8").length > 500) {
-	    out.println("<script>alert('댓글의 글자수를 초과했습니다(최대255자)');</script>");
+	    out.println("<script>alert('댓글의 글자수를 초과했습니다(최대500자)');</script>");
 	    out.println("<script>history.back();</script>");
 	    return;
 	}
