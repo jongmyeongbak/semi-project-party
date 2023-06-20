@@ -88,7 +88,7 @@
 <%
 	if (partyAuthNo == 6) {
 %>
-				<a href="deleted.jsp?no=<%=partyNo %>&notino=<%=notiNo %>" class="btn btn-danger btn-sm">삭제</a>
+				<a href="delete.jsp?no=<%=partyNo %>&notino=<%=notiNo %>" class="btn btn-danger btn-sm">삭제</a>
 <%
 	}
 %>

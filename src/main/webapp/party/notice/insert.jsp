@@ -44,6 +44,7 @@
 	
 	// 제출받은 게시물 저장
 	PartyNoticeDao partyNoticeDao = PartyNoticeDao.getInstance();
+	int no = partyNoticeDao.getPartyNoticeSeq();
 	PartyNotice partyNotice = new PartyNotice();
 	partyNotice.setParty(new Party(partyNo));
 	partyNotice.setTitle(title);
@@ -52,7 +53,6 @@
 	
 	// 게시물 등록 수행
 	partyNoticeDao.insertPartyNotice(partyNotice);
-	System.out.println("hello");
 	
 	// 재요청 URL 응답
 	response.sendRedirect("list.jsp?no=" + partyNo);
