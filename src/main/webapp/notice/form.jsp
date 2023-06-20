@@ -70,7 +70,7 @@ if (auth == null || auth > 3) {
 				</div>
 				<div class="form-group mb-2 align-middle form-check-inline">
 					<label class="form-label">발행 시간 </label>
-			        <input type="radio" class="form-check-input ms-3" name="now" value="true" checked onclick="toggleDateTimeInput()"> 현재
+			        <input type="radio" class="form-check-input ms-3" name="now" value="true" checked onclick="toggleDateTimeInput()"> 즉시
 			        <input type="radio" class="form-check-input ms-2" name="now" value="false" onclick="toggleDateTimeInput()"> 예약
 			        <span id="datetime_input">
 			        <%
