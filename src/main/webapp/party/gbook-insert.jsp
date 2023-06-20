@@ -7,9 +7,7 @@
 <%@page import="vo.GuestBook"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Party"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
 <%	
 	//insert
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));

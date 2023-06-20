@@ -10,7 +10,6 @@
 <%@page import="vo.Party"%>
 <%@page import="vo.GuestBook"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
 <%
 	//로그인 로직
 	String loginId = (String) session.getAttribute("loginId");
