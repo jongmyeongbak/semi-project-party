@@ -11,56 +11,50 @@
 <%@page import="vo.GuestBook"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-//로그인 로직
-String loginId = (String) session.getAttribute("loginId");
-Integer errPage = (Integer) session.getAttribute("page");
-
-if (loginId == null) {
-    out.println("<script>alert('로그인이 필요합니다.');</script>");
-    out.println("<script>history.back();</script>");
-    return; 
-}
-
-//파티를 식별할 partyNo 값 
-int partyNo = StringUtils.stringToInt(request.getParameter("no"));
-//파티번호로 방명록조회
-GuestBookDao gusetBookDao = GuestBookDao.getInstance();
-List<GuestBook> gusetbookList = gusetBookDao.getGuestBooksByPartyNo(partyNo);
-
-//권한가져오기 (파티와 가입번호를 받아서 유저 권한 조회)
-PartyAccessDao partyaccessdao = PartyAccessDao.getInstance();
-Integer authNo = partyaccessdao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
-
-if (authNo == null) {
-    out.println("<script>alert('파티의 멤버만 접근가능합니다.');</script>");
-    out.println("<script>history.back();</script>");
-    return; 
-} 
-
-//페이지네이션
-int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
-int totalRows = gusetBookDao.getTotalRowsByPartyNo(partyNo);
-Pagination pagination = new Pagination(pageNo, totalRows);
-List<GuestBook> guestBooks = gusetBookDao.getGuestBooksByPartyNoPage(partyNo, pagination.getFirstRow(), pagination.getLastRow());
-
-//유효하지 않은 페이지번호 검사
-if (pageNo < 1 || pageNo > pagination.getTotalPages()) {
-    out.println("<script>alert('유효하지 않은 페이지 번호입니다.'); history.back();</script>");
-    return;
-}
-/* //유효하지않은 파라미터 검사
-String pageParam = request.getParameter("page");
-if (pageParam == null) {
-    out.println("<script>alert('유효하지 않은 페이지 번호입니다.'); history.back();</script>");
-    return;
-} */
-//현재 로그인한 유저닉네임 가져오는데 쓰임
-UserDao userdao = UserDao.getInstance();
-User user = userdao.getUserById(loginId);
-
-//create_date를 가져오는 것
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+	//로그인 로직
+	String loginId = (String) session.getAttribute("loginId");
+	Integer errPage = (Integer) session.getAttribute("page");
+	
+	if (loginId == null) {
+	    out.println("<script>alert('로그인이 필요합니다.');</script>");
+	    out.println("<script>history.back();</script>");
+	    return; 
+	}
+	
+	//파티를 식별할 partyNo 값 
+	int partyNo = StringUtils.stringToInt(request.getParameter("no"));
+	//파티번호로 방명록조회
+	GuestBookDao gusetBookDao = GuestBookDao.getInstance();
+	List<GuestBook> gusetbookList = gusetBookDao.getGuestBooksByPartyNo(partyNo);
+	
+	//권한가져오기 (파티와 가입번호를 받아서 유저 권한 조회)
+	PartyAccessDao partyaccessdao = PartyAccessDao.getInstance();
+	Integer authNo = partyaccessdao.getAuthNoByPartyNoAndUserId(partyNo, loginId);
+	
+	if (authNo == null || authNo.equals(8) || authNo.equals(9)) {
+	    out.println("<script>alert('파티의 멤버만 접근가능합니다.');</script>");
+	    out.println("<script>history.back();</script>");
+	    return; 
+	} 
+	
+	//페이지네이션
+	int pageNo = StringUtils.stringToInt(request.getParameter("page"), 1);
+	int totalRows = gusetBookDao.getTotalRowsByPartyNo(partyNo);
+	Pagination pagination = new Pagination(pageNo, totalRows);
+	List<GuestBook> guestBooks = gusetBookDao.getGuestBooksByPartyNoPage(partyNo, pagination.getFirstRow(), pagination.getLastRow());
+	
+	//유효하지 않은 페이지번호 검사
+	if (pageNo < 1 || pageNo > pagination.getTotalPages()) {
+	    out.println("<script>alert('유효하지 않은 페이지 번호입니다.'); history.back();</script>");
+	    return;
+	}
+	
+	//현재 로그인한 유저닉네임 가져오는데 쓰임
+	UserDao userdao = UserDao.getInstance();
+	User user = userdao.getUserById(loginId);
+	
+	//create_date를 가져오는 것
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <!doctype html>
 <html lang="ko">
@@ -80,9 +74,8 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 </jsp:include>
 </div>
 
-
 <div class="container">
-<div class="title fs-4 p-3 " style="margin-top :20px; text-align: center;" >방명록</div>
+<div class="title fs-4 p-3 " style="margin-top:20px; text-align:center;" >방명록</div>
 
 <div class="mb-1">
 
@@ -114,13 +107,12 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; white-space: break-spaces"><%=guestBook.getContent() %></div >
+					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding: 20px; border-radius: 10px; white-space: break-spaces; "><%=guestBook.getContent()%></div >
 				</div>
 				<div class="col-1">
 					<%
 				String guestBookLoginId = guestBook.getUser().getId();
-				if (loginId != null && loginId.equals(guestBookLoginId)) {
-				%>
+					if ((loginId != null && loginId.equals(guestBookLoginId)) || authNo.equals(6)) { %>
 					<button class="btn btn-outline-danger h-100 w-100" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
 				<%
 				} else {

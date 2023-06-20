@@ -7,21 +7,21 @@
 <%@page import="vo.GuestBook"%>
 <%@page import="util.StringUtils"%>
 <%@page import="vo.Party"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%	//insert
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
+<%	
+	//insert
 	int partyNo = StringUtils.stringToInt(request.getParameter("partyNo"));
 	String content = request.getParameter("content");
 	
 	String loginId = (String) session.getAttribute("loginId");
 	
-	if(loginId == null || "".equals(loginId)){
+	if (loginId == null) {
 		response.sendRedirect("../login-form.jsp?err=req&job="+URLEncoder.encode("방명록","utf-8"));
 		return;
 	}	
-	if(content == null || "".equals(content)){
-		 out.println("<script>alert('내용을 입력해주세요.');</script>");
-		    out.println("<script>history.back();</script>");
+	if (content == null || content.trim().isBlank()) {
+		out.println("<script>alert('내용을 입력해주세요.');</script>");
+		out.println("<script>history.back();</script>");
 		return;
 	}
 	if (content.getBytes("UTF-8").length > 500) {
