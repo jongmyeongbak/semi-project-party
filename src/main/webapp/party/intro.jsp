@@ -36,7 +36,7 @@ String loginId = (String) session.getAttribute("loginId");
 					case 'join':
 					case 'rejoin':
 						alert("가입을 환영합니다.");
-						e.target.remove();
+						location.reload(true);
 						break;
 					case 'ban':
 						alert("이 파티에 가입할 수 없습니다.");

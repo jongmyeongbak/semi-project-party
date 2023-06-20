@@ -2,6 +2,7 @@ package validator;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import dao.PartyDao;
@@ -17,7 +18,7 @@ public class PartyJoinValidator {
 	
 	public static int getQuotawhenExceed(int partyNo) {
 		Party party = PartyDao.getInstance().getPartyByNo(partyNo);
-		if (party.getCurCnt() < party.getQuota()) {
+		if (party.getCurCnt() >= party.getQuota()) {
 			return party.getQuota();
 		}
 		return -1;
@@ -27,7 +28,7 @@ public class PartyJoinValidator {
 		List<String> partyReqs = PartyReqDao.getInstance().getValuesByNo(partyNo);
 		User user = UserDao.getInstance().getUserById(loginId);
 		
-		LocalDate localdate = user.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate localdate = new Date(user.getBirthdate().getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		int userBornYear = localdate.getYear();
 		int reqBirth1 = Integer.parseInt(partyReqs.get(0));
 		int reqBirth2 = Integer.parseInt(partyReqs.get(1));
