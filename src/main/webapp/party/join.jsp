@@ -17,7 +17,7 @@ if (loginId == null) {
 // 파티 비활성 경우 제외
 int no = StringUtils.stringToInt(request.getParameter("no"));
 Party party = PartyDao.getInstance().getPartyByNo(no);
-if (party == null || party.getStatus() != "활성") {
+if (party == null || !"활성".equals(party.getStatus())) {
 	out.write("ban");
 	return;
 }
@@ -55,14 +55,15 @@ if (partyAccess != null) { // 가입한 적 있는 경우
 	}
 } else { // 비가입2. 미가입인 경우 권한 insert
 	String partyReq = PartyJoinValidator.getPartyReqWhenNotFit(no, loginId);
-	if (partyReq != null) {
-		out.write(partyReq);
+	if (partyReq != null) { // 파티가입조건에 맞지 않으면
+		out.write(partyReq); // 가입조건을 반환
 		return;
 	}
 	
 	partyAccess = new PartyAccess();
 	partyAccess.setParty(new Party(no));
 	partyAccess.setUser(new User(loginId));
+	partyAccess.setAuthNo(7);
 
 	int quota = PartyJoinValidator.getQuotawhenExceed(no);
 	if (quota > -1) {
