@@ -40,9 +40,31 @@
 		return;
 	}
 	
-	// 아이디가 null이거나 비어있거나 공백문자일 때 (url로 접근 시도시 home.jsp로 리디렉트)
+	// 아이디가 null이거나 비어있거나 공백문자일 때 경고창 
 	if (id == null || id.isBlank()) {
-		response.sendRedirect("../home.jsp");
+		out.println("<script>alert('아이디를 입력해주세요.');</script>");
+		out.println("<script>history.back();</script>");
+		return;
+	}
+	
+	// 비밀번호가 null이거나 비어있거나 공백문자일 때 경고창 
+	if (password == null || password.isBlank()) {
+		out.println("<script>alert('비밀번호를 입력해주세요');</script>");
+		out.println("<script>history.back();</script>");
+		return;
+	}
+	
+	// 이름이 null이거나 비어있거나 공백문자일 때 경고창 
+	if (name == null || name.isBlank()) {
+		out.println("<script>alert('이름을 입력해주세요');</script>");
+		out.println("<script>history.back();</script>");
+		return;
+	}
+	
+	// 닉네임이 null이거나 비어있거나 공백문자일 때 경고창 
+	if (nickName == null || nickName.isBlank()) {
+		out.println("<script>alert('닉네임을 입력해주세요');</script>");
+		out.println("<script>history.back();</script>");
 		return;
 	}
 	
