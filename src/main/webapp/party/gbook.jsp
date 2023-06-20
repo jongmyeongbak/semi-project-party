@@ -107,8 +107,8 @@
 		<input type="hidden" name="partyNo" value="<%=partyNo%>"/>
 			<div class="row">
 				<div class="col-11">
-					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding :20px; border-radius:10px; white-space: break-spaces;
-					 "><%=guestBook.getContent() %></div >
+					<div class="text text-break fs-5" name="content" style="background-color: rgb(255,255,255); padding: 20px; border-radius: 10px; white-space: break-spaces;">
+					 <%=guestBook.getContent() %></div >
 				</div>
 				<div class="col-1">
 					<%
