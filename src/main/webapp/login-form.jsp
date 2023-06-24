@@ -57,15 +57,15 @@
    				<%
 	   			}
    				%>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">아이디</label>
    					<input type="text" class="form-control" name="id" required />
    				</div>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">비밀번호</label>
    					<input type="password" class="form-control" name="password" required />
    				</div>
-   				<div class="text-end w-75">
+   				<div class="text-end">
    					<button type="submit" class="btn btn-primary">로그인</button>
    				</div>
    			</form>

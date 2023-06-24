@@ -110,14 +110,15 @@
 <%
 	for (Board board : boards) {
 %>
- <div class="card" id="card-outline"> <!-- 게시물 시작 -->
-		<div class="card-body">
-		    <div class="d-flex justify-content-between align-items-center">
+ <div class="card" id="card-outline" > <!-- 게시물 시작 -->
+		<div class="card-body" >
+		<div id="comments<%=board.getNo()%>">
+		    <div class="d-flex justify-content-between align-items-center" >
 		     	<div>
 			        <h5 class="card-title"><%=board.getTitle() %></h5>
 			        <p class="card-text" style="margin-bottom: 10px;"><small class="text-muted"><%=board.getCreateDate() %></small></p>
 		      	</div>
-		      	<div class="d-flex align-items-center">
+		      	<div class="d-flex align-items-center" >
 			    	<p class="card-text mr-2"><small><%=board.getUser().getNickname() %></small></p>
 			    	
 <!-- 자신이 쓴 게시물인지 아닌지에 따라 드롭다운 메뉴가 다름 -->
@@ -165,13 +166,13 @@
 		</div>
 
 <!-- 댓글 창 -->
-    <div class="col-12">
+    <div class="col-12" >
 <% 
 	List<Comment> comments = commentDao.getCommentsByBoardNo(board.getNo());
 	int index = 0;
 	for (Comment comment : comments) {
 %>
-        <div id="comments<%=board.getNo()%><%=index%>">
+        <div >
                 <div class="col-12">
                     <div class="border p-2 mb-2">
                         <div class="d-flex justify-content-between mb-1" >
@@ -223,6 +224,7 @@
 					</div>
 				</form>   	
 	   		</div>
+	   	</div>
 	   	</div>
 	</div> <!-- 게시물 닫힘 -->
 <%
@@ -443,7 +445,7 @@
 			    	`
 			    }
 		    })
-		    $("#comments" + no + "1").append(htmlContents);
+		    $("#comments" + no ).append(htmlContents);
 			// 토글로 댓글을 숨기고 보여주기 설정
 			document.querySelectorAll(".more-button").forEach(function(button) {
 			    button.addEventListener("click", function() {
@@ -452,6 +454,7 @@
 			        for (let i = 0; i < comments.length; i++) {
 			            comments[i].classList.toggle('hidden');
 			        }
+			        button.classList.toggle('bi-chevron-down');
 			        button.classList.toggle('bi-chevron-up');
 			    });
 			});

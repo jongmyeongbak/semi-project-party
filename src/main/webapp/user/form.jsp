@@ -44,7 +44,7 @@
 	}
 %>
 			<form class="border bg-light p-3" method="post" action="insert.jsp">
-				<div class="form-group mb-2 w-75">
+				<div class="form-group mb-2">
    					<div class="form-label">성별</div>
    					<div class="form-check form-check-inline">
   						<input class="form-check-input" type="radio" id="radioM" name="gender"  value="M" checked="checked">
@@ -56,37 +56,37 @@
   						">여자</label>
 					</div>
    				</div>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">아이디</label>
    					<input type="text" class="form-control" name="id" required />
    				</div>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">비밀번호</label>
    					<input type="password" class="form-control" name="password" required />
    				</div>
    				
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">이름</label>
    					<input type="text" class="form-control" name="name" required />
    				</div>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
    					<label class="form-label">닉네임</label>
    					<input type="text" class="form-control" name="nickName" required />
    				</div>
-				<div class="form-group mb-2 w-75">
+				<div class="form-group mb-2">
 					<label for="birthdate" class="form-label">생년월일</label> 
 					<input type="text" class="form-control" id="datepicker" name="birthdate" class="form-control" required />
 				</div>
-				<div class="form-group mb-2 w-75">
+				<div class="form-group mb-2">
    					<label class="form-label">이메일</label>
    					<input type="email" class="form-control" name="email" />
    				</div>
-   				<div class="form-group mb-2 w-75">
+   				<div class="form-group mb-2">
 					<label class="form-label">전화번호</label>
 					<input type="tel" id="phone-number" class="form-control" name="tel" placeholder="예) 000-0000-0000" 
 						   pattern="\d{3}-\d{4}-\d{4}" title="000-0000-0000형식으로 입력하세요." />
 				</div>   				
-   				<div class="text-end w-75">
+   				<div class="text-end">
    					<button type="submit" class="btn btn-primary">회원가입</button>
 				</div>
 			</form>

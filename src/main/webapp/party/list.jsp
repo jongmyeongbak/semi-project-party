@@ -139,7 +139,7 @@
 <!-- 파티 정보 출력 -->
 		            <div class="party-item">
 			          <a href="board/home.jsp?no=<%=party.getNo() %>" class="text-black text-decoration-none ">
-			          	<img class="party-item img" src="/resources/images/thumbnail/<%=party.getFilename() %>" alt="썸네일">
+			          	<img class="party-item img" src="/images/thumbnail/<%=party.getFilename() %>" alt="썸네일">
 		    	        <div>
 		         	    	<strong><%=party.getName() %></strong>
 		            	    <p class='text-truncate'><%=party.getDescription() %></p>
